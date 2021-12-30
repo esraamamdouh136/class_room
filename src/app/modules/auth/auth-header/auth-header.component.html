@@ -1,0 +1,19 @@
+<section class="auth-header">
+    <button mat-button class="py-2 px-3" [matMenuTriggerFor]="menu">
+        <img *ngIf="currentLang !== 'ar'" src="https://v1.viewclass.com/assets/app/media/img/flags/020-flag.svg"
+            class="img-flag">
+        <img *ngIf="currentLang == 'ar'" src="https://v1.viewclass.com/assets/app/media/img/flags/008-saudi-arabia.svg"
+            class="img-flag">
+        <span>{{'MENU.language' | translate}} <i class="fa fa-sort-down"></i></span>
+    </button>
+    <mat-menu #menu="matMenu">
+        <ng-container *ngFor="let language of languages" class="d-flex">
+            <button mat-menu-item (click)="changeLanguage(language.code)"
+                [ngClass]="currentLang === 'ar' ? 'rtl' : '' ">
+                <img src="{{language.flag}}" class="img-flag">
+                <span [class.active]="language.code == currentLang"> {{language.name}}
+                </span>
+            </button>
+        </ng-container>
+    </mat-menu>
+</section>

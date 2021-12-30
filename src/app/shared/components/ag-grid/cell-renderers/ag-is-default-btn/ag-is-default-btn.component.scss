@@ -1,0 +1,12 @@
+.switch.switch-icon input:checked ~ span:after {
+    content: "نعم";
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .switch input:empty ~ span:after {
+    content: "لا";
+    font-size: 14px;
+    font-weight: bold;
+  }
+  

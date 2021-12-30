@@ -1,0 +1,29 @@
+.empty-view {
+  min-height: 150px;
+}
+.btn.btn-clean:hover,
+.show .btn.btn-clean.btn-dropdown,
+.btn.btn-clean:active {
+  background-color: transparent !important;
+}
+.drop-head {
+  p {
+    font-weight: 500;
+    font-size: 14px;
+  }
+  a {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #000;
+  }
+  &::after {
+    right: 85%;
+  }
+}
+
+.dropdown-menu {
+  max-width: 300px;
+  @media (max-width: 576px) {
+    max-width: 250px;
+  }
+}

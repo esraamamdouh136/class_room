@@ -1,0 +1,68 @@
+.actions {
+  i {
+    display: inline-block;
+    position: relative;
+    padding: 0 !important;
+    width: 33px;
+    height: 33px;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+  .trash {
+    color: #f4516c;
+  }
+  .edit {
+    color: #5867dd;
+  }
+}
+
+.studey-year,.body{
+    box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
+    background-color: #fff;
+}
+
+.body{
+    h2{
+        border-bottom: 1px solid #ebedf2;
+    }
+}
+
+.studey-years{
+  span{
+    background-color: #fff;
+    border: 1px solid #ebedf2;
+    cursor: pointer;
+    &.active{
+      background-color: #00c5dc;
+      border-color: #00c5dc;
+      color: #fff;
+    }
+  }
+}
+
+.section_body_header{
+  .btn{
+    background-color:#0488d3;
+    color: #fff;
+    border: 1px solid #fff;
+    min-width: auto !important;
+  }
+
+  // 1200px and up
+  @media only screen and (min-width: 992px) {
+    .btn{
+      margin-left: 10px !important;
+      padding: 1rem 1rem !important;
+    }
+  }
+
+  // 1200px and up
+  @media only screen and (min-width: 1300px) {
+    .btn{
+      margin-left: 2.5rem !important;
+      padding-right: 2rem !important;
+      padding-left: 2rem !important;
+    }
+  }
+}
+

@@ -1,0 +1,221 @@
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+//
+// 1. Set default font family to sans-serif.
+// 2. Prevent iOS and IE text size adjust after device orientation change,
+//    without disabling user zoom.
+// 3. Set 100% height for document body
+
+// HTML
+html {
+  font-family: sans-serif; // 1
+  text-size-adjust: 100%; // 2
+  -ms-text-size-adjust: 100%; // 2
+  -webkit-text-size-adjust: 100%; // 2
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  [dir="rtl"] & {
+    font-family: "Tajawal", sans-serif;
+
+    & > * {
+      text-align: right;
+      direction: rtl;
+      font-family: "Tajawal", sans-serif !important;
+    }
+  }
+}
+
+// Body and HTML
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  font-size: $root-font-size !important;
+  font-weight: $font-weight-base;
+  font-family: $font-family-base;
+
+  [dir="rtl"] & {
+    font-family: "Tajawal", sans-serif !important;
+  }
+
+  // Tablet mode
+  @include media-breakpoint-down(lg) {
+    font-size: $root-font-size-lg !important;
+  }
+
+  // Mobile mode
+  @include media-breakpoint-down(md) {
+    font-size: $root-font-size-md !important;
+  }
+
+  -ms-text-size-adjust: 100%; // 2
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Body
+body {
+  display: flex;
+  flex-direction: column;
+  color: $body-color;
+}
+
+// Angular Rounter Element
+router-outlet {
+  display: none;
+}
+
+// General Links
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none !important;
+}
+
+// Canvas
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.section {
+  // border: 2px solid #e6dfdf;
+  // height: auto;
+    border-radius: 7px;
+  &__header {
+    background: #0488d3;
+    color: #fff;
+
+    .btn {
+      background-color: #fff;
+      color: #0488d3;
+      border: 1px solid #fff;
+      min-width: auto !important;
+
+      &:hover {
+        border-color: #fff !important;
+      }
+    }
+  }
+}
+
+// sustom hr
+.hr {
+  // border-color: rgba(89, 186, 230, .8);
+}
+
+// custom list unstyled
+
+.custom-list {
+  .key {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #3f4254;
+    min-width: 128px;
+    display: inline-block;
+  }
+}
+
+// start global clasees _____________
+.pointer {
+  cursor: pointer;
+}
+
+// custom style to upload file
+file-upload-drop-zone {
+  display: flex !important;
+  flex-direction: column-reverse !important;
+  justify-content: center !important;
+  text-align: center !important;
+  align-items: center !important;
+}
+
+.upload-text {
+  padding: 0 !important;
+  margin-bottom: 0.5rem;
+}
+
+// begin  scrolbar ________________________
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  // background: #555;
+}
+
+// end  scrolbar ________________________
+
+// begin pagination ____________
+.pagination {
+  padding: 0;
+}
+
+// end pagination ____________
+
+// Start Table design _______________
+th.mat-header-cell {
+  background-color: #0488d3;
+  color: #fff;
+  letter-spacing: 1px;
+  font-family: "Tajawal", sans-serif !important;
+}
+
+
+.ag-table {
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fff;
+  }
+
+  .table-striped tbody tr:nth-of-type(even) {
+    background-color: #ebf7ff;
+  }
+}
+
+.custom-table {
+  th.mat-header-cell {
+    background-color: white;
+    color: black;
+    border: 2px solid rgba(black, 0.6);
+    padding: 1rem 0 !important;
+  }
+
+
+  tr.mat-header-row {
+    border-bottom: 7px solid rgba(black, 0.6);
+    height: 40px;
+  }
+
+  [dir=rtl] th.mat-header-cell:first-of-type:not(:only-of-type),
+  [dir=rtl] td.mat-cell:first-of-type:not(:only-of-type),
+  [dir=rtl] td.mat-footer-cell:first-of-type:not(:only-of-type) {
+   padding-left: 24px !important;
+  }
+
+  td {
+    border: 2px solid rgba(black, 0.6);
+  }
+
+  tr:nth-of-type(odd) {
+    background-color: #9AE48F !important;
+  }
+
+  tr:nth-of-type(even) {
+    background-color: white !important;
+  }
+
+}

@@ -1,0 +1,68 @@
+<section class="section">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-chalkboard-teacher mx-2"></i>
+                {{'setting.studentsYears.studeyYears' | translate}}
+        </h2>
+
+    </header>
+    <!-- ____ end section header __________ -->
+
+    <!-- ____ begin section body __________ -->
+    <div class="section__body p-4 p-lg-7">
+
+        <div class="section_body_header m-4 d-flex align-items-center ">
+            <button type="button" [routerLink]="['add-year']"
+                class="btn ml-10 px-5 px-lg-9 btn-success font-weight-bolder ">
+                {{'setting.studentsYears.addStudeyYear' | translate}}
+            </button>
+
+            <button type="button" [routerLink]="['transfer-student']"
+                class="btn ml-10 px-5 px-lg-9 btn-success font-weight-bolder ">
+                {{'setting.studentsYears.transfareStudents' | translate}}
+            </button>
+
+            <button type="button" [routerLink]="['study-weeks']"
+                class="btn ml-10 px-5 px-lg-9 btn-success font-weight-bolder ">
+                {{'setting.studentsYears.studyWeeks' | translate}}
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-5 p-5 studey-year d-flex align-items-center justify-content-between" *ngIf="selectedYear" >
+                    <p class="m-0">{{selectedYear?.title}}</p>
+                    <p class="m-0">تاريخ الإنتهاء {{selectedYear?.end_date}}</p>
+                    <div class="actions d-flex align-items-center justify-content-center">
+                        <i class="trash m-3 fa fa-trash" (click)="deleteStudyYear()"></i>
+                        <i class="edit m-3 fa fa-edit" (click)="editStudyYear()" ></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="body p-4">
+            <h2 class="p-5">الفصول الدراسية</h2>
+            <div class="vc-ag-grid global-data-table" *ngIf="tableItems?.length; else errorData">
+                <app-ag-grid #agGrid [rowData]="tableItems" [frameworkComponents]="frameworkComponents"
+                    [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs"
+                    [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'" [GlobalTable]="true" [pagination]="false"
+                    [pageOptions]="pageOptions">
+                </app-ag-grid>
+            </div>
+        </div>
+        <div class="studey-years d-flex" *ngIf="tableItems?.length" >
+            <span class="p-5" *ngFor="let year of Years" [ngClass]="{'active': year.selected}"
+                (click)="changeSelectedYear(year)">
+                {{year.title}}
+            </span>
+        </div>
+
+    </div>
+
+</section>
+
+<ng-template #errorData>
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

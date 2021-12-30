@@ -1,0 +1,20 @@
+<ng-template #refreshTokenModel let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">إشعار مهلة الجلسة</h4>
+    <button type="button" class="close" aria-label="Close" (click)="logOut()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>جلستك على وشك الانتهاء</p>
+
+    <p>
+      <ngb-progressbar [value]="value"></ngb-progressbar>
+    </p>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary font-weight-bolder cursor-pointer" (click)="refreshToken()">البقاء متصلا</button>
+    <button class="btn btn-danger font-weight-bolder cursor-pointer" (click)="logOut()">خروج</button>
+  </div>
+</ng-template>

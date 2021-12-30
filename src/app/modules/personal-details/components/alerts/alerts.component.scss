@@ -1,0 +1,31 @@
+.fa-telegram-plane {
+  color: #0d8ddc;
+}
+
+
+.telegram-username {
+  &:not(&.confirmed) {
+    background-color: rgba(#0d8ddc, 0.1);
+    border: 1px solid #0d8ddc;
+    color: #0d8ddc;
+  }
+  &.confirmed {
+    background-color: rgba(#1bc5bd, 0.1) !important;
+    border: 1px solid #1bc5bd !important;
+    color: #1bc5bd !important;
+  }
+}
+
+.link {
+  border-bottom: 2px solid #00aff0;
+}
+
+.btn-edit {
+  padding: 0.5rem 4rem;
+  background-color: #FF8326;
+  color: white;
+}
+
+.bell {
+  color: #E9CC54;
+}

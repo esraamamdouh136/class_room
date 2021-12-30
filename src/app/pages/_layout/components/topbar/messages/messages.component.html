@@ -1,0 +1,26 @@
+<ng-container>
+    <!--begin::User-->
+    <ng-container>
+        <div class="dropdown" ngbDropdown [placement]="placement" [autoClose]="true" #myDrop="ngbDropdown">
+            <div ngbDropdownToggle class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+                    <i class="flaticon-email header__icon"></i>
+                </div>
+            </div>
+            <div ngbDropdownMenu
+                class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg p-0">
+                <div class="drop-head"
+                    style="background: url('https://v1.viewclass.com/assets/app/media/img/misc/notification_bg.jpg') 0% 0% / cover;">
+                    <p>( 3 ) {{"general.Unread_Message" | translate}}</p>
+                    <a href="" class="d-block">{{"general.View_All" | translate}}</a>
+                    <a href="" class="d-block">{{"general.Set_All_As_Read" | translate}}</a>
+                </div>
+                <div class="empty-view">
+
+                </div>
+            </div>
+        </div>
+        <!--end::Dropdown-->
+    </ng-container>
+    <!--end::User-->
+</ng-container>

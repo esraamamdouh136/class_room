@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-between align-items-center dialog-head">
+    <h2 mat-dialog-title class="mb-0">
+        {{data?.update ? ('general.edit' | translate) : ('general.add' | translate) }}
+        {{('setting.declaration' | translate)}}
+    </h2>
+    <i class="fas fa-times" mat-dialog-close></i>
+</div>
+
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="form">
+        <div class="form-row">
+            <!--===========Name English============-->
+            <div class="col-lg-6 mb-4">
+                <div class="form-group mb-0">
+                    <label for="name"> {{'general.name' | translate}} </label>
+                    <input dir="auto" type="text" class="form-control" requiredname="name"
+                        [placeholder]="'general.name' | translate" formControlName="name" id="name">
+                    <ng-container *ngIf="formErrors?.name_ar">
+                        <!--error Massage-->
+                        <div class="text-danger" *ngFor="let error of formErrors['name']">
+                            {{error}}
+                        </div>
+
+                    </ng-container>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group is_active mb-0">
+                    <label class="font-weight-bolder" for="">
+                        {{"setting.fiscalYearPage.isDefault" | translate}}
+                    </label>
+                    <span class="switch switch-icon">
+                        <label class="pointer" for="is_default" [class.f-w]="isDefaultValue">{{"common.yes" |
+                            translate}}</label>
+                        <label class="mx-3">
+                            <input dir="auto" id="is_default" type="checkbox" name="is_default"
+                                formControlName="is_default" />
+                            <span></span>
+                        </label>
+                        <label class="pointer" for="is_default" [class.f-w]="!isDefaultValue">{{"common.no" |
+                            translate}}</label>
+                    </span>
+                </div>
+            </div>
+
+            <!--===========Name English============-->
+
+
+            <!-- <div class="col-md-3 mb-4 mb-lg-3 d-flex" *ngIf="data?.update">
+                <div class="form-group is_active mb-0 company-status">
+                    <label for="status" class="font-weight-bolder w-auto" for="">
+                        {{"general.status" | translate}}
+                    </label>
+                    <span class="switch switch-icon">
+                        <label class="pointer auto-width" for="isActive" [class.f-w]="statusValue">
+                            {{"general.active" |
+                            translate}}</label>
+                        <label class="mx-3 auto-width">
+                            <input dir="auto" id="isActive" type="checkbox" name="status" formControlName="status"
+                                id="status" />
+                            <span></span>
+                        </label>
+                        <label class="pointer auto-width" style="white-space: nowrap" for="isActive"
+                            [class.f-w]="!statusValue">{{"general.inactive" |
+                            translate}}</label>
+                    </span>
+                </div>
+            </div> -->
+
+        </div>
+    </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions class="d-flex justify-content-center">
+    <div class="dailog-actions-btns">
+        <button mat-button class="btn btn-primary accept" (click)="submit()" [disabled]="form?.invalid">
+            {{data?.update ? ('general.edit' |translate) : ('general.add' |translate)}}
+        </button>
+        <button mat-button mat-dialog-close class="btn btn-danger">
+            {{'setting.cancel' | translate}}
+        </button>
+    </div>
+</mat-dialog-actions>

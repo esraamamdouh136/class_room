@@ -1,0 +1,82 @@
+<section class="section border">
+    <!-- ____ begin section header __________ -->
+    <header class="top-header"
+       >
+        <div class="section__header d-flex align-items-center justify-content-between p-4 p-lg-5 "  (click)="toggleSearch()">
+            <h2 class="h4 mb-0 font-weight-bolder d-flex">
+                <i class="fa fa-search mx-2"></i>
+                {{'general.search' | translate}}
+            </h2>
+        </div>
+
+        <!-- Search -->
+        <form [formGroup]="searchForm" class="search_box px-4 pt-5" *ngIf="searchDiv" (ngSubmit)="onSearch()" >
+            <div class="row">
+    
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="phone">{{'contracts.billsName' | translate}}</label>
+                        <input class="form-control" type="text" id="phone" formControlName="number" autocomplete="off">
+                    </div>
+                </div>
+    
+                <div class="col-lg-4">
+                    <div class="form-group mb-0">
+                        <label for="code"> {{'contracts.studentName' | translate}} </label>
+                        <input type="text" aria-label="Number" class="form-control" formControlName="student_id"
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let option of students" [value]="option">
+                                {{option?.full_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+                </div>
+    
+                <div class="col-lg-4">
+                    <div class="form-group mb-0">
+                        <label> {{'contracts.fatherName' | translate}} </label>
+                        <input type="text" aria-label="Number" class="form-control" formControlName="father_id"
+                            [matAutocomplete]="autoFathers">
+                            <mat-autocomplete #autoFathers="matAutocomplete" [displayWith]="displayFatherFn">
+                                <mat-option *ngFor="let option of fathers" [value]="option">
+                                    {{option?.full_name}}
+                                </mat-option>
+                            </mat-autocomplete>
+                    </div>
+                </div>
+    
+            </div>
+    
+            <button type="submit" class="btn btn-success my-3 d-block"
+            [ngClass]="translation.getSelectedLanguage() == 'ar' ? 'mr-auto' : 'ml-auto'">{{'general.search' |
+            translate}}</button>
+            <div class="d-flex">
+               
+    
+            <!-- <button type="button" class="btn btn-success my-3 d-block" (click)="resetForm()"
+                [ngClass]="translation.getSelectedLanguage() == 'ar' ? 'mr-auto' : 'ml-auto'">{{'general.reset' |
+                translate}}</button> -->
+            </div>
+            
+            <hr>
+        </form>
+    
+    </header>
+
+
+    <div class="section__body p-4 p-lg-7">
+        <div class="vc-ag-grid global-data-table" *ngIf="tableItems?.length ; else errorData">
+            <app-ag-grid #agGrid [rowData]="tableItems" [frameworkComponents]="frameworkComponents"
+                [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+                [domLayout]="'autoHeight'" [GlobalTable]="true" [pagination]="true" [pageOptions]="pageOptions"
+                (pageEvent)="pageEvent($event)">
+            </app-ag-grid>
+        </div>
+    </div>
+</section>
+
+
+<ng-template #errorData>
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

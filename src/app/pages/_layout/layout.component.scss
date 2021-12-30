@@ -1,0 +1,29 @@
+:host {
+  height: 100%;
+
+  &>* {
+    @media (min-width: 992px) {
+      height: 100% !important;
+    }
+  }
+
+}
+
+app-layout {
+  opacity: 0;
+  height: 100%;
+
+  .grid-root {
+    height: 100%;
+  }
+}
+
+
+
+@media (min-width: 992px) {
+  .custom {
+    .container-fluid {
+      padding: 0px 15px !important;
+    }
+  }
+}

@@ -1,0 +1,112 @@
+<section class="section border">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex align-items-center">
+      <i class="fa fa-bell mx-2"></i>
+      {{'general.alerts' | translate}}
+    </h2>
+    <button type="button" *ngIf="false"
+      class="btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+      {{'general.add' | translate}}
+    </button>
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body p-4 p-lg-7">
+
+    <form class="form" #form="ngForm">
+      <div class="form-row align-items-center">
+        <div class="col-6">
+          <label class="font-weight-bolder font-14 text-nowrap min-w-125 d-flex align-items-center mb-0" for="">
+            <i class="fab fa-telegram-plane fa-2x ml-3"></i>
+            <span>{{"general.telegram" | translate}}</span>
+          </label>
+          <div class="form-group custom-company_form">
+            <div class="row mb-3">
+              <div class="col">
+                <input dir="auto" type="text" [class.confirmed]="profile?.telegram_id" #npt required
+                  class="form-control telegram-username" placeholder="{{'general.telegram' | translate}}"
+                  [disabled]="!enableEdit" aria-describedby="basic-addon1" name="name"
+                  [(ngModel)]="profile.telegram_username">
+              </div>
+              <div class="col-auto">
+                <button class="btn" type="button"
+                  (click)="profile?.telegram_id ? changeEditStatus(npt) : setTelegramUsername()"
+                  [ngClass]="{'btn-primary': !profile?.telegram_id, 'btn-success': profile?.telegram_id}">
+                  <span>{{profile?.telegram_id && enableEdit ? ('general.cancel_edit' | translate) :
+                    profile?.telegram_id && !enableEdit ? ('general.enable_edit' | translate) :
+                    ('general.confirm' | translate)}}</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-12 test">
+              <ng-container *ngIf="profile?.telegram_id">
+                <div class="text-success mb-3">
+                  <strong>{{'general.account_activated' | translate}}</strong>
+                </div>
+              </ng-container>
+
+              <ng-container
+                *ngIf="!profile?.telegram_id && profile?.telegram_code && profile?.telegram_username && confirmationResponse">
+                <div class="text-primary mb-3">
+                  <strong>{{'general.telegram_message' | translate}} {{confirmationResponse}}</strong>
+                </div>
+              </ng-container>
+              <ng-container
+                *ngIf="!profile?.telegram_id && profile?.telegram_code  && profile?.telegram_username && confirmationResponse">
+                <div class="text-primary">
+                  <a [href]="confirmationLink" class="link" target="_blank"><strong>{{'general.confirmation_link' |
+                      translate}}</strong></a>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="formErrors?.username">
+                <div class="text-danger" *ngFor="let error of formErrors?.name">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-5" *ngIf="profile?.telegram_id">
+          <label class="font-weight-bolder font-14 text-nowrap min-w-125 d-flex align-items-center mb-0" for="">
+            <i class="fa fa-bell bell fa-2x ml-3"></i>
+            <span>{{"general.alerts" | translate}}</span>
+          </label>
+
+          <div class="form-group company-status" *ngFor="let notification of notifications" >
+            <label class="font-weight-bolder w-auto" for="">
+              {{"general.enable_alerts_" + notification?.key | translate}}
+            </label>
+            <span class="switch switch-icon">
+              <!-- [(ngModel)]="relative-relation.header.self.fixed.desktop" -->
+              <label class="pointer auto-width" for="isActive">{{"setting.organization.play" |
+                translate}}</label>
+              <label class="mx-3 auto-width">
+                <input dir="auto" id="isActive" type="checkbox" name="isActive" [checked]="notification?.status"  
+                (change)="updateNotification(notification?.key,notification?.status)" />
+                <span></span>
+              </label>
+              <label class="pointer auto-width" for="isActive">{{"setting.organization.stop" |
+                translate}}</label>
+              <!-- <ng-container *ngIf="formErrors?.status">
+                <div class="text-danger" *ngFor="let error of formErrors?.status">
+                  {{error}}</div>
+              </ng-container> -->
+            </span>
+          </div>
+
+        </div>
+        <div class="col-12" *ngIf="profile?.telegram_id">
+          <button class="btn btn-edit" (click)="setTelegramUsername()" [disabled]="form?.invalid">
+            <ng-container *ngIf="confirmLoading">
+              <span class="spinner spinner-primary ml-5"></span>
+            </ng-container>
+            <span>{{'general.edit' | translate}}</span>
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</section>

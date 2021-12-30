@@ -1,0 +1,15 @@
+.border{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    h1{
+        color: #fff;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    background: #4680ff;
+    border-radius: 10px;
+    padding: 10px;
+    }
+}

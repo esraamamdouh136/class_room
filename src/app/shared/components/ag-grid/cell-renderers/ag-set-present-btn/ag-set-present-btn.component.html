@@ -1,0 +1,6 @@
+<div class="d-flex align-items-center justify-content-center">
+    <button class="mx-2 action-btn" mat-icon-button
+        (click)="handleAction()" [ngClass]="{ 'current' : isCurrent, 'set-current' : !isCurrent}"  >
+        {{isCurrent ? ('general.current' | translate) : ('general.notCurrent' | translate)  }}
+    </button>
+</div>

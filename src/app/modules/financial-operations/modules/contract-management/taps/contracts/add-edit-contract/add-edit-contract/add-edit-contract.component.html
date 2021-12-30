@@ -1,0 +1,220 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <!-- ____ begin dialog header __________ -->
+    <div class="d-flex justify-content-between align-items-center dialog-head">
+        <h2 class="h4 mb-0 font-weight-bolder">
+            <ng-container *ngIf="!data.disable">
+                {{this.data.data?.id ? ("contracts.editContract" | translate | translate) :("contracts.addContract" |
+                translate)}}
+            </ng-container>
+
+            <ng-container *ngIf="data.disable">
+                {{("contracts.showContract" | translate)}}
+            </ng-container>
+
+
+        </h2>
+        <i class="fas fa-times text-white" [mat-dialog-close]="true"></i>
+    </div>
+    <!-- ____ end dialog header __________ -->
+
+    <mat-dialog-content class="m-0">
+        <form [formGroup]="form" (ngSubmit)="onsubmit()">
+            <div class="w-100">
+
+                <div class="row">
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label for="code"> {{'contracts.student' | translate}} </label>
+
+                            <!-- Auto complete -->
+                            <!-- <input type="text" aria-label="Number" class="form-control" formControlName="student_id"
+                                [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                    <mat-option *ngFor="let option of students" [value]="option">
+                                        {{option?.full_name}}
+                                    </mat-option>
+                                </mat-autocomplete> -->
+                            <!-- Auto complete -->
+
+                            <!-- Multi search select -->
+                            <ng-select appendTo="body" [items]="students" bindLabel="full_name" [clearable]="false"
+                                bindValue="id" [multiple]="true" labelForId="code"
+                                (search)="searchOnStudents($event?.term)" formControlName="student_id">
+                            </ng-select>
+                            <!-- Multi search select -->
+
+                            <ng-container *ngIf="formErrors?.student_id">
+                                <div class="text-danger" *ngFor="let error of formErrors['student_id']">
+                                    {{error}}
+                                </div>
+
+                            </ng-container>
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'contracts.student' | translate}}:
+                            </label>
+                            <span class="text-danger">*</span>
+                            
+                            <ng-select 
+                            [placeholder]="'setting.studentsYears.school' | translate"
+                            [items]="students" bindLabel="full_name"
+                            bindValue="id" appendTo="body" formControlName="student_id">
+                            </ng-select>
+                            <ng-container *ngIf="formControlsErrors?.season_id">
+                                <div class="text-danger">
+                                    {{formControlsErrors['season_id']}}
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div> -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'contracts.company' | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <!--Using items input-->
+                            <ng-select [items]="company" bindLabel="name" bindValue="id" appendTo="body"
+                                formControlName="company">
+                            </ng-select>
+                            <ng-container *ngIf="formErrors?.company">
+                                <div class="text-danger" *ngFor="let error of formErrors['company']">
+                                    {{error}}
+                                </div>
+
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'contracts.chooseContarct' | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <!--Using items input-->
+                            <ng-select [placeholder]="'setting.studentsYears.school' | translate" [items]="contracts"
+                                bindLabel="main.name" bindValue="id" appendTo="body"
+                                formControlName="contract_template_id">
+                            </ng-select>
+                            <ng-container *ngIf="formErrors?.contract_template_id">
+                                <div class="text-danger" *ngFor="let error of formErrors['contract_template_id']">
+                                    {{error}}
+                                </div>
+
+                            </ng-container>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder min-w-130px font-size-lg" for="classRooms">
+                                {{'contracts.class_room'|translate}}
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <ng-select appendTo="body" [items]="listClassRooms" bindLabel="name" [clearable]="false"
+                                bindValue="id" [multiple]="false" labelForId="classRooms" (change)="SelectClass($event)"
+                                formControlName="classroom_id">
+                            </ng-select>
+                            <ng-container *ngIf="formErrors?.classroom_id">
+                                <div class="text-danger" *ngFor="let error of formErrors['classroom_id']">
+                                    {{error}}
+                                </div>
+
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4 ">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="feesClassesValues">
+                                {{"contracts.specialOffer" | translate}}
+                            </label>
+                            <ng-select [items]="specialDiscount" bindLabel="name" name="typesoffees" [multiple]="true"
+                                bindValue="id" [notFoundText]="'contracts.noSpecialDiscount' | translate" appendTo="body" [placeholder]="'contracts.specialOffer' | translate"
+                                labelForId="feesClassesValues" formControlName="special_discounts">
+                            </ng-select>
+                            <ng-container *ngIf="formErrors?.special_discounts">
+                                <!--     errors will be shown here-->
+                                <div class="text-danger" *ngFor="let error of formErrors['special_discounts']">
+                                    {{error}}
+                                </div>
+
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4 " >
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="feesClassesValues">
+                                {{"contracts.generalOffer" | translate}}
+                            </label>
+                            <ng-select [items]="generalDiscount" bindLabel="name" name="typesoffees" [multiple]="true"
+                                bindValue="id" appendTo="body" [notFoundText]="'contracts.noGeneralDiscount' | translate" [placeholder]="'contracts.generalOffer' | translate"
+                                labelForId="feesClassesValues" formControlName="general_discounts">
+                            </ng-select>
+                            <ng-container *ngIf="formErrors?.general_discounts">
+                                <!--     errors will be shown here-->
+                                <div class="text-danger" *ngFor="let error of formErrors['general_discounts']">
+                                    {{error}}
+                                </div>
+
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="font-bold font-14 mb-0 text-nowrap">
+                                {{'contracts.contarctDate' | translate}}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <mat-form-field floatLabel="never" class="date-form cursor-pointer"
+                                (click)="pickerSM.open()">
+                                <input dir="auto" style="cursor:none" readonly matInput [matDatepicker]="pickerSM"
+                                    formControlName="date">
+                                <mat-datepicker-toggle matSuffix (click)="pickerSM.open()">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #pickerSM></mat-datepicker>
+                            </mat-form-field>
+
+                            <ng-container *ngIf="formErrors?.date">
+                                <div class="text-danger" *ngFor="let error of formErrors['date']">
+                                    {{error}}
+                                </div>
+
+                            </ng-container>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <mat-dialog-actions align="center">
+                <div class="dailog-actions-btns">
+                    <button mat-button class="btn btn-primary accept" type="submit" *ngIf="!data.disable">
+                        {{this.data.data?.id ? ('general.edit' |translate) :('setting.save' |translate)}}
+                    </button>
+                    <button mat-button mat-dialog-close class="btn btn-danger">
+                        {{'setting.cancel' |
+                        translate}}
+                    </button>
+                </div>
+            </mat-dialog-actions>
+        </form>
+    </mat-dialog-content>
+</div>

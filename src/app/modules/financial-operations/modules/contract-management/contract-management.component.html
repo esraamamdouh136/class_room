@@ -1,0 +1,68 @@
+<div class="">
+    <div class="col-auto d-none d-md-block pb-5">
+        <div class="sidebar border-0">
+            <!-- ================================= -->
+            <li class="menu-item menu-item-green" routerLinkActive="menu-item-active">
+                <a class="menu-link" routerLink="accept_signup" routerLinkActive="active">
+                    <i class="menu__icon menu__icon_green fas fa-vote-yea subject-bg mx-3"></i>
+                    <span class="menu-text">{{'contracts.accept' | translate}}</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-red" routerLinkActive="menu-item-active">
+                <a class="menu-link" routerLink="view_contract" routerLinkActive="active">
+                    <i class="menu__icon menu__icon_red far fa-eye subject-bg mx-3"></i>
+                    <span class="menu-text ">{{'contracts.view_contract' | translate}}</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-yellow" routerLinkActive="menu-item-active">
+                <a class="menu-link" routerLink="contracts" routerLinkActive="active">
+                    <i class="menu__icon menu__icon_yellow fa fa-file-signature ject-bg subject-bg mx-3"></i>
+                    <span class="menu-text ">{{'contracts.contracts' | translate}}</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-blue" routerLinkActive="menu-item-active">
+                <a class="menu-link" routerLink="bills" routerLinkActive="active">
+                    <i class="menu__icon fas fa-paste subject-bg mx-3"></i>
+                    <span class="menu-text">{{'contracts.bills' | translate}}</span>
+                </a>
+            </li>
+            <!-- ================================= -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col p-0 scroll" style="height: 88vh; overflow: auto;">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+
+<div class="sideMenuContract d-md-none d-block" *ngIf="toggleSidebar">
+    <div class="sidebar  h-100">
+        <li class="menu-item" routerLinkActive="menu-item-active">
+            <a class="menu-link" routerLink="accept_signup" routerLinkActive="active">
+                <i class="menu__icon menu__icon_green fas fa-vote-yea subject-bg mx-3"></i>
+                <span class="menu-text">{{'contracts.accept' | translate}}</span>
+            </a>
+        </li>
+        <li class="menu-item" routerLinkActive="menu-item-active">
+            <a class="menu-link" routerLink="view_contract" routerLinkActive="active">
+                <i class="menu__icon menu__icon_red far fa-eye subject-bg mx-3"></i>
+                <span class="menu-text">{{'contracts.view_contract' | translate}}</span>
+            </a>
+        </li>
+        <li class="menu-item" routerLinkActive="menu-item-active">
+            <a class="menu-link" routerLink="contracts" routerLinkActive="active">
+                <i class="menu__icon menu__icon_yellow fa fa-file-signature ject-bg subject-bg mx-3"></i>
+                <span class="menu-text">{{'contracts.contracts' | translate}}</span>
+            </a>
+        </li>
+
+        <li class="menu-item" routerLinkActive="menu-item-active">
+            <a class="menu-link" routerLink="bills" routerLinkActive="active">
+                <i class="menu__icon fas fa-paste subject-bg mx-3"></i>
+                <span class="menu-text">{{'contracts.bills' | translate}}</span>
+            </a>
+        </li>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<section class="section border">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="far fa-eye mx-2"></i>
+            {{'contracts.view_contract' | translate}}
+        </h2>
+        <div class="d-flex">
+        <button type="button"
+            class="btn mx-0 px-5 mx-2 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg"
+            (click)="routerFuncLink()">
+            {{'general.add' | translate}}
+        </button>
+        <!-- <button type="button"
+        class="btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg"
+        (click)="openDownload()">
+        {{'Download' | translate}}
+    </button> -->
+</div>
+    </header>
+   <!-- ____ begin section body __________ -->
+   <div class="section__body p-4 p-lg-7">
+
+    <!-- _______ begin tabel _______ -->
+    <div class="section__body__tabel">
+        <!-- <app-ag-tabel *ngIf="existData ; else errorData" [alignTableCenter]="true"
+            [tableData]="tableItems" [tableColumns]="tableColumns" [isFilterable]="true" [pageOptions]="pageOptions"
+            (pageEvent)="pageEvent($event)" [isPageable]="true" (rowAction)="rowActions($event)"
+            [rowActions]="['delete','edit','permission']">
+        </app-ag-tabel>  -->
+        <div class="vc-ag-grid global-data-table" *ngIf="existData ; else errorData" >
+            <app-ag-grid #agGrid [rowData]="tableItems" [frameworkComponents]="frameworkComponents"
+                [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs"
+                [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'" [GlobalTable]="true">
+            </app-ag-grid>
+        </div>
+    </div>
+    <!-- _______ end tabel _______ -->
+</div>
+<!-- ____ end section body __________ -->
+</section>
+
+<ng-template #errorData>
+<app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

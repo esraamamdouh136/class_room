@@ -1,0 +1,41 @@
+export interface StudentList {
+  graduated?: boolean;
+  user_role_id?: number;
+  id?: number;
+  class?: string;
+  classes?: any[];
+  grade?: string;
+  level?: string;
+  acceptance_year?: string;
+  academic_id?: string;
+  gender?: string;
+  old_school?: string;
+  enrol_date?: string;
+  fingerprint_id?: string;
+  father_id?: number;
+  mother_id?: number;
+  father_user_name?: string;
+  mother_user_name?: string;
+  mother_mobile_number?: string;
+  father_mobile_number?: string;
+  email?: string;
+  mobile_number?: string;
+  identity_number?: string;
+  passport_number?: string;
+  last_outer_update?: number;
+  first_name?: string;
+  is_licensed?: number;
+  last_name?: string;
+  name?: string;
+  father_name?: string;
+  grand_father_name?: string;
+  nationality?: string;
+  avatar_filename?: string;
+  birthdate?: string;
+  is_active?: string;
+  last_active?: string;
+  can_see_marks?: number;
+  is_call_voice_recorded?: boolean;
+  selected?: any[];
+}
+

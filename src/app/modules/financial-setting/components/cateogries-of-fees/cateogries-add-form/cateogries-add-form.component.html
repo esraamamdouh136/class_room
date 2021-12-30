@@ -1,0 +1,292 @@
+<section>
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder">
+      {{'general.add' | translate}} {{'setting.cateogriesoffees' | translate}}
+    </h2>
+    <div class="d-flex align-items-center">
+      <i class="fas fa-arrow-left mx-3"
+        [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'fas fa-arrow-left' : 'fas fa-arrow-right'"
+        routerLink="../cateogries-of-fees"></i>
+    </div>
+  </header>
+
+  <div class="content">
+    <form [formGroup]="form" (submit)="onSubmit()">
+      <div class="form-row mx-4">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="font-weight-bolder min-w-130px font-size-lg"> {{'general.name_ar' | translate}}
+            </label>
+            <input dir="auto" type="text" class="form-control" name="name_ar"
+              [placeholder]="'general.name_ar' | translate" formControlName="name_ar">
+            <ng-container *ngIf="errorMassage?.name_ar">
+              <div class="text-danger" *ngFor="let error of errorMassage['name_ar']">
+                {{error}}
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="font-weight-bolder min-w-130px font-size-lg"> {{'general.name_en' | translate}}
+            </label>
+            <input dir="auto" type="text" class="form-control" [placeholder]="'general.name_en' | translate"
+              formControlName="name_en">
+            <ng-container *ngIf="errorMassage?.name_en">
+              <div class="text-danger" *ngFor="let error of errorMassage['name_en']">
+                {{error}}
+              </div>
+            </ng-container>
+
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="font-weight-bolder min-w-130px font-size-lg"> {{'general.class_room' | translate}}
+            </label>
+            <ng-select  [clearable]="false" [multiple]=true [items]="classRooms"
+              bindLabel="name" bindValue="id" [placeholder]="'general.class_room' | translate" [(ngModel)]="class_rooms"
+              formControlName="class_rooms">
+            </ng-select>
+            <ng-container *ngIf="errorMassage?.classrooms">
+              <div class="text-danger" *ngFor="let error of errorMassage['classrooms']">
+                {{error}}
+              </div>
+            </ng-container>
+
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+          <div class="form-group mb-0">
+            <label class="font-weight-bolder" for="">
+              {{"setting.typesoffees" | translate}}
+            </label>
+            <ng-select  [items]="feesClasses" bindLabel="name" bindValue="id"
+              [placeholder]="'setting.typesoffees' | translate"
+              formControlName="fees_class_id">
+
+            </ng-select>
+            <ng-container *ngIf="errorMassage?.fees_class_id">
+              <div class="text-danger" *ngFor="let error of errorMassage['fees_class_id']">
+                {{error}}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+
+
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="font-weight-bolder min-w-130px font-size-lg"> {{'general.amount' | translate}}
+            </label>
+            <input dir="auto" type="text" class="form-control" [placeholder]="'general.amount' | translate"
+              formControlName="fees_value"  triggers="click" (change)="onChangeValues();">
+            <ng-container *ngIf="errorMassage?.fees_value">
+              <div class="text-danger" *ngFor="let error of errorMassage['fees_value']">
+                {{error}}
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <ng-container formArrayName="taxes">
+              <div *ngFor="let taxes_per of taxes().controls ; let i=index">
+                <div class="buttons-minus-plus">
+                  <label class="font-weight-bolder min-w-130px font-size-lg"> {{'general.taxes' | translate}}
+                  </label>
+                  <i class="fas fa-minus-circle text-danger mx-2" *ngIf="i >= 1" (click)="removeTaxes(i)"></i>
+                  <i class="fas fa-plus-circle add-plus mx-2" *ngIf="i <= 0" (click)="addTaxes()"></i>
+                </div>
+                <div class="row no-gutters mb-3" [formGroupName]="i">
+                  <ng-select  class="col-md-12 w-100 select" formControlName="taxes_per" 
+                    [items]="data_taxes" bindLabel="taxes_name" bindValue="id" (change)="onChangeValues()">
+                  </ng-select>
+                  <ng-container *ngIf="errorMassage?.classrooms">
+                    <div class="text-danger" *ngFor="let error of errorMassage['taxes']">
+                      {{error}}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="errorMassage?.taxes">
+              <div class="text-danger" *ngFor="let error of errorMassage['taxes']">
+                {{error}}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="font-weight-bolder min-w-130px font-size-lg d-block"> {{'general.fees' | translate}}
+                </label>
+                <mat-checkbox class="example-margin  font-weight-bolder min-w-130px font-size-lg d-block"
+                  formControlName="taxes_included" (change)="onChangeValues()">
+                  {{'general.taxes_included' | translate}}
+                </mat-checkbox>
+                <ng-container *ngIf="errorMassage?.taxes_included">
+                  <div class="text-danger" *ngFor="let error of errorMassage['taxes_included']">
+                    {{error}}
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-6" *ngIf="cat_id">
+              <div class="form-group is_active mb-0">
+                <label class="font-weight-bolder" for="">
+                  {{"general.status" | translate}}
+                </label>
+                <span class="switch switch-icon">
+                  <label class="pointer" for="isActive">{{"setting.fiscalYearPage.active" |
+                    translate}}</label>
+                  <label class="mx-3">
+                    <input dir="auto"  id="isActive" type="checkbox" name="isActive" formControlName="status" />
+                    <span></span>
+                  </label>
+                  <label class="pointer" for="isActive">{{"setting.fiscalYearPage.disactive" |
+                    translate}}</label>
+                </span>
+                <ng-container *ngIf="errorMassage?.status">
+                  <div class="text-danger" *ngFor="let error of errorMassage['status']">
+                    {{error}}
+                  </div>
+                </ng-container>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- <div class="col-md-12">
+          <button class="btn btn-Distributed mr-auto d-block" type="button">اجمالى المبلغ بعد
+            الضريبه</button>
+        </div> -->
+
+
+        <!--============== Can Be Distributed ==========-->
+        <header class="header bg-color p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5 w-100">
+          <h2 class="h4 mb-0 font-weight-bolder">
+            {{'general.installments' | translate}}
+          </h2>
+          <div class="d-flex align-items-center">
+            <h2 class="h4 mb-0 font-weight-bolder">
+              {{'general.can_be_distributed' | translate}}
+              <span>( <span *ngIf="distributable_value">{{distributable_value}}</span> )</span>
+            </h2>
+            <i class="fas fa-info-circle text-white mx-2 mt-1" (click)="showNote()" *ngIf="!note"></i>
+            <i class="far fa-times-circle  mx-2" (click)="hiddenNote()" *ngIf="note"></i>
+            <!--============== NOTE  ==========-->
+            <div class="note" *ngIf="note">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>{{distributable_value}}</td>
+                    <td>{{'general.taxes_included' | translate}}</td>
+                  </tr>
+                  <tr *ngFor="let calcTaxes of calcArrTaxes">
+                    <td>{{calcTaxes.value}}</td>
+                    <td>{{calcTaxes.name}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{Fixed_distributable_value}}</td>
+                    <td>{{'general.can_be_distributed' | translate}} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </header>
+
+
+
+        <!--TABLE-->
+        <ng-container *ngIf="semsters?.length;else errorData">
+          <ng-container *ngFor="let semster of semsters;let i = index">
+            <label class="font-weight-bolder min-w-130px font-size-lg w-100">{{semster.name}}
+              <span class="text-danger">
+                ({{'setting.typesOfFees.start_at' | translate}}
+                {{semster.start_at_show}}
+                {{'setting.typesOfFees.to' | translate}}
+                {{semster.end_at_show}})
+              </span>
+            </label>
+            <table class="table">
+
+              <tr>
+                <th>{{'general.due_date' | translate}}</th>
+                <th>{{'general.installment_name' | translate}}</th>
+                <th>{{'general.installment_amount' | translate}}</th>
+              </tr>
+              <ng-container [formArrayName]="'term_'+semster.id">
+                <ng-container *ngFor="let term of term(semster.id).controls; let i=index">
+                  <tr [formGroupName]="i">
+                    <td>
+                      <mat-form-field floatLabel="never" class="date-form cursor-pointer" (click)="picker.open()">
+                        <input dir="auto" style="cursor:none" readonly matInput [matDatepicker]="picker"
+                          [min]="minDate[semster.id]" [max]="maxDate[semster.id]" formControlName="date">
+                        <mat-datepicker-toggle matSuffix (click)="picker.open()"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                      <ng-container *ngIf="errorMassage?.fees_type_premium">
+                        <div class="text-danger" *ngFor="let error of errorMassage['fees_type_premium'][i]?.due_date">
+                          {{error}}
+                        </div>
+                      </ng-container>
+                    </td>
+                    <td>
+                      <input dir="auto" type="text" class="form-control" formControlName="name">
+                      <ng-container *ngIf="errorMassage?.fees_type_premium">
+                        <div class="text-danger" *ngFor="let error of errorMassage['fees_type_premium'][i].name_ar">
+                          {{error}}
+                        </div>
+                      </ng-container>
+                    </td>
+                    <td>
+                      <input dir="auto" type="text" class="form-control" formControlName="amount"
+                        (keyup)="onChangeValues()">
+                    </td>
+                    <td>
+                      <div class="buttons-minus-plus">
+                        <i class="fas fa-minus-circle text-danger mx-3 mt-3" *ngIf="i >= 1"
+                          (click)="removeTerm(semster.id , i)"></i>
+                        <i class="fas fa-plus-circle add-plus mt-3" *ngIf="i <= 0" (click)="addNewTerm(semster.id)"></i>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </table>
+            <hr *ngIf="i != semsters?.length - 1 ">
+          </ng-container>
+        </ng-container>
+
+        <ng-template #errorData>
+          <!-- <div class="row"> -->
+            <div class="col-md-12">
+              <app-message-box [messageBox]="{type:'local',message:noSemesterFound}"></app-message-box>
+            </div>
+          <!-- </div> -->
+        </ng-template>
+
+        <div class="col-md-12 text-left">
+          <button type="submit" class="btn mr-auto add mt-2" *ngIf="!cat_id">أضافه</button>
+        <button type="submit" class="btn mr-auto add mt-2" *ngIf="cat_id">تعديل</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

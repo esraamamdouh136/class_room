@@ -1,0 +1,18 @@
+<!--Cost Center Error-->
+<div class="message text-center border py-5" *ngIf="messageBox?.code == 4000 || messageBox?.code === 400">
+    <img src="../../../../assets/media/imgs/errorMessage.png">
+    <h2 class="text-danger mt-3">{{messageBox?.message}}</h2>
+</div>
+
+
+<!--No results Error-->
+<div class="message text-center border py-5" *ngIf="messageBox?.code == 5000">
+    <img src="./assets/media/imgs/error.png">
+    <h2 class="text-danger mt-3">{{messageBox?.message}}</h2>
+</div>
+
+<!--No results Error-->
+<div class="message text-center border py-5" *ngIf="messageBox?.type == 'local'">
+    <img src="./assets/media/imgs/error.png">
+    <h2 class="text-danger mt-3">{{messageBox?.message}}</h2>
+</div>

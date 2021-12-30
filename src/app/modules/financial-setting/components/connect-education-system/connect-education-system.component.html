@@ -1,0 +1,57 @@
+<section class="section border">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            {{"setting.entereducationManagerInfo" | translate}}
+        </h2>
+    </header>
+    <!-- ____ end section header __________ -->
+
+    <!-- ____ begin section body __________ -->
+    <div class="section__body p-4 p-lg-7">
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="w-100">
+                <div class="row">
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="user-name">
+                                {{'parent_pages.userName' | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <input dir="auto" type="text" class="form-control w-100" id="user-name"
+                                [placeholder]="'parent_pages.userName' | translate" formControlName="username">
+                            <ng-container *ngIf="formsError?.username">
+                                <div class="text-danger" *ngFor="let error of formsError?.username">
+                                    {{error}}</div>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="password">
+                                {{'parent_pages.password' | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <input dir="auto" type="text" class="form-control w-100" id="password"
+                                [placeholder]="'parent_pages.password' | translate" formControlName="password">
+                            <ng-container *ngIf="formsError?.password">
+                                <div class="text-danger" *ngFor="let error of formsError?.password">
+                                    {{error}}</div>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <button mat-button class="btn btn-primary accept py-1">
+                {{'general.save' |translate}}
+            </button>
+        </form>
+
+    </div>
+    <!-- ____ end section body __________ -->
+</section>

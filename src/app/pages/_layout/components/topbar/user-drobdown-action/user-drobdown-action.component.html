@@ -1,0 +1,71 @@
+<ng-container>
+    <!--begin::User-->
+    <ng-container>
+        <div class="dropdown" ngbDropdown [placement]="placement" [autoClose]="true" #myDrop="ngbDropdown">
+            <div ngbDropdownToggle class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+                    <img class="w-75 h-75 rounded-circle" [src]="userData?.image_path"
+                        onError="this.src='../assets/media/imgs/user.png'" />
+                </div>
+            </div>
+            <div ngbDropdownMenu
+                class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg p-0">
+                <div class="profile-content">
+                    <div class="header-content">
+                        <div class="header-details d-flex align-items-center">
+                            <img [src]="userData?.image_path" onError="this.src='../assets/media/imgs/user.png'">
+                            <div class="user-details mx-3">
+                                <p class="m-0 d-flex">{{userData?.username}}</p>
+                                <p class="m-0" style="font-size: 12px;">
+                                    {{userData?.email}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-user">
+                        <div class="d-flex align-items-center mt-3">
+                            <div>
+                                <ng-template #content let-c="close" let-d="dismiss">
+                                    <div #childModal>
+                                        <div class="modal-header d-none">
+                                            <h4 class="modal-title">Basic demo</h4>
+                                            <button type="button" class="close" aria-label="Close"
+                                                (click)="d('Cross click')">
+                                                <span aria-hidden="true">close</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="m-0">
+                                                {{'AUTH.GENERAL.sure' | translate}}
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" (click)="c('Close click')">
+                                                {{'common.no' | translate}}
+                                            </button>
+                                            <button type="button" class="btn btn-danger" (click)="logOut()">
+                                                {{'common.yes' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </ng-template>
+                                <a [routerLink]="['personal-details']" (click)="myDrop.close()"><i
+                                        class="flaticon-profile-1" style="color: #c1bfd0;"></i><span class="mx-3"
+                                        style="color: #6f727d;">الملف الشخصي</span></a>
+                                <div class="d-flex align-items-center mt-3">
+                                    <div><button class="logout-btn" (click)="open(content)"> {{"general.logout" |
+                                            translate}}</button></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--end::Dropdown-->
+    </ng-container>
+    <!--end::User-->
+</ng-container>

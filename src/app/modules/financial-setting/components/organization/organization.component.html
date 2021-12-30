@@ -1,0 +1,521 @@
+<section class="section border">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 font-weight-bolder d-flex">
+      <i class="fa fa-copy mx-2"></i>
+      {{'setting.profile' | translate}}
+    </h2>
+    <button type="button" [hidden]="!selectedCompanyId" *ngIf="!enableEdit" (click)="edit()"
+            class="btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+      {{"general.edit" | translate}}
+    </button>
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body p-4 p-lg-7">
+    <form class="custom-form" [formGroup]="form">
+      <div class="row">
+        <!-- organization Number -->
+        <div class="col-md-6 d-flex align-items-center custom-company_form mb-4">
+          <label class="font-weight-boldest mb-0" for="">
+            {{"setting.organization.Number" | translate}}:
+          </label>
+          <span class="mx-2 font-weight-boldest">{{selectedCompany?.number}}</span>
+        </div>
+
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="form-group w-100">
+            <!--Using items input-->
+            <div class="row country-selected align-items-center">
+              <div
+                class="change-company_arrows col-md-2 col-2 d-flex align-items-center justify-content-center">
+                <!-- <img src="./assets/media/svg/icons/Navigation/Angle-right.svg" /> -->
+                <button class="btn p-0 " [disabled]="!selectedCompanyId">
+                  <div (click)="selectNext()" class="my-icon" aria-label="My icon"
+                       [inlineSVG]="'./assets/media/svg/icons/Navigation/Angle-right.svg'"></div>
+                </button>
+
+              </div>
+              <div class=" col-md-8 col-8">
+                <ng-select  [ngModelOptions]="{standalone: true}" [items]="motherCompanies"
+                           bindLabel="name" bindValue="id"
+                           [placeholder]="'setting.motherCompanies' | translate"
+                           [(ngModel)]="selectedCompanyId" (change)="onChangeMotherCompany($event)">
+                </ng-select>
+              </div>
+              <div
+                class="change-company_arrows col-md-2 col-2 d-flex align-items-center justify-content-center">
+                <button class="btn p-0" [disabled]="!selectedCompanyId">
+                  <div class="my-icon" aria-label="My icon" (click)="selectPrevious()"
+                       [inlineSVG]="'./assets/media/svg/icons/Navigation/Angle-left.svg'"></div>
+                </button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group custom-company_form">
+            <div class="row align-items-center no-gutters w-100">
+              <label class="font-weight-bolder" for="">
+                {{ "setting.organization.Logo" | translate }} :
+              </label>
+              <div class="col-md-4 col-sm-4" *ngIf="!selectedCompany?.has_image">
+                <file-upload formControlName="image" [multiple]="false" [animation]="false">
+                </file-upload>
+              </div>
+              <div class="col-md-4 col-sm-4 company-img" *ngIf="selectedCompany?.has_image">
+                <img [src]="selectedCompany?.image_path"
+                     onerror="this.src='https://via.placeholder.com/150';"
+                     class="enterprise-img margin-10 ">
+                <i class="far fa-times-circle" [ngStyle]="{'display': enableEdit ? 'initial' : 'none'}"
+                   *ngIf="selectedCompany?.has_image" (click)="removeLogo()"></i>
+              </div>
+              <!-- <div class="col-md-3 col-sm-4" *ngIf="selectedCompany?.has_image">
+                  <button type="button" class="btn remove-logo" [disabled]="!enableEdit"
+                      (click)="removeLogo()">
+                      <span class="icon">
+                          <i class="fas fa-trash-alt text-danger"></i>
+                      </span>
+                      <span class="mx-1">
+                          {{"setting.organization.remove_logo" | translate}}
+                      </span>
+                  </button>
+              </div> -->
+              <div class="col-md-3 mb-lg-3 d-flex">
+                <div class="form-group is_active company-status">
+                  <label class="font-weight-bolder w-auto" for="">
+                    {{"general.status" | translate}}
+                  </label>
+                  <span class="switch switch-icon">
+                                        <!-- [(ngModel)]="relative-relation.header.self.fixed.desktop" -->
+                                        <label class="pointer auto-width" for="isActive"
+                                               [class.f-w]="statusFormControl.value">{{"setting.organization.play" |
+                                            translate}}</label>
+                                        <label class="mx-3 auto-width">
+                                            <input dir="auto" id="isActive" type="checkbox" name="isActive"
+                                                   formControlName="status"/>
+                                            <span></span>
+                                        </label>
+                                        <label class="pointer auto-width" for="isActive"
+                                               [class.f-w]="!statusFormControl.value">{{"setting.organization.stop" |
+                                            translate}}</label>
+                                        <ng-container *ngIf="formErrors?.status">
+                                            <div class="text-danger" *ngFor="let error of formErrors?.status">
+                                                {{error}}</div>
+                                        </ng-container>
+                                    </span>
+                </div>
+              </div>
+              <ng-container *ngIf="formErrors?.image">
+                <div class="text-danger" *ngFor="let error of formErrors?.image">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-12">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder font-14 text-nowrap min-w-125" for="">
+              {{"setting.organization.Name" | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+            <input dir="auto" type="text" class="form-control"
+                   placeholder="{{'setting.organization.Name' | translate}}" aria-describedby="basic-addon1"
+                   formControlName="name">
+            <ng-container *ngIf="formErrors?.name">
+              <div class="text-danger" *ngFor="let error of formErrors?.name">
+                {{error}}</div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder" for="">
+              {{"setting.selectCountry" | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+            <!--Using items input-->
+            <div class="row w-100">
+              <div class="col-12">
+                <ng-select  [items]="countries" bindLabel="name" bindValue="id"
+                           [placeholder]="'setting.selectCountry' | translate" formControlName="country_id">
+                </ng-select>
+                <ng-container *ngIf="formErrors?.country_id">
+                  <div class="text-danger" *ngFor="let error of formErrors?.country_id">
+                    {{error}}</div>
+                </ng-container>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- begin separtor -->
+        <div class="col-12">
+          <hr class="hr m-0 py-2">
+        </div>
+        <!-- end separtor -->
+
+        <div class="col-12">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="form-group custom-company_form">
+                <label class="font-weight-bolder" for="">
+                  {{"setting.organization.details.details" | translate}} :
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="row w-100">
+                  <div class="col-sm-8 mb-sm-0">
+                    <input dir="auto" type="text" class="form-control mb-3" 
+                           placeholder="{{'setting.organization.details.street' | translate}}"
+                           aria-describedby="basic-addon1" formControlName="address_street">
+                    <ng-container *ngIf="formErrors?.address_street">
+                      <div class="text-danger" *ngFor="let error of formErrors?.address_street">
+                        {{error}}</div>
+                    </ng-container>
+                  </div>
+                  <div class="col-sm-4">
+                    <input dir="auto" type="text" class="form-control mb-3"
+                           placeholder="{{'setting.organization.details.city' | translate}}"
+                           aria-describedby="basic-addon1" formControlName="city">
+                    <ng-container *ngIf="formErrors?.city">
+                      <div class="text-danger" *ngFor="let error of formErrors?.city">
+                        {{error}}</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- <div class="col-md-12 "></div> -->
+            <div class="col-md-12 mb-3">
+              <div class="form-group custom-company_form">
+                <div class="row w-100">
+                  <div class="col-sm-4 mb-sm-0">
+                    <input dir="auto" type="text" class="form-control mb-3" appNumbersOnly
+                           placeholder="{{'general.phone' | translate}}"
+                           aria-describedby="basic-addon1" formControlName="phone">
+                    <ng-container *ngIf="formErrors?.phone">
+                      <div class="text-danger" *ngFor="let error of formErrors?.phone">
+                        {{error}}</div>
+                    </ng-container>
+                  </div>
+
+                  <div class="col-sm-4 mb-sm-0">
+                    <input dir="auto" type="text" class="form-control mb-3" appNumbersOnly
+                           placeholder="{{'setting.organization.details.mobile' | translate}}"
+                           aria-describedby="basic-addon1" formControlName="mobile">
+                    <ng-container *ngIf="formErrors?.mobile">
+                      <div class="text-danger" *ngFor="let error of formErrors?.mobile">
+                        {{error}}</div>
+                    </ng-container>
+                  </div>
+
+                  <div class="col-sm-4 mb-sm-0">
+                    <input dir="auto" type="text" class="form-control mb-3" appNumbersOnly
+                           placeholder="{{'setting.organization.details.fax' | translate}}"
+                           aria-describedby="basic-addon1" formControlName="fax">
+                    <ng-container *ngIf="formErrors?.fax">
+                      <div class="text-danger" *ngFor="let error of formErrors?.fax">
+                        {{error}}</div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-12 ">
+              <div class="form-group custom-company_form">
+                <div class="row w-100">
+                  <div class="col-sm-6">
+                    <input dir="auto" type="text" class="form-control text-left"
+                           placeholder="{{'setting.organization.details.website' | translate}}"
+                           aria-describedby="basic-addon1" formControlName="website">
+                    <ng-container *ngIf="formErrors?.website">
+                      <div class="text-danger" *ngFor="let error of formErrors?.website">
+                        {{error}}</div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- begin separtor -->
+        <div class="col-12">
+          <hr class="hr m-0 py-2">
+        </div>
+        <!-- end separtor -->
+
+        <div class="col-12">
+          <div class="row">
+            <div class="col-md-6 ">
+              <div class="form-group custom-company_form">
+                <label class="font-weight-bolder" for="">
+                  {{'setting.organization.Tax_Number' | translate}} :
+                  <span class="text-danger">*</span>
+                </label>
+
+                <input dir="auto" type="text" class="form-control"
+                       placeholder="{{'setting.organization.Tax_Number' | translate}}"
+                       aria-describedby="basic-addon1" formControlName="tax_number" appNumbersOnly>
+                <ng-container *ngIf="formErrors?.tax_number">
+                  <div class="text-danger" *ngFor="let error of formErrors?.tax_number">
+                    {{error}}</div>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-6 ">
+              <div class="form-group custom-company_form">
+                <label class="font-weight-bolder" for="">
+                  {{'setting.organization.special_number' | translate}}:
+                  <span class="text-danger">*</span>
+                </label>
+
+                <input dir="auto" type="text" class="form-control" appNumbersOnly
+                       placeholder="{{'setting.organization.special_number' | translate}}"
+                       aria-describedby="basic-addon1" formControlName="sp_number">
+                <ng-container *ngIf="formErrors?.sp_number">
+                  <div class="text-danger" *ngFor="let error of formErrors?.sp_number">
+                    {{error}}</div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- begin separtor -->
+        <div class="col-12">
+          <hr class="hr m-0 py-2">
+        </div>
+        <!-- end separtor -->
+
+
+        <div class="col-md-12">
+          <ul class="list-unstyled p-0 custom-list">
+            <li class="custom-list__item mb-3">
+                            <span class="key min-width-40px">
+                                {{'setting.organization.System_administrator' | translate}}:
+                            </span>
+              <span class="val">
+                                {{selectedCompany?.main_account_data?.name}}
+                            </span>
+            </li>
+            <li class="custom-list__item mb-3">
+                            <span class="key min-width-40px">
+                                {{'setting.organization.details.mobile' | translate}}:
+                            </span>
+              <span class="val d-inline-block " dir="ltr">
+                                {{selectedCompany?.main_account_data?.mobile}}
+                            </span>
+            </li>
+            <li class="custom-list__item mb-3">
+                            <span class="key min-width-40px">
+                                {{'setting.organization.details.email' | translate}}:
+                            </span>
+              <span class="val">
+                                {{selectedCompany?.main_account_data?.email}}
+                            </span>
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- begin separtor -->
+        <div class="col-12">
+          <hr class="hr m-0 py-2">
+        </div>
+        <!-- end separtor -->
+
+
+        <div class="col-md-12">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder" for="">
+              {{'setting.organization.basis_of_the_report' | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+
+            <div class="d-flex flex-column">
+              <div class="custom-control custom-radio custom-control-inline">
+
+                <input dir="auto" value="cash_basis" type="radio" id="customRadioInline1"
+                       name="accrual_basis" class="custom-control-input" formControlName="accrual_basis"
+                       [disabled]="true">
+                <label class="custom-control-label pointer disabled"
+                       [class.f-w]="accrualBasisFormControl.value == 'cash_basis'">
+                  {{'setting.organization.Monetary_basis' | translate}}
+                </label>
+
+                <p class="soon m-0 p-3 bg-danger text-white font-weight-bold">
+                  {{'general.soon' | translate}}
+                </p>
+
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input dir="auto" value="vat_estimation_basis" type="radio" id="customRadioInline2"
+                       name="accrual_basis" class="custom-control-input" formControlName="accrual_basis">
+                <label class="custom-control-label pointer" for="customRadioInline2"
+                       [class.f-w]="accrualBasisFormControl.value == 'vat_estimation_basis'">
+                  {{'setting.organization.accrual_basis' | translate}}
+                </label>
+              </div>
+              <ng-container *ngIf="formErrors?.report_type">
+                <div class="text-danger" *ngFor="let error of formErrors?.report_type">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- begin separtor -->
+        <div class="col-12">
+          <hr class="hr m-0 py-2">
+        </div>
+        <!-- end separtor -->
+
+        <div class="col-md-12">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder" for="">
+              {{'setting.organization.journal_method' | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+
+            <div class="d-flex flex-column">
+              <div class="custom-control custom-radio custom-control-inline">
+
+                <input dir="auto" value="line_level_restriction" type="radio" name="journal_method"
+                       class="custom-control-input" formControlName="journal_method" id="journal_method1">
+                <label class="custom-control-label pointer" for="journal_method1"
+                       [class.f-w]="accrualJournalMethodFormControl.value == 'line_level_restriction'">
+                  {{'setting.organization.linelevelrestriction' | translate}}
+                </label>
+
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input dir="auto" value="combined-entry-amount" type="radio" name="journal_method"
+                       class="custom-control-input" formControlName="journal_method" id="journal_method2">
+                <label class="custom-control-label pointer" for="journal_method2"
+                       [class.f-w]="accrualJournalMethodFormControl.value == 'combined-entry-amount'">
+                  {{'setting.organization.combinedentryamount' | translate}}
+                </label>
+              </div>
+              <ng-container *ngIf="formErrors?.report_type">
+                <div class="text-danger" *ngFor="let error of formErrors?.report_type">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder" for="">
+              {{'general.language' | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+            <!--Using items input-->
+            <div class="row w-100">
+              <div class="col-sm-6">
+                <ng-select  [items]="languages" bindLabel="title" bindValue="id"
+                           [placeholder]="'setting.selectLang' | translate" formControlName="language_id">
+                </ng-select>
+                <ng-container *ngIf="formErrors?.language_id">
+                  <div class="text-danger" *ngFor="let error of formErrors?.language_id">
+                    {{error}}</div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder" for="">
+              {{'setting.organization.Time_zone' | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+            <!--Using items input-->
+            <div class="row w-100">
+              <div class="col-sm-6">
+                <ng-select  formControlName="zone"
+                           [placeholder]="'setting.selectZone' | translate">
+                  <ng-option *ngFor="let item of zones" [value]="item?.key">
+                    {{item?.value}}
+                  </ng-option>
+                </ng-select>
+
+                <ng-container *ngIf="formErrors?.zone">
+                  <div class="text-danger" *ngFor="let error of formErrors?.zone">
+                    {{error}}</div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder" for="">
+              {{'setting.organization.Date_Format' | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+            <!--Using items input-->
+            <div class="row w-100">
+              <div class="col-sm-6">
+                <ng-select  [items]="date_formats" bindValue="key" bindLabel="value"
+                          formControlName="date_format" [placeholder]="'setting.selectDates' | translate">
+                </ng-select>
+                <ng-container *ngIf="formErrors?.date_format">
+                  <div class="text-danger" *ngFor="let error of formErrors?.date_format">
+                    {{error}}</div>
+                </ng-container>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-12 py-5 text-center buttons-action">
+
+          <button type="button" (click)="updateCompanyData()" [hidden]="!enableEdit"
+                  class="btn mx-2 px-10 rounded-pill btn-shadow btn-primary font-weight-bolder min-w-130px px-8 my-3 font-size-lg accept">
+            {{"setting.save" | translate}}
+            <ng-container *ngIf="loading">
+              <span class="spinner spinner-primary ml-5"></span>
+            </ng-container>
+          </button>
+          <button type="button" (click)="cancelEdit()" [hidden]="!enableEdit"
+                  class="btn mx-2 px-10 rounded-pill btn-shadow btn-danger font-weight-bolder min-w-130px px-8 my-3 font-size-lg">
+            {{"setting.cancel" | translate}}
+          </button>
+          <!-- ___________ begin loader ________________ -->
+          <!-- <ng-container *ngIf="loading">
+              <span class="spinner fix-spinner spinner-primary my-8 d-flex justify-content-center"></span>
+          </ng-container> -->
+          <!-- ___________ end loader ________________ -->
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- ____ end section body __________ -->
+
+  <!-- ____ begin section footer __________ -->
+  <footer class="section__footer">
+
+  </footer>
+  <!-- ____ end section footer __________ -->
+
+</section>

@@ -1,0 +1,7 @@
+<p class="w-100 d-flex text-danger font-bold mt-1" *ngIf="ctrl.hasError('required') &&  (ctrl.dirty || ctrl.touched)">
+  <!-- {{(errors |async)?.username_error}} -->
+  {{'general.required' | translate}}
+</p>
+
+<p class="w-100 d-flex text-danger font-bold mt-1" *ngIf="serverErrors[name]">
+  {{serverErrors[name+ '_error']}}</p>

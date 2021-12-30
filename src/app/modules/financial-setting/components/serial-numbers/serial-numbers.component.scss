@@ -1,0 +1,29 @@
+.serial-number {
+  .contracts, .payment, .receipt,.invoice,.payment_voucher,.parent_receipt {
+    padding: 2rem;
+    border: 1px solid #ccc;
+  }
+  .contracts {
+    background-color: #F7F5F6;
+  }
+
+  .payment {
+    background-color: #FDFCE0;
+  }
+
+  .receipt {
+    background-color: #D5E0FC;
+  }
+
+  .invoice {
+    background-color: #9db7f9;
+  }
+
+  .payment_voucher {
+    background-color: #fffdc1;
+  }
+
+  .parent_receipt {
+    background-color: #dfdfdf;
+  }
+}

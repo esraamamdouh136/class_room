@@ -1,0 +1,122 @@
+.bg {
+  margin: 0px -20px;
+  @media screen and (max-width: 992px) {
+    margin: 0px 0px !important;
+  }
+  background-color: #FEF4E8;
+
+  &.right {
+    margin: 0px -20px;
+  }
+
+  &.left {
+    margin: 0px 0px;
+  }
+
+  @media screen and (max-width: 992px) {
+    margin: 0px 0px;
+  }
+
+  a,
+  p {
+    font-weight: 900;
+  }
+
+  button.btn.tax {
+    background-color: #d34738;
+    color: white;
+    display: flex;
+  }
+
+  p.text-muted {
+    font-size: 11px;
+  }
+
+}
+
+.financial_contract {
+
+  p,
+  span {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  i.fas.fa-plus-circle {
+    color: #4680ff;
+    font-size: 16px;
+    padding-top: 4px;
+  }
+
+}
+
+.total_amount {
+  position: relative;
+}
+
+
+.note {
+  background-color: #f8f8f8;
+  position: absolute;
+  z-index: 0;
+  border: 1px solid #f8f8f8;
+
+  .table {
+    width: 16rem;
+
+    td {
+      color: black;
+      text-align: center;
+    }
+  }
+}
+
+.fa-times-circle {
+  color: #bb293a;
+  font-size: 1.7rem;
+}
+
+.note::after {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid #e6e6e6;
+  border-bottom: 0px solid #f8f8f8;
+  border-left: 2px solid #e6e6e6;
+  border-right: 0px solid #f8f8f8;
+  content: "";
+  top: -10px;
+  left: 7.5rem;
+  transform: rotate(45deg);
+  background-color: #f8f8f8;
+}
+
+.contracts,
+.title {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+li.tab-slider--trigger {
+  list-style-type: none;
+  color: black;
+  font-size: 15px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-family: "Tajawal";
+  border-bottom: 1px solid #dbdbdb;
+  width: auto;
+  padding: 2rem;
+  margin: 0.1rem;
+  height: 4rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li.tab-slider--trigger.active {
+  background: #0488d3;
+  color: white;
+}

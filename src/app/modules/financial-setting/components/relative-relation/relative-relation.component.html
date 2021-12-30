@@ -1,0 +1,62 @@
+
+<section class="section border" *ngIf='errorMassage ; else errorData'>
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-restroom mx-2"></i>
+            {{"setting.relativeRelation.relative_relation" | translate}}
+        </h2>
+        <button (click)="openAddRelativeDialog()" type="button"
+            class="btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+            {{"setting.relativeRelation.addRelation" | translate}}
+        </button>
+    </header>
+    <!-- ____ end section header __________ -->
+
+    <!-- ____ begin section body __________ -->
+    <div class="section__body p-4 p-lg-7">
+
+        <!-- ______ begin search field ______ -->
+        <div class="row mb-3">
+            <div class="col-md-6 col-lg-4 show-label">
+                <mat-form-field class="w-100 mat-field">
+                    <small class="mat-field__search-icon">
+                        <i class="fas fa-search"></i>
+                    </small>
+                    <label>
+                        <input dir="auto" appDebounceInputChange [debounceTime]="1500"
+                        (valueChanged)="onSearchChange($event)" [(ngModel)]="searchQuery" matInput
+                            type="text" placeholder="{{'general.search' | translate}}">
+                    </label>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- ______ end search field ______ -->
+
+        <!-- _______ begin tabel _______ -->
+        <!-- <div class="section__body__tabel">
+            <app-ag-tabel  [alignTableCenter]="true"
+                [tableData]="relativeRelationData" [tableColumns]="tableColumns" [isFilterable]="true"
+                [pageOptions]="pageOptions" (pageEvent)="pageEvent($event)" [isPageable]="true"
+                (rowAction)="rowActions($event)" [rowActions]="['delete','edit']">
+            </app-ag-tabel>
+        </div> -->
+
+        <div class="vc-ag-grid global-data-table" *ngIf="tableItems?.length ; else errorData">
+            <app-ag-grid #agGrid [rowData]="tableItems" [frameworkComponents]="frameworkComponents"
+                [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs"
+                [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'" [GlobalTable]="true" [pagination]="true"
+                [pageOptions]="pageOptions" (pageEvent)="pageEvent($event)">
+            </app-ag-grid>
+        </div>
+        <!-- _______ end tabel _______ -->
+
+    </div>
+    <!-- ____ end section body __________ -->
+
+</section>
+
+
+<ng-template #errorData>
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

@@ -1,0 +1,31 @@
+<div class="d-flex align-items-center justify-content-center">
+    <!--    <button class="btn mx-2" [ngStyle]="{'background-color': action?.backgroundColor, 'color': action?.color}" *ngFor="let action of actions" (click)="handleAction(action?.action)">-->
+    <!--        <i class="fa fa-{{action?.action}} p-0" [ngStyle]="{'color': action?.color}"></i>-->
+    <!--    </button>-->
+    <ng-container *ngFor="let action of actions">
+        <button class="mx-2 action-btn" mat-icon-button [disabled]="disabled" [ngStyle]="action.style"
+            (click)="handleAction(action?.action)" *ngIf="action.action != 'more'" >
+            <mat-icon>{{action.action}}</mat-icon>
+        </button>
+
+        <button mat-button 
+        class="text-white p-1" 
+        [matMenuTriggerFor]="menuOne" 
+        [ngStyle]="action.style"
+        *ngIf="action.action == 'more'">
+            {{action?.name ? action?.name : '...'}}
+            <mat-menu #menuOne="matMenu">
+                <button class="parents-actions" mat-menu-item *ngFor="let item of action?.moreActions" 
+                (click)="handleAction(item?.action)">
+                    {{item.title}}
+                </button>
+            </mat-menu>
+        </button>
+
+    </ng-container>
+
+
+
+    
+
+</div>

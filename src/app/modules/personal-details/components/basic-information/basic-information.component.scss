@@ -1,0 +1,57 @@
+.user-img {
+  cursor: pointer;
+  span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    transform: scale(0);
+    i {
+      color: #fff;
+      font-size: 2rem;
+    }
+  }
+
+  &:hover {
+    span {
+      transform: scale(1);
+    }
+  }
+}
+
+.error {
+  border: red 1px solid;
+}
+
+.fa-window-close {
+  color: red;
+}
+.fa-check {
+  color: green;
+}
+.message-disabled {
+  opacity: 0.5;
+}
+
+.password-validations__content {
+  margin-bottom: 10px;
+  [dir="rtl"] & {
+    text-align: right;
+  }
+  .fa-times {
+    color: red;
+  }
+}
+p {
+  font-weight: 400;
+  min-width: 270px;
+  [dir="rtl"] & {
+    text-align: right;
+  }
+}

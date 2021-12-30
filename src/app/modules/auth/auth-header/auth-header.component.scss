@@ -1,0 +1,31 @@
+.auth-header {
+  .mat-menu-trigger{
+  background: white;
+  border-radius: 4px;
+  font-size: 11px;
+  border: none;
+}
+}
+
+.img-flag{
+   width: 1rem !important;
+   margin : 0px 4px;
+}
+ .fa {
+  margin : 0px 5px;
+  display: table-caption;
+ }
+
+ .rtl {
+  direction: rtl !important;
+  min-width: 131px !important;
+ }
+
+ :host-context(html[dir="rtl"]) {
+  .cdk-overlay-connected-position-bounding-box {
+    left: 805.516px !important;
+  }
+  }
+
+
+

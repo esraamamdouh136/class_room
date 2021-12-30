@@ -1,0 +1,105 @@
+// ==========[Style global grid using AG-GRID]================
+.global-table {
+  ::ng-deep {
+    .ag-theme-alpine .ag-header-cell {
+      background-color: #0488d3 !important;
+      border-bottom: 1px solid #000;
+      border-top: 1px solid #000;
+
+      &:nth-child(1) {
+        border-right: 1px solid #000;
+      }
+    }
+
+    .ag-header-cell-text {
+      font-weight: 600 !important;
+      font-size: 1rem !important;
+      color: #fff !important;
+      display: block;
+      text-align: center;
+      margin: auto;
+    }
+
+    .ag-theme-alpine .ag-rtl .ag-cell {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: bold !important;
+      text-align: center;
+
+      &:nth-child(1) {
+        border-right: 1px solid #000;
+      }
+    }
+
+    .ag-center-cols-viewport {
+      // overflow: scroll;
+    }
+
+    .ag-theme-alpine .ag-header {
+      border-bottom: none !important;
+    }
+
+    .ag-theme-alpine .ag-root-wrapper {
+      border: none !important;
+    }
+
+    .action-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bg-red {
+      background-color: rgba(246,78,96,.2)!important;
+      .ag-cell{
+        color: #000 !important;
+      }
+    }
+  }
+}
+
+
+// NEW STYLE
+::ng-deep {
+  //.ag-theme-alpine .ag-rtl .ag-cell {
+  //  border-left: 1px solid #000 !important;
+  //}
+
+  //.global-table .ag-theme-alpine .ag-header-cell {
+  //  background-color: transparent !important;
+  //  border-bottom: 1px solid #fff !important;
+  //  border-top: 1px solid rgb(255, 255, 255) !important;
+  //}
+
+  //.global-table .ag-theme-alpine .ag-rtl .ag-cell:nth-child(1) {
+  //  border-right: 1px solid #fff !important;
+  //}
+  //
+  //.global-table .ag-theme-alpine .ag-header-cell:nth-child(1) {
+  //  border-right: 1px solid white !important;
+  //}
+
+  //.ag-theme-alpine .ag-header-cell-resize {
+  //  display: flex;
+  //  align-items: center;
+  //  background: transparent !important;
+  //}
+
+  .ag-theme-alpine .ag-row {
+    //border-color: #ffffff !important;
+    height: 60px !important;
+
+  }
+
+  .ag-header-row.ag-header-row-column {
+    height: 5rem !IMPORTANT;
+  }
+
+  .ag-header.ag-focus-managed.ag-pivot-off {
+    height: 55px !important;
+    min-height: 66px !important;
+  }
+
+}
+
+// ==========[Style global grid using AG-GRID]================

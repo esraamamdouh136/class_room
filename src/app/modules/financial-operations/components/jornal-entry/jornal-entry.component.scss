@@ -1,0 +1,177 @@
+.section__body {
+  background-color: #E0EDD9;
+  //padding: 0.5rem;
+}
+
+.date-form {
+  border: 1px solid #e4e6ef;
+  border-radius: 5px;
+  background-color: white;
+  font-weight: bold;
+}
+
+.j-label {
+  font-weight: bold;
+  //margin-bottom: 0;
+  font-size: 1.4em;
+}
+
+input {
+  &:disabled {
+    user-select: auto;
+    color: black;
+  }
+}
+
+.j-select {
+  width: 100%;
+}
+
+.paginate-btn {
+  transition: 0.3s;
+  i {
+    color: black;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      background-color: rgba(black, 0.05);
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.4;
+  }
+}
+
+.arrow-next-prev {
+  color: #2C88FF;
+}
+
+.arrow-start-last {
+  color: black;
+}
+
+.original {
+  background-color: white;
+  color: black;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.4em;
+  font-weight: 600;
+}
+
+.custom-input-label {
+  font-size: 1.4em;
+  background-color: #FF8C00;
+  padding: 0.5rem 1.5rem;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 0;
+  box-shadow: 0 2px 6px rgba(black, 0.1);
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  i {
+    color: white;
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+.total {
+  min-height: 50px;
+  background-color: #93D470;
+  padding: 0.5rem 1rem;
+
+  .text {
+    font-weight: bold;
+    color: black;
+  }
+}
+
+.btn-add {
+  background-color: #93d470;
+}
+
+.j-actions {
+  .btn {
+    font-size: 1.4em;
+    padding: 0.5rem 4rem;
+
+    &.save {
+      background-color: #5EB75B;
+    }
+
+    &.new {
+      background-color: #378136;
+    }
+
+    &.edit {
+      background-color: #FF9000;
+    }
+
+    &.preview, &.print {
+      background-color: #DFDFDF;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &:not(:disabled) {
+      &:active {
+        transform: scale(0.96);
+      }
+    }
+  }
+}
+
+label {
+  font-size: 1.1rem;
+  font-weight: bolder;
+}
+
+::ng-deep .ng-dropdown-panel .scroll-host{
+  width : 100% !important;
+}
+
+.paginate {
+  padding: 7px;
+  width: 26px;
+  background: transparent;
+  border: 0px;
+}
+
+::ng-deep {
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    height: 7px !important;
+    padding-top: 9px !important;
+    padding-bottom: 0px !important;
+  }
+}
+
+
+
+@media only screen and (max-width: 998px) {
+  .j-label {
+    margin-bottom: 0.5rem;
+  }
+  .j-actions {
+    button{
+      width: 100% !important;
+    }
+   }
+   .w-75 {
+     width: 100% !important;
+   }
+}

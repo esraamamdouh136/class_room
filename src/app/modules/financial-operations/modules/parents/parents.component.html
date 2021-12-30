@@ -1,0 +1,159 @@
+<div class="contanier-fluid border">
+  <div class="bg-color">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+      <h2 class="h4 mb-0 font-weight-bolder d-flex">
+        <i class="fa fa-restroom  mx-2"></i>
+        {{'general.parents' | translate}}
+      </h2>
+      <div class="d-flex">
+        <button type="button"
+          class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg"
+          (click)="edit()" *ngIf="!isUserEdit && !userAdd">
+          {{'general.edit' | translate}}
+        </button>
+
+        <!-- <button type="button" *ngIf="!isUserEdit && !userAdd"
+          class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg"
+          routerLink="father">{{'general.add' | translate}}
+        </button>
+  -->
+        <div class="d-flex align-items-center">
+          <i class="fas fa-arrow-left mx-3" routerLink="../parents"
+            [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'fas fa-arrow-left' : 'fas fa-arrow-right'"></i>
+        </div>
+
+      </div>
+    </header>
+    <!-- && dataParents?.length && showAddChildren *ngIf="(isUserEdit || userAdd)" *ngIf="viewMode == 'tab4' && isUserEdit" -->
+    
+    <!-- ____ end section header __________ -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="input-slid mb-2" [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'mr-auto' : 'ml-auto'"
+          *ngIf="!isUserEdit">
+
+          <i class="fa "
+            [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'fa-step-forward arrow-start-last' : 'fa-step-backward arrow-start-last'"
+            (click)="getFileById('first')"></i>
+
+          <i class="fas text-primary"
+            [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'fa-chevron-right' : 'fa-chevron-left'"
+            (click)="getFileById('previous')"></i>
+
+          <div class="form-group w-75 mb-0">
+            <input type="" class="form-control" [(ngModel)]="parent_file_id" (change)="sarechById(parent_file_id)">
+          </div>
+
+          <i class="fas text-primary"
+            [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'fa-chevron-left' : 'fa-chevron-right'"
+            (click)="getFileById('next')"></i>
+
+          <i class="fa"
+            [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'fa-step-backward arrow-start-last' : 'fa-step-forward arrow-start-last'"
+            (click)="getFileById('last')"></i>
+
+          <i class="fas" [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'fa-arrow-to-left' : 'fa-arrow-to-right'"></i>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-slider--nav">
+      <ul class="tab-slider--tabs p-0 mt-4">
+
+        <li class="tab-slider--trigger" [class.active]="viewMode == 'father'" rel="father" (click)="viewMode ='father'">
+          {{'general.father' | translate }}
+        </li>
+
+        <li class="tab-slider--trigger" [class.active]="viewMode == 'mother'" rel="mother" (click)="viewMode ='mother'">
+          {{'general.mother' | translate }}
+        </li>
+
+        <li class="tab-slider--trigger" [class.active]="viewMode == 'relative'" rel="relative"
+          (click)="viewMode ='relative'">
+          {{'general.relatives' | translate }}
+        </li>
+
+        <li class="tab-slider--trigger" [class.active]="viewMode == 'tab4'" rel="tab4" (click)="viewMode ='tab4'"
+          *ngIf="!userAdd || showChild">
+          {{'general.children' | translate }}
+        </li>
+
+        <li class="tab-slider--trigger" [class.active]="viewMode == 'tab5'" rel="tab5" (click)="viewMode ='tab5'"
+          *ngIf="!userAdd || showChild">
+          {{'general.living' | translate }}
+        </li>
+
+        <li class="tab-slider--trigger" [class.active]="viewMode == 'tab6'" rel="tab6" (click)="viewMode ='tab6'"
+          *ngIf="!userAdd || showChild">
+          {{'general.archive_file' | translate }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="tab-slider--container" [ngSwitch]="viewMode">
+
+      <div id="father" class="tab-slider--body" *ngSwitchCase="'father'">
+        <app-father [parent_file_id]="parent_file_id" [dataParents]='parentsData?.father' [countries]="countries"
+          (familyFileId)="changeFamilyId($event)" (changeData)="changeData($event)" [isUserAdd]="isUserAdd"
+          [formErrors]="formErrors?.father" [countryName]="countryName" [markAsParentSelected]="markAsParentSelected"
+          (nextTab)="nextTab($event)">
+
+        </app-father>
+      </div>
+
+      <div id="mother" class="tab-slider--body" *ngSwitchCase="'mother'">
+        <app-mother [parent_file_id]="parent_file_id" [dataParents]='parentsData?.mother' [countries]="countries"
+          [isUserAdd]="isUserAdd" (changeData)="changeData($event)" [formErrors]="formErrors?.mother"
+          [countryName]="countryName" [markAsParentSelected]="markAsParentSelected" (nextTab)="nextTab($event)">
+        </app-mother>
+      </div>
+
+      <div id="relative" class="tab-slider--body" *ngSwitchCase="'relative'">
+        <app-relatives [parent_file_id]="parent_file_id" [dataParents]='parentsData?.relative' [countries]="countries"
+          [relatives_relations]='relatives_relations' [isUserAdd]="isUserAdd" (changeData)="changeData($event)"
+          [countryName]="countryName" [markAsParentSelected]="markAsParentSelected" [formErrors]="formErrors?.relative">
+        </app-relatives>
+      </div>
+
+      <ng-container *ngIf="!userAdd || showChild">
+        <div id="tab4" class="tab-slider--body" *ngSwitchCase="'tab4'">
+          <app-children [parent_file_id]="parent_file_id" [dataParents]='parentsData?.students'
+            [classRooms]="classRooms" [semsters]="semsters" [caseStudies]="caseStudiesList"
+            [relations]='relatives_relations' [isUserAdd]="isUserAdd"  (changeData)="changeData($event)"
+            [countryName]="countryName"></app-children>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!userAdd || showChild">
+        <div id="tab5" class="tab-slider--body" *ngSwitchCase="'tab5'">
+          <app-live [parent_file_id]="parent_file_id" [isEdit]="isUserEdit" [addNew]="userAdd" (changeData)="changeData($event)"
+            [dataParents]='parentsData'></app-live>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!userAdd || showChild">
+        <div id="tab6" class="tab-slider--body" *ngSwitchCase="'tab6'">
+          <app-archive-file [parent_file_id]="parent_file_id" [dataParents]='parentsData' [isEdit]="isUserEdit" [addNew]="userAdd"></app-archive-file>
+        </div>
+      </ng-container>
+
+      <div class="d-flex main-controle-btn" [style.width]="isUserEdit ? '80%' : 'auto'">
+        <button type="submit" class="btn btn-primary d-block my-3"
+          [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'mr-auto' : 'ml-auto'"
+          *ngIf="userAdd && viewMode != 'father' && viewMode != 'tab4'" (click)="onSave()">
+          {{'setting.save' |translate}}</button>
+
+        <button type="submit" class="btn btn-primary my-3 d-block ml-auto mr-3 " (click)="nextTab('mother')"
+          *ngIf="isUserEdit && viewMode == 'father'" style="transform: translateY(-55px);">{{'general.next' | translate}}</button>
+
+        <button type="submit" class="btn btn-primary d-block my-3" style="transform: translateY(-55px);"
+          [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'ml-auto mr-3' : 'mr-auto ml-3'"
+          *ngIf="isUserEdit && viewMode != 'tab4' && viewMode != 'tab5' && viewMode != 'tab6'" (click)="onSave()">
+          {{'setting.saveAll' |translate}}</button>
+      </div>
+
+    </div>
+  </div>
+</div>

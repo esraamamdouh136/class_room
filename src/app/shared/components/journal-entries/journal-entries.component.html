@@ -1,0 +1,90 @@
+<div class="d-flex justify-content-between align-items-center dialog-head">
+    <h2 mat-dialog-title class="mb-0" *ngIf="data.type == 'tax'">
+        {{(data.type == 'tax' ? 'general.tax' : 'general.specialdiscounts' ) | translate}} -
+        {{('general.journal_entries'
+        | translate) }}
+    </h2>
+    <h2 mat-dialog-title class="mb-0" *ngIf="data.type == 'specialdiscounts'">
+        {{ 'general.specialdiscounts' | translate}} - {{'general.journal_entries'| translate }}
+    </h2>
+    <h2 mat-dialog-title class="mb-0" *ngIf="data.type == 'paymentMethod'">
+        {{ 'general.payment_mothed'| translate}} - {{'general.journal_entries'| translate }}
+    </h2>
+    <i class="fas fa-times" mat-dialog-close></i>
+</div>
+<div class="scroll">
+    <mat-dialog-content class="mat-typography">
+        <ng-container>
+            <form class="taxes form-row">
+                <div class="col-lg-6 mb-4">
+                    <div class="form-group mb-0">
+                        <label class="font-weight-bolder" for="">
+                            {{(data.type=="tax" ? "general.taxes" : "general.discount") | translate}}
+                        </label>
+                        <span class="text-danger">*</span>
+                        <!--Using items input-->
+                        <!-- [placeholder]="(data.type == 'tax' ? 'general.taxes' : 'general.discount') | translate" -->
+                        <ng-select  [items]="DropDownData" bindLabel="name_ar" (change)="dropDownDataChanged()"
+                            name="taxes" [(ngModel)]="selectedDropDownItem" bindValue="id">
+                        </ng-select>
+                    </div>
+
+                    <div class="form-group mb-0 mt-3">
+                        <label class="font-weight-bolder" for="">
+                            {{"general.restrictionsType" | translate}}
+                        </label>
+                        <span class="text-danger">*</span>
+                        <!--Using items input-->
+                        <ng-select  [items]="journalModules" bindLabel="name" [(ngModel)]="journal_module_id"
+                            bindValue="id" name="journalModule" [placeholder]="'general.restrictionsType' | translate"
+                            (change)="changeJournalModule()">
+                        </ng-select>
+                    </div>
+                </div>
+            </form>
+            <form #form="ngForm" class="position-relative">
+                <div class="position-absolute top-0 left-0 h-100 w-100 bg-white d-flex align-items-center justify-content-center"
+                    *ngIf="!dataLoaded" style="z-index: 999">
+                    <mat-spinner [diameter]="60"></mat-spinner>
+                </div>
+                <div class="table-actions d-flex align-items-end justify-content-end mb-4">
+                    <button class="btn btn-success" type="button" (click)="onAddRow()">{{'general.add' |
+                        translate}}</button>
+                </div>
+
+            </form>
+
+            <div class="row mb-3">
+                <div class="col-6" *ngFor="let item of errorsArr">
+                    <p class="m-0 text-danger font-weight-bold">
+                        {{item}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="vc-ag-grid">
+                <app-ag-grid #agGrid [frameworkComponents]="frameworkComponents" [rowData]="rowData"
+                    [rowColors]="{even: '#93d470', odd: '#fff'}" (updateData)="onUpdateData($event)"
+                    (selectedRows)="onRowSelectionChange($event)" [columnDefs]="columnDefs"
+                    [defaultColDef]="defaultColDef" height="200px"></app-ag-grid>
+            </div>
+        </ng-container>
+
+    </mat-dialog-content>
+</div>
+
+
+<mat-dialog-actions align="center">
+    <div class="dailog-actions-btns">
+        <button mat-button class="btn btn-primary accept" (click)="submit()"
+            [disabled]="form?.invalid">
+            {{('setting.save' | translate)}}
+            <ng-container *ngIf="addLoading">
+                <span class="spinner spinner-primary ml-5"></span>
+            </ng-container>
+        </button>
+        <button mat-button mat-dialog-close class="btn btn-danger">
+            {{'setting.cancel' | translate}}
+        </button>
+    </div>
+</mat-dialog-actions>

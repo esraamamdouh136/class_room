@@ -1,0 +1,85 @@
+<section class="section">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-chalkboard-teacher mx-2"></i>
+            {{'setting.studentsYears.lessonsSchdule' | translate}}
+        </h2>
+    </header>
+    <!-- ____ end section header __________ -->
+
+    <!-- ____ begin section body __________ -->
+    <div class="section__body p-4 p-lg-7">
+
+        <form >
+            <div class="w-100">
+                <div class="row">
+
+                    <div class="col-lg-12 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'setting.studentsYears.studeyClass' | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <!--Using items input-->
+                            <ng-select placeholder="{{'setting.studentsYears.studeyClass' | translate}}"  [items]="classes" bindLabel="title"
+                                bindValue="id" appendTo="body" (change)="selectClass($event)">
+                            </ng-select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'setting.studentsYears.lesson' | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <!--Using items input-->
+                            <ng-select placeholder="{{'setting.studentsYears.lesson' | translate}}"  [items]="subjects" bindLabel="title"
+                                bindValue="id" appendTo="body" (change)="selectSubject($event)">
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        <div class="vc-ag-grid global-data-table" *ngIf="subjectTableData">
+            <h2 class="m-0 p-5 mb-3 colum-head ">
+                جدول توزيع دروس {{subjectTableData?.subject}} {{subjectTableData?.season}}
+            </h2>
+
+            <div class="subject_weeks" *ngFor="let week of subjectTableData?.weeks" >
+                <h3 class="text-center m-0 p-5 mb-3">
+                    {{week?.title}} من {{week?.starts_at}} الي {{week?.ends_at}}
+                </h3>
+                <ng-container *ngIf="week?.lectures.length">
+                    <app-ag-grid #agGrid [rowData]="week?.lectures" [frameworkComponents]="frameworkComponents"
+                    [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs"
+                    [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'" [GlobalTable]="true" [pagination]="true"
+                    [pageOptions]="pageOptions" (pageEvent)="pageEvent($event)">
+                    </app-ag-grid>
+                </ng-container>
+            </div>
+
+            
+        </div>
+
+
+        <!-- Controle buttons -->
+        <div class="controle-buttons d-flex align-items-center justify-content-end py-5">
+            <button [routerLink]="['../']" routerLinkActive="router-link-active"
+                class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+                {{ "parent_pages.back" | translate }}
+                <i class="fas fa-share mr-2 fa-rotate-180"></i>
+            </button>
+        </div>
+        <!-- Controle buttons -->
+    </div>
+
+</section>
+
+<!-- <ng-template #errorData>
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template> -->

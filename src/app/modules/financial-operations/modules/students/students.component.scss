@@ -1,0 +1,65 @@
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+h2{
+    width: 25%;
+}
+}
+.buttons_add {
+    display: flex;
+    width: 50%;
+.btn-success {
+    background-color: #f4a92a;
+    border-color: #f5a00e;
+    width: 30%;
+    margin: auto;
+    display: block;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #5867dd;
+    border-color: #5867dd;
+    width: 30%;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    margin: auto;
+    display: block;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #f4516c;
+    border-color: #f4516c;
+    width: 30%;
+    margin: auto;
+    display: block;
+}
+}
+
+label {
+    font-weight: bolder !IMPORTANT;
+    font-size: 15px !IMPORTANT;
+}
+
+@media screen and (max-width:992px) {
+    header{
+        display: block !important;
+    h2{
+        width: 100% !important;
+        display: block !important;
+    }
+}
+    .buttons_add {
+        display: flex !important;
+        width: 100% !important;
+        button{
+            width: 35% !important;
+            margin-top: 5px !important;
+            
+        }
+    }
+}
+

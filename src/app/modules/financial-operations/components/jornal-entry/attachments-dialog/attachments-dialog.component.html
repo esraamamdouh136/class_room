@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-between align-items-center dialog-head">
+    <i class="fas fa-times" mat-dialog-close></i>
+    <h2 mat-dialog-title class="mb-0">
+        ({{data?.attachmentsPaths?.length || 0}}) {{'general.attachments' | translate}}
+    </h2>
+</div>
+
+
+<mat-dialog-content>
+    <h3 class="font-weight-bold text-dark text-center p-2" *ngIf="!data?.attachmentsPaths?.length">{{'general.no_attachments' | translate}}</h3>
+    <ol class="list-unstyled">
+        <li *ngFor="let attachment of data?.attachmentsPaths; index as i" class="p-2 d-flex align-items-center justify-content-between">
+            <a [href]="attachment" target="_blank" class="link">{{'general.attachment' | translate}} {{i + 1}}</a>
+           <a class="text-decoration-none p-2" *ngIf="data?.edit"> <i class="fa fa-times" (click)="removeMedia(i)"></i></a>
+        </li>
+    </ol>
+</mat-dialog-content>

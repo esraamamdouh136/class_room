@@ -1,0 +1,246 @@
+:host-context(html[dir="rtl"]) {
+  .menu-submenu {
+    .menu-subnav {
+      .menu-link {
+        padding-right: 50px;
+        padding-left: 25px;
+      }
+    }
+  }
+
+  #kt_brand {
+    border-left: 1px solid #efefef;
+  }
+}
+
+:host {
+  .aside {
+    height: 100%;
+
+    .aside-menu {
+      margin: 0;
+    }
+  }
+
+  #kt_brand {
+    border-bottom: 1px solid #efefef;
+    border-right: 1px solid #efefef;
+  }
+
+  // fixed text line break issue on minimized aside hover
+  .menu-text {
+    white-space: nowrap;
+  }
+
+  .menu-section {
+    .menu-text {
+      font-size: 1.3rem !important;
+      font-weight: bold !important;
+      color: black !important;
+    }
+  }
+}
+
+.menu-nav {
+  .menu-item {
+    width: 17rem;
+    margin: auto;
+
+    .menu-link {
+      padding: 11px 0px !important;
+
+      .menu-text {
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        color: #000000;
+        transition: all 0.2s;
+      }
+    }
+
+    &.menu-item-active {
+      .menu-link.active {
+        border-radius: 5px;
+        background-color: #dae6ff;
+
+        .menu-text {
+          color: black;
+        }
+      }
+    }
+
+    &.menu-item-open>.menu-link {
+      background-color: transparent;
+
+      .menu-text {
+        color: #89a6e3 !important;
+      }
+    }
+
+    &.menu-item-submenu {
+      .menu-link {
+        .menu-text {}
+      }
+
+      &.menu-item-open {
+        .menu-link {
+          &.menu-toggle {
+            .menu-text {
+              color: #fff;
+            }
+          }
+        }
+      }
+
+      .menu-submenu {}
+    }
+
+    &:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover .menu-link {
+      background-color: transparent;
+
+      .menu-text {
+        color: #89a6e3 !important;
+      }
+    }
+  }
+}
+
+.menu-subnav {
+  .menu-item {
+
+    // display: flex;
+    // align-items: center;
+    a {
+      display: flex;
+      align-items: center;
+    }
+
+    .aside-img_container {
+      width: 33px;
+      height: 33px;
+      text-align: center;
+      border-radius: 5px;
+      color: #fff !important;
+      margin-right: 0;
+      background: #4680ff;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 10px;
+
+      img {
+        height: 16px;
+      }
+    }
+  }
+}
+
+.menu-arrow {
+  color: #b5b5c3 !important;
+}
+
+.flaticon-more-v2 {
+  color: #0488d3 !important;
+}
+
+.scroll {
+  height: 90vh;
+  overflow: auto;
+  scroll-behavior: smooth;
+  scrollbar-color: #4680ff white;
+  scrollbar-width: thin;
+
+  @media screen and (max-width: 992px) {
+    height: 100vh;
+    scrollbar-color: #4680ff white;
+    scrollbar-width: thin;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-moz-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(223, 223, 223);
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #4680ff;
+    border-radius: 10px;
+  }
+}
+
+
+.menu__icon {
+  width: 33px !important;
+  min-width: 33px !important;
+  max-width: 33px !important;
+}
+
+.aside-menu .menu-nav {
+  margin: 0;
+  list-style: none;
+  padding: 15px 10px !important;
+  overflow-x: hidden;
+}
+
+::ng-deep {
+  .menu__icon {
+    width: 33px;
+    height: 33px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff !important;
+    margin-right: 0;
+    background: #4680ff;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+#aside-menu-minimize {
+  display: none;
+}
+
+
+.parent , .childern {
+  position: relative;
+}
+::ng-deep{
+  .cdk-overlay-pane {
+    &.mat-tooltip-panel {
+      .mat-tooltip {
+        color:white;
+        background-color: #53A4FB;
+        border:  1px solid #53A4FB;
+        border-radius:  3px;
+        font-size:  15px;
+        font-weight: 900;
+        padding:  10px;
+        position: absolute;
+        left: -9rem;
+        top: -4.7rem;
+        width: 13rem;
+      }
+
+    }
+  }
+}
+
+.hoverClass {
+  overflow: visible !important;
+}
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+<section class="otp">
+
+    <!-- begin otp fields -->
+    <div class="otp__fields mb-4 mb-lg-8">
+        <ng-otp-input dir="ltr" #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+    </div>
+    <!-- end otp fields -->
+
+    <!--begin:: otp Action-->
+    <div class="otp__actions">
+        <div class="pb-lg-0 pb-5 d-flex justify-content-center">
+            <button (click)="verifyCode()" type="button"
+                class="btn mx-2 px-10 rounded-pill btn-shadow btn-primary font-weight-bolder min-w-130px px-8 my-3 font-size-lg">
+                {{"common.VERIFY" | translate}}
+            </button>
+
+            <button *ngIf="showSkip" (click)="skip()" type="button"
+                class="btn mx-2 px-10 btn-shadow rounded-pill btn-light-primary min-w-130px font-weight-bolder px-8 my-3 font-size-lg">
+                {{"AUTH.TWA.SKIP" | translate}}
+            </button>
+        </div>
+    </div>
+    <!--end:: otp Action-->
+
+    <!-- ___________ begin loader ________________ -->
+    <ng-container *ngIf="isLoading$">
+        <span class="spinner fix-spinner spinner-primary my-8 d-flex justify-content-center"></span>
+    </ng-container>
+    <!-- ___________ end loader ________________ -->
+
+</section>

@@ -1,0 +1,16 @@
+<!-- splash screen -->
+<div #splashScreen id="splash-screen" *ngIf="showLoading | async">
+    <p>{{'general.PLEASE_WAIT' | translate}}...</p>
+    <svg class="splash-spinner" viewBox="0 0 50 50">
+        <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+</div>
+
+<ng-container *ngIf="!(showLoading | async)">
+    <!-- <div class="d-flex align-items-center justify-content-center flex-column msg-content">
+        <div class="alert alert-danger mb-3" role="alert">
+            {{errorMsg}}
+        </div>
+    </div> -->
+
+</ng-container>

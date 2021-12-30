@@ -1,0 +1,140 @@
+.sidebar {
+  padding: 2rem 1rem 2rem 2rem;
+  border: 1px solid #e6dfdf;
+  border-radius: 5px;
+
+  li.menu-item {
+    list-style-type: none;
+    padding-bottom: 1rem;
+
+    a.menu-link {
+      display: flex;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 0.7rem 0rem 0.7rem 2.4rem;
+      color: #000;
+      cursor: pointer;
+
+      span.menu-text {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    a.menu-link.active {
+      background-color: rgba(70, 128, 255, 0.2);
+      border-radius: 3px;
+    }
+
+    .menu__icon_red {
+      background-color: rgb(232, 79, 106);
+    }
+
+    .menu__icon_yellow {
+      background-color: rgb(241, 184, 28);
+    }
+
+    .menu__icon_green {
+      background-color: rgb(93, 192, 164);
+    }
+  }
+
+  .scroll {
+    scroll-behavior: smooth;
+    scrollbar-color: #4680ff white;
+    scrollbar-width: thin;
+
+    @media screen and (max-width: 992px) {
+      height: 100vh;
+      scrollbar-color: #4680ff white;
+      scrollbar-width: thin;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-moz-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px rgb(223, 223, 223);
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #4680ff;
+      border-radius: 10px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .sidebar {
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+
+  li.menu-item {
+    padding-bottom: 0 !important;
+    border-radius: 5px;
+    margin-left: 10px;
+    width: 30%;
+
+    a.menu-link {
+      padding: 0.7rem 0rem !important;
+      color: #fff !important;
+      span.menu-text {
+        display: flex;
+        margin-left: 5px;
+        align-items: center;
+      }
+    }
+
+    &.menu-item-green {
+      background-color: rgb(93, 192, 164);
+    }
+    &.menu-item-yellow {
+      background-color: rgb(241, 184, 28);
+    }
+    &.menu-item-red {
+      background-color: rgb(232, 79, 106);
+    }
+
+    &.menu-item-blue {
+      background-color: #4680ff;
+    }
+  }
+}
+
+:host-context(html[dir="ltr"]) {
+ 
+  @media (min-width: 768px) {
+    li.menu-item {
+      margin-left: 0;
+      margin-right: 10px;
+      width: 30%;
+
+      a.menu-link {
+        span.menu-text {
+          margin-left: 0;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+.sideMenuContract {
+  position: absolute;
+  top: 0px;
+  z-index: 999;
+  background: white;
+  right: 0px;
+  height: 100vh;
+}

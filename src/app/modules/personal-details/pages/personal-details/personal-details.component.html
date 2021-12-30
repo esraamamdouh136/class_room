@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-auto d-none d-lg-block">
+        <aside class="custom-aside border">
+            <h3 class="custom-aside__title">
+                {{"general.personal_details" | translate}}
+            </h3>
+            <ul class="menu-nav list-unstyled p-0" *ngIf="true">
+                <li *ngFor="let item of menuItems" [routerLink]="[item.slug]" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}" class="d-flex align-items-center pl-5">
+                    <i [class]="item?.css_class" class="menu__icon" [style.background-color]="item?.color"></i>
+                    <a class="item__link">
+                        {{item?.name}}
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <div class="spinner-wrapper" *ngIf="false">
+            <div class="spinner-border loading" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="col setting-details w-100 p-0">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+<!--Toggle Mobile Menu-->
+<aside class="custom-aside custom-aside-mobile d-block d-lg-none h-100" *ngIf="toggleSidebar">
+    <h3 class="custom-aside__title">
+        {{"general.Account_settings" | translate}}
+    </h3>
+    <ul class="menu-nav list-unstyled p-0">
+        <li *ngFor="let item of menuItems" [routerLink]="[item.slug]" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}" class="d-flex align-items-center ">
+            <i [class]="item?.css_class" class="menu__icon" [style.background-color]="item?.color"></i>
+            <a class="item__link">
+                {{item?.name}}
+            </a>
+        </li>
+    </ul>
+</aside>

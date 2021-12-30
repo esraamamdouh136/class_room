@@ -1,0 +1,72 @@
+<section class="border" *ngIf='errorMassage ; else errorData'>
+    <!-- ____ begin section header __________ -->
+    <header class="
+    section__header
+    p-4 p-lg-5
+    d-flex
+    align-items-center
+    justify-content-between
+    mb-5
+    ">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-restroom mx-2"></i>
+            {{ "general.parents" | translate }}
+        </h2>
+        <div class="d-flex">
+      
+
+            <button mat-button 
+            class="btn-warning text-white" 
+            [matMenuTriggerFor]="menuOne"> 
+            {{'general.addNewParent' | translate}}
+                <i class="fas fa-sort-down mb-3"></i></button>
+            <mat-menu #menuOne="matMenu">
+                <button class="parents-actions" mat-menu-item routerLink="../parents-list">{{ "general.add" | translate }}</button>
+                <button class="parents-actions" mat-menu-item routerLink="../parents-list/export-exel">استيراد ملف اكسل</button>
+                <button class="parents-actions" mat-menu-item routerLink="../parents-list/edit-exel">تعديل ملف اكسل</button>
+                <button class="parents-actions" mat-menu-item routerLink="../parents-list/update-students-info">تحديث بيانات بارقام الطلاب</button>
+            </mat-menu>
+
+            <button mat-button (click)="getImportButton()" *ngIf="system_id !==null"
+            class="btn-danger text-white mx-2"> 
+            {{'general.btn_export' | translate}}</button>
+        </div>
+    </header>
+    <!-- ____ end section header __________ -->
+    <div class="section__body p-4 parents_list pb-0">
+        <div class="row mb-3">
+            <div class="col-md-6 col-lg-4 show-label">
+                <mat-form-field class="w-100 mat-field">
+                    <small class="mat-field__search-icon">
+                        <i class="fas fa-search"></i>
+                    </small>
+                    <label>
+                        <input dir="auto" appDebounceInputChange [debounceTime]="1000"
+                            (valueChanged)="onSearchChange($event)" [(ngModel)]="searchInput" matInput type="text"
+                            placeholder="{{ 'general.search' | translate }}" />
+                    </label>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="exist_data ; else errorData">
+
+        <div class="section__body p-4 p-lg-7 parents_list">
+            <!-- AG-GRID -->
+            <div class="vc-ag-grid global-data-table" *ngIf="rowData.length">
+                <app-ag-grid #agGrid [rowData]="rowData" [frameworkComponents]="frameworkComponents"
+                    [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs"
+                    [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'" [GlobalTable]="true" [pagination]="true"
+                    [pageOptions]="pageOptions" (pageEvent)="pageEvent($event)">
+                </app-ag-grid>
+            </div>
+            <!-- AG-GRID -->
+        </div>
+    </ng-container>
+
+</section>
+
+<ng-template #errorData>
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

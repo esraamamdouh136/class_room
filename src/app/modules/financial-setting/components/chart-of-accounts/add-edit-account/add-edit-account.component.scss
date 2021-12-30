@@ -1,0 +1,44 @@
+.warning {
+  border: 1px solid #ddd;
+  padding: 2rem 1rem;
+}
+
+.dialog-actions {
+  .btn {
+    padding: 0.2rem 3rem;
+
+    &.save {
+      &:hover {
+        background-color: #0e6662;
+      }
+    }
+
+    &.add {
+      background-color: #00aff0;
+
+      &:hover {
+        background-color: #0d8ddc;
+      }
+    }
+
+    &.edit {
+      background-color: #cc8600;
+
+      &:hover {
+        background-color: #9f7a34;
+      }
+    }
+
+    &.cancel {
+      background-color: #EE2D41;
+
+      &:hover {
+        background-color: firebrick;
+      }
+    }
+  }
+}
+
+::ng-deep .mat-typography {
+  overflow: inherit !important;
+}

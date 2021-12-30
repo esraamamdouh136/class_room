@@ -1,0 +1,54 @@
+.customize-columns {
+  .column-item {
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: 600;
+    font-size: 1.4em;
+    white-space: nowrap;
+    &.column-selected {
+      background-color: #00aff0;
+      color: white;
+      &:hover {
+        background-color: #0d8ddc;
+      }
+    }
+    &:not(.column-selected) {
+      &:hover {
+        background-color: rgba(black, 0.1);
+      }
+    }
+  }
+}
+
+.add-btn{
+  border-radius: 5px;
+  border: 1px solid #3aade3 !important;
+  padding: 0.5rem 4rem;
+  box-shadow: 0px 5px 12px -3px rgb(58 173 227 / 50%);
+  i{
+    color: #2288d3 !important;
+  }
+}
+
+.parents-actions{
+  font-family: "Tajawal", sans-serif;
+  font-weight: bold;
+}
+
+.parents_list {
+  ::ng-deep {
+    app-ag-tabel {
+      tr {
+        td:nth-child(1) span {
+          font-weight: bold !important;
+        }
+        td:nth-child(2) span {
+          font-weight: bold !important;
+        }
+        td:nth-child(3) span {
+          font-weight: bold !important;
+        }
+      }
+    }
+  }
+}

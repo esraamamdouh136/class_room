@@ -1,0 +1,156 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <!-- ____ begin dialog header __________ -->
+    <div class="d-flex justify-content-between align-items-center dialog-head">
+        <h2 class="h4 mb-0 font-weight-bolder">
+            {{this.data.data?.id ? ('setting.studentsYears.editStudyWeeks' | translate) :('setting.studentsYears.addStudyWeeks' | translate)}}
+        </h2>
+        <i class="fas fa-times text-white" [mat-dialog-close]="true"></i>
+    </div>
+    <!-- ____ end dialog header __________ -->
+
+    <mat-dialog-content class="m-0">
+        <form [formGroup]="form" (ngSubmit)="onsubmit()" >
+            <div class="w-100" >
+
+                <div class="forms-errors p-4 mb-5 position-relative" *ngIf="formErrors.length">
+                    <ul class="m-0 p-4">
+                        <li *ngFor="let error of formErrors">
+                            {{error}}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mb-4 mt-2" *ngIf="!this.data.data?.id" >
+                    <button (click)="addItem()" class="btn mx-3 px-5 px-lg-9 btn-warning font-weight-bolder min-w-130px font-size-lg" type="button">
+                        {{'setting.studentsYears.addStudyWeeks' | translate}}
+                        <i class="fa fa-plus mr-2"></i>
+                    </button>
+                </div>
+                <div class="row" formArrayName="weeks"
+                *ngFor="let item of form.get('weeks')['controls']; let i = index;">
+
+                <div class="row" [formGroupName]="i">
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'setting.studentsYears.season' | translate}}:
+                            </label>
+                            <span class="text-danger">*</span>
+                            <!--Using items input-->
+                            <ng-select 
+                            [placeholder]="'setting.studentsYears.season' | translate"
+                            [items]="seasons" bindLabel="title"
+                            bindValue="id" appendTo="body" formControlName="season_id">
+                            </ng-select>
+                            <ng-container *ngIf="formControlsErrors?.season_id">
+                                <!--error Massage-->
+                                <div class="text-danger">
+                                    {{formControlsErrors['season_id']}}
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'setting.studentsYears.title' | translate}}:
+                            </label>
+                            <span class="text-danger">*</span>
+                            <input dir="auto" type="text" class="form-control w-100"
+                                [placeholder]="'setting.studentsYears.title' | translate" formControlName="title">
+
+                                <ng-container *ngIf="formControlsErrors?.title">
+                                    <!--error Massage-->
+                                    <div class="text-danger">
+                                        {{formControlsErrors['title']}}
+                                    </div>
+                                </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="font-bold font-14 mb-0 text-nowrap">
+                                {{'setting.studentsYears.startAt' | translate}}:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <mat-form-field floatLabel="never" class="date-form cursor-pointer"
+                                (click)="pickerSM.open()">
+                                <input dir="auto" style="cursor:none" 
+                                readonly 
+                                matInput 
+                                [matDatepicker]="pickerSM"
+                                formControlName="starts_at"
+                                >
+                                <mat-datepicker-toggle matSuffix (click)="pickerSM.open()">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #pickerSM></mat-datepicker>
+                            </mat-form-field>
+
+                            <ng-container *ngIf="formControlsErrors?.starts_at">
+                                <!--error Massage-->
+                                <div class="text-danger" >
+                                    {{formControlsErrors['starts_at']}}
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="font-bold font-14 mb-0 text-nowrap">
+                                {{'setting.studentsYears.endAt' | translate}}:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <mat-form-field floatLabel="never" class="date-form cursor-pointer"
+                                (click)="pickerF.open()">
+                                <input dir="auto" style="cursor:none" 
+                                readonly 
+                                matInput 
+                                [matDatepicker]="pickerF"
+                                formControlName="ends_at"
+                                >
+                                <mat-datepicker-toggle matSuffix (click)="pickerF.open()">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #pickerF></mat-datepicker>
+                            </mat-form-field>
+
+                            <ng-container *ngIf="formControlsErrors?.ends_at">
+                                <!--error Massage-->
+                                <div class="text-danger">
+                                    {{formControlsErrors['ends_at']}}
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="col-12 p-3 remove-item" *ngIf="i != form.get('weeks')['controls'].length -1 && form.get('weeks')['controls'].length > 1" >
+                        <button (click)="remove(i)" class="btn mx-3 px-5 px-lg-9 btn-warning bg-danger border-danger font-weight-bolder min-w-130px font-size-lg" type="button">
+                            {{'setting.studentsYears.delete' | translate}}
+                            <i class="fa fa-minus mr-2"></i>
+                        </button>
+                    </div>
+
+                </div>
+                
+                
+            </div>
+
+            <mat-dialog-actions align="center">
+                <div class="dailog-actions-btns">
+                    <button mat-button class="btn btn-primary accept" type="submit">
+                        {{this.data.data?.id ? ('general.edit' |translate) :('setting.save' |translate)}}
+                    </button>
+                    <button mat-button mat-dialog-close class="btn btn-danger">
+                        {{'setting.cancel' |
+                        translate}}
+                    </button>
+                </div>
+            </mat-dialog-actions>
+        </form>
+    </mat-dialog-content>
+</div>

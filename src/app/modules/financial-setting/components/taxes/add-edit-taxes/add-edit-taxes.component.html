@@ -1,0 +1,165 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+  <div class="d-flex justify-content-between align-items-center dialog-head">
+    <h2 mat-dialog-title class="mb-0">
+      {{data?.id ? ('setting.taxes.update_tax' | translate) : ('setting.taxes.add_tax' | translate) }}
+    </h2>
+    <button 
+  type="button"
+  (click)="toggleLanguage()"
+  class="btn btn-warning">{{language}}</button>
+    <i class="fas fa-times" mat-dialog-close></i>
+  </div>
+
+
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="form">
+      <div class="form-row">
+        <div class="col-lg-6 mb-4" *ngIf="nameofArabic">
+          <div class="form-group mb-0">
+            <label class="font-weight-bolder" for="name_ar">
+              {{'setting.taxes.tax_name_ar' | translate}} :
+            </label>
+            <span class="text-danger">*</span>
+            <input dir="auto" type="text" class="form-control" required name="name_ar"
+                   [placeholder]="'setting.taxes.tax_name_ar' | translate" aria-label="Username"
+                   aria-describedby="basic-addon1" [(ngModel)]="data.name_ar"
+                   [ngModelOptions]="{standalone: true}" id="name_ar">
+            <ng-container *ngIf="formErrors?.name_ar">
+              <!--     errors will be shown here-->
+              <div class="text-danger" *ngFor="let error of formErrors['name_ar']">
+                {{error}}
+              </div>
+
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-4" *ngIf="nameOfEnglish">
+          <div class="form-group mb-0">
+            <label class="font-weight-bolder" for="name_en">
+              {{'setting.taxes.tax_name_en' | translate}} :
+            </label>
+            <span class="text-danger">*</span>
+            <input dir="auto" type="text" class="form-control" name="name_en" required
+                   [placeholder]="'setting.taxes.tax_name_en' | translate" aria-label="Username"
+                   aria-describedby="basic-addon1" [(ngModel)]="data.name_en"
+                   [ngModelOptions]="{standalone: true}" id="name_en">
+            <ng-container *ngIf="formErrors?.name_en">
+              <!--     errors will be shown here-->
+              <div class="text-danger" *ngFor="let error of formErrors['name_en']">
+                {{error}}
+              </div>
+
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+          <div class="form-group mb-0">
+            <label class="font-weight-bolder" for="percentage">
+              {{'setting.taxes.tax_percentage' | translate}} :
+            </label>
+            <span class="text-danger">*</span>
+            <input dir="auto" type="text" class="form-control" name="percentage" required
+                   [placeholder]="'setting.taxes.tax_percentage' | translate" aria-label="Username"
+                   aria-describedby="basic-addon1" [(ngModel)]="data.percentage"
+                   [ngModelOptions]="{standalone: true}" id="percentage">
+            <ng-container *ngIf="formErrors?.percentage">
+              <!--     errors will be shown here-->
+              <div class="text-danger" *ngFor="let error of formErrors['percentage']">
+                {{error}}
+              </div>
+
+            </ng-container>
+          </div>
+        </div>
+
+
+        <div class="col-lg-6 mb-4 mb-lg-3 d-flex" *ngIf="data?.id">
+          <div class="form-group is_active mb-0 company-status">
+            <label class="font-weight-bolder w-auto" for="">
+              {{"general.status" | translate}}
+            </label>
+            <span class="switch switch-icon">
+                            <label class="pointer auto-width" for="isActive"
+                                   [class.f-w]="statusValue">{{"general.active" |
+                                translate}}</label>
+                            <label class="mx-3 auto-width">
+                                <input dir="auto" id="isActive" type="checkbox" name="status"
+                                       [(ngModel)]="data.status_c" formControlName="status">
+                                <span></span>
+                            </label>
+                            <label class="pointer auto-width" style="white-space: nowrap" for="isActive"
+                                   [class.f-w]="!statusValue">{{"general.inactive" |
+                                translate}}</label>
+                            <ng-container>
+                                <div class="text-danger"></div>
+                            </ng-container>
+                        </span>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <hr>
+        </div>
+
+        <div class="col-12">
+          <p class="font-weight-bold mb-3"><strong>{{'setting.taxes.tax_free_nationalities' |
+              translate}}</strong></p>
+        </div>
+
+        <div class="col-lg-6 mb-4 select-taxes">
+          <div class="form-group mb-0">
+            <label class="font-weight-bolder" for="taxFreeNationality">
+              {{"setting.taxes.nationality" | translate}}
+            </label>
+            <!--Using items input-->
+            <ng-select [items]="nationalities" bindLabel="name" name="nationality" [multiple]="true"
+                       [(ngModel)]="data.taxFreeNationality" [ngModelOptions]="{standalone: true}" bindValue="id"
+                       [placeholder]="'setting.taxes.nationality' | translate" labelForId="taxFreeNationality"
+                       appendTo="body">
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-4 select-taxes">
+          <div class="form-group mb-0">
+            <label class="font-weight-bolder" for="feesClassesValues">
+              {{"setting.typesoffees" | translate}}
+            </label>
+            <span class="text-danger" *ngIf="data.taxFreeNationality?.length">*</span>
+            <ng-select [items]="feesClasses" bindLabel="name" name="typesoffees" [multiple]="true"
+                       [(ngModel)]="data.feesClassesValues" [ngModelOptions]="{standalone: true}" bindValue="id"
+                       appendTo="body" [placeholder]="'setting.typesoffees' | translate" labelForId="feesClassesValues"
+                       [required]="data.taxFreeNationality?.length">
+            </ng-select>
+            <ng-container *ngIf="formErrors?.fees_classes">
+              <!--     errors will be shown here-->
+              <div class="text-danger" *ngFor="let error of formErrors['fees_classes']">
+                {{error}}
+              </div>
+
+            </ng-container>
+          </div>
+        </div>
+
+
+      </div>
+    </form>
+
+    <!--    <pre>{{data | json}}</pre>-->
+
+  </mat-dialog-content>
+
+
+  <mat-dialog-actions align="center">
+    <div class="dailog-actions-btns">
+      <button mat-button class="btn btn-primary accept" (click)="submit()">
+        {{data?.id ? ('general.edit' |translate) : ('general.add' | translate)}}
+      </button>
+      <button mat-button mat-dialog-close class="btn btn-danger">
+        {{'setting.cancel' | translate}}
+      </button>
+    </div>
+  </mat-dialog-actions>
+</div>

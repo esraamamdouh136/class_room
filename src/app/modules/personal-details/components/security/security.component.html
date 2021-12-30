@@ -1,0 +1,121 @@
+<section class="section">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex align-items-center">
+      <i class="fa fa-shield-alt mx-2"></i>
+      <span>{{'setting.security' | translate}}</span>
+    </h2>
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body p-4 p-lg-7">
+    <div class="container-fluid">
+      <!--  google authenticator    -->
+      <div class="row custom-card align-items-center mb-3">
+        <div class=" col-lg-auto col-12 d-flex align-items-center justify-content-center mb-lg-0 mb-4">
+          <img src="assets/media/imgs/google_authenticator.png" alt="google_authenticator" class="img-fluid card-icon">
+        </div>
+        <div
+          class="custom-card-body col d-flex align-items-center flex-lg-row flex-column flex-wrap justify-content-lg-between">
+          <div class="d-flex d-lg-block flex-column align-items-center justify-content-center mb-lg-0 mb-3">
+            <h2 class="custom-card-title font-weight-bolder mb-3">{{'general.google_authentication' | translate}}</h2>
+            <p class="card-description ">{{'general.google_message' | translate}}</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" *ngIf="twoStepStatus == '1'" (click)="chanageTwoStepStatus(0)">{{'general.active' | translate}}</button>
+            <button class="btn btn-danger" *ngIf="twoStepStatus == '0'" (click)="chanageTwoStepStatus(1)">{{'general.inactive' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text authenticator  -->
+      <div class="row custom-card align-items-center mb-3">
+        <div class=" col-lg-auto col-12 d-flex align-items-center justify-content-center mb-lg-0 mb-4">
+          <img src="assets/media/imgs/message.png" alt="google_authenticator" class="img-fluid card-icon">
+        </div>
+        <div
+          class="custom-card-body col d-flex align-items-center flex-lg-row flex-column flex-wrap justify-content-lg-between">
+          <div class="d-flex d-lg-block flex-column align-items-center justify-content-center mb-lg-0 mb-3">
+            <h2 class="custom-card-title font-weight-bolder mb-3">{{'general.text_authenticator' | translate}}</h2>
+            <p class="card-description ">{{'general.google_message' | translate}}</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" *ngIf="smsStatus == '1'" (click)="chanageSmsStatus(0)">{{'general.active' | translate}}</button>
+            <button class="btn btn-danger" *ngIf="smsStatus == '0'" (click)="chanageSmsStatus(1)">{{'general.inactive' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email Verification -->
+      <div class="row custom-card align-items-center mb-3">
+        <div class=" col-lg-auto col-12 d-flex align-items-center justify-content-center mb-lg-0 mb-4">
+          <img src="assets/media/imgs/email-marketing.png" alt="google_authenticator" class="img-fluid card-icon">
+        </div>
+        <div
+          class="custom-card-body col d-flex align-items-center flex-lg-row flex-column flex-wrap justify-content-lg-between">
+          <div class="d-flex d-lg-block flex-column align-items-center justify-content-center mb-lg-0 mb-3">
+            <h2 class="custom-card-title font-weight-bolder mb-3">{{'general.email_verification' | translate}}</h2>
+            <p class="card-description ">{{'general.google_message' | translate}}</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" *ngIf="emailStatus == '1'" (click)="chanageEmailStatus(0)">{{'general.active' | translate}}</button>
+            <button class="btn btn-danger" *ngIf="emailStatus == '0'" (click)="chanageEmailStatus(1)">{{'general.inactive' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Devices Management -->
+      <div class="row custom-card align-items-center mb-3">
+        <div class=" col-lg-auto col-12 d-flex align-items-center justify-content-center mb-lg-0 mb-4">
+          <img src="assets/media/imgs/computer-screen.png" alt="google_authenticator" class="img-fluid card-icon">
+        </div>
+        <div
+          class="custom-card-body col d-flex align-items-center flex-lg-row flex-column flex-wrap justify-content-lg-between">
+          <div class="d-flex d-lg-block flex-column align-items-center justify-content-center mb-lg-0 mb-3">
+            <h2 class="custom-card-title font-weight-bolder mb-3">{{'general.devices_management' | translate}}</h2>
+            <p class="card-description ">{{'general.devices_message' | translate}}</p>
+          </div>
+          <div>
+            <button class="btn btn-primary">{{'general.management' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="row custom-card align-items-center mb-3">
+        <div class=" col-lg-auto col-12 d-flex align-items-center justify-content-center mb-lg-0 mb-4">
+          <img src="assets/media/imgs/password.png" alt="google_authenticator" class="img-fluid card-icon">
+        </div>
+        <div
+          class="custom-card-body col d-flex align-items-center flex-lg-row flex-column flex-wrap justify-content-lg-between">
+          <div class="d-flex d-lg-block flex-column align-items-center justify-content-center mb-lg-0 mb-3">
+            <h2 class="custom-card-title font-weight-bolder mb-3">{{'general.password' | translate}}</h2>
+            <p class="card-description ">{{'general.password_message' | translate}}</p>
+          </div>
+          <div>
+            <button class="btn btn-primary">{{'general.change' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Record -->
+      <div class="row custom-card align-items-center mb-3">
+        <div class=" col-lg-auto col-12 d-flex align-items-center justify-content-center mb-lg-0 mb-4">
+          <img src="assets/media/imgs/folder.png" alt="google_authenticator" class="img-fluid card-icon">
+        </div>
+        <div
+          class="custom-card-body col d-flex align-items-center flex-lg-row flex-column flex-wrap justify-content-lg-between">
+          <div class="d-flex d-lg-block flex-column align-items-center justify-content-center mb-lg-0 mb-3">
+            <h2 class="custom-card-title font-weight-bolder mb-3">{{'general.activity_record' | translate}}</h2>
+            <p class="card-description ">{{'general.activity_message' | translate}} 10:09 م 10/10/2020</p>
+          </div>
+          <div *ngIf="false">
+            <button class="btn btn-primary">{{'general.change' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+<div class="contanier-fluid border">
+    <div class="bg-color">
+        <!-- ____ begin section header __________ -->
+        <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+            <h2 class="h4 mb-0 font-weight-bolder d-flex">
+                <i class="fa fa-restroom  mx-2"></i>
+                {{'prossing.userSheets' | translate}}
+            </h2>
+        </header>
+
+        <div class="section__body p-4 p-lg-7">
+            <app-ag-tabel *ngIf="tableItems.length ; else noData" [alignTableCenter]="true" [tableData]="tableItems"
+                [pageOptions]="pageOptions" [tableColumns]="tableColumns" [isFilterable]="true" [isPageable]="true"
+                (rowAction)="rowActions($event)" [rowActions]="['add']" (pageEvent)="pageEvent($event)">
+            </app-ag-tabel>
+        </div>
+
+
+        <ng-template #noData>
+            <div class="text-center border mt-5 py-5">
+                <h2 class="text-danger py-5">{{message}}</h2>
+            </div>
+        </ng-template>
+
+    </div>
+</div>

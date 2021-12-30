@@ -1,0 +1,114 @@
+<section class="section border">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-user-secret mx-2"></i>
+            {{'setting.Permissionmanagement' | translate}}
+        </h2>
+        <button type="button" (click)="openAddEditValiditiesManagementForm()"
+            class="btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+            {{'general.add' | translate}}
+        </button>
+    </header>
+    <!-- ____ end section header __________ -->
+
+    <!-- ____ begin section body __________ -->
+    <div class="section__body p-4 p-lg-7">
+        <div class="row">
+
+            <div class="col-md-4 mb-5">
+                <div class="card p-4 h-100 p-lg-5 shadow-sm border-0">
+                    <h6 class="col_title mb-4 mb-lg-5 font-weight-bolder">المجموعات</h6>
+
+                    <div class="col_content mb-2">
+                        <div class="single-role shadow-sm mx-2 mb-2" *ngFor="let role of rolesList">
+                            <button [ngClass]="{'checked-role': role.checked}" (click)="checkMainRole(role)"
+                                class="btn py-3 btn-block cust_btn">{{role?.title}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 mb-5">
+
+                <div class="row">
+
+                    <div class="col-12 mb-3">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 mb-2" *ngIf="selectedRole">
+                                <!-- Start First dropdown -->
+                                <div class="form-group mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col flex-md-grow-1">
+                                            <!-- <label for="studenName" class="mb-2">Lorem ipsum</label> -->
+                                            <ng-select  [(ngModel)]="firstLevelValue" appendTo="body"
+                                                (change)="selectFirstLevelValue($event)">
+                                                <ng-option *ngFor="let item of firstLevelHeaderMenu" [value]="item">
+                                                    {{'setting.permissions.' +
+                                                    item | translate}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End First dropdown -->
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 mb-2" *ngIf="selectedRole && secondLevelHeaderMenu.length">
+                                <!-- Start Second dropdown -->
+                                <div class="form-group mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col flex-md-grow-1">
+                                            <ng-select  [(ngModel)]="secondLevelValue" appendTo="body"
+                                                (change)="selectSecondLevelValue($event)">
+                                                <ng-option *ngFor="let item of secondLevelHeaderMenu" [value]="item">
+                                                    {{'setting.permissions.' +
+                                                    item | translate}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Second dropdown -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div *ngIf="secondLevelList.length" class="card p-4 h-100 p-lg-5 shadow-sm border-0">
+                            <h6 class="col_title mb-4 mb-lg-5 font-weight-bolder">قائمة الوظائف </h6>
+
+                            <div class="col_content mb-2">
+                                <div class="single-role shadow-sm mx-2 mb-2" *ngFor="let item of secondLevelList">
+                                    <button [ngClass]="{'checked-role': item.checked}" (click)="checkSecodnLevel(item)"
+                                        class="btn py-3 btn-block cust_btn">
+                                        {{'setting.permissions.' + item.title | translate}} </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div *ngIf="thirdLevelList.length" class="card p-4 h-100 p-lg-5 shadow-sm border-0">
+                            <h6 class="col_title mb-4 mb-lg-5 font-weight-bolder">الصلاحيات</h6>
+
+                            <div class="col_content mb-2">
+                                <div class="single-role shadow-sm mx-2 mb-2 p-3 text-center"
+                                    *ngFor="let permission of thirdLevelList" [ngClass]="
+                                        {
+                                            'bg-primary': permission.checked,
+                                            'bg-danger': !permission.checked
+                                        }
+                                    " (click)="updateRolePermission(permission)">
+                                    <span>
+                                        {{'setting.permissions.' + permission.title | translate}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

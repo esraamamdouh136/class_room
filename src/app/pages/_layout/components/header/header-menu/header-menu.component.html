@@ -1,0 +1,37 @@
+<!-- begin::Header Nav -->
+<ul class="menu-nav select-items" [ngClass]="ulCSSClasses">
+  <!-- Show what kind of user login -->
+  <li class="d-flex align-items-center mb-4 mb-lg-0">
+    <i class="icon-custom fa fa-user-alt"></i>
+    <ng-select  [notFoundText]="'MENU.noActiveRoles' | translate" [items]="jobs" bindLabel="title" [clearable]="false"
+      bindValue="id" (change)="onChangeJob($event)" [(ngModel)]="selectedRoleId">
+    </ng-select>
+  </li>
+  <!-- end::1 Level -->
+
+  <!-- Show all companies  and when select change company in organization page -->
+  <li class="d-flex align-items-center mb-4 mb-lg-0">
+    <i class=" icon-custom fa fa-home"></i>
+    <ng-select  [notFoundText]="'MENU.noActiveCompanies' | translate" [items]="companies" bindLabel="name"
+      [clearable]="false" bindValue="id" (change)="onChangeCompany($event)" [(ngModel)]="selectedCompanyId">
+    </ng-select>
+  </li>
+
+  <!-- Chose school -->
+  <li class="d-flex align-items-center mb-4 mb-lg-0">
+    <i class="icon-custom fa fa-school"></i>
+    <ng-select  [notFoundText]="'MENU.noActiveCostCenters' | translate" [items]="costCenters" bindLabel="name"
+      [clearable]="false" bindValue="id" (change)="onChangeCostCenter($event)" [(ngModel)]="selectedCostCenterId">
+    </ng-select>
+  </li>
+
+  <!-- Date -->
+  <li class="d-flex align-items-center mb-4 mb-lg-0">
+    <i class="icon-custom fa fa-calendar-alt"></i>
+    <ng-select  [notFoundText]="'MENU.noActiveFiscalYears' | translate" [items]="fiscalYears" bindLabel="name"
+      [clearable]="false" bindValue="id" (change)="onChangeFiscalYear($event)" [(ngModel)]="selectedFiscalYearId">
+    </ng-select>
+  </li>
+
+</ul>
+<!-- end::Header Nav -->

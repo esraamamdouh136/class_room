@@ -1,0 +1,120 @@
+<section class="section border">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex">
+      <i class="fa fa-file-invoice-dollar mx-2"></i>
+      {{'setting.chartofaccounts' | translate}}
+    </h2>
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body p-4 p-lg-7">
+
+    <!-- ______ begin search field ______ -->
+    <div class="row">
+        <div class="d-flex buttons">
+            <button (click)="openLedgerDialog()"
+                    class="d-flex btn btn-list align-items-center mb-2 mb-lg-0 ledger justify-content-center flex-column font-weight-bold">
+              <mat-icon class="icon-2x text-success mb-2">menu_book</mat-icon>
+              <span>{{'setting.ledger' | translate}}</span>
+            </button>
+
+            <button
+              class="d-flex btn btn-list align-items-center mb-2 mb-lg-0 account-card justify-content-center flex-column font-weight-bold">
+              <mat-icon class="icon-2x text-primary mb-2">dns</mat-icon>
+              <span>{{'setting.account_card' | translate}}</span>
+            </button>
+
+            <button (click)="openAddEditAccountDialog()"
+                    class="d-flex btn btn-list align-items-center sub-account mb-2 mb-lg-0 justify-content-center flex-column font-weight-bold">
+              <!-- <mat-icon class="icon-2x mb-2">share</mat-icon> -->
+              <i class="fa fa-share-alt text-reset"></i>
+              <span>{{'setting.sub_account' | translate}}</span>
+            </button>
+            <button
+              class="d-flex btn btn-list align-items-center  level mb-2 mb-lg-0 justify-content-center flex-column font-weight-bold">
+              <mat-icon class="icon-2x mb-2">filter_2</mat-icon>
+              <span>{{'setting.level_two' | translate}}</span>
+            </button>
+
+            <button
+              class="d-flex btn btn-list align-items-center level mb-2 mb-lg-0 justify-content-center flex-column font-weight-bold">
+              <mat-icon class="icon-2x mb-2">filter_3</mat-icon>
+              <span>{{'setting.level_three' | translate}}</span>
+            </button>
+
+
+            <button 
+              class="d-flex btn btn-list align-items-center settings mb-2 mb-lg-0 justify-content-center flex-column font-weight-bold">
+              <i class="fa fa-cog"></i>
+              <span>{{'setting.settings' | translate}}</span>
+            </button>
+</div>
+</div>
+
+<div class="row">
+          <div class="col-md-6 col-lg-4 show-label">
+            <mat-form-field class="w-100 mat-field">
+              <small class="mat-field__search-icon">
+                <i class="fas fa-search"></i>
+              </small>
+              <label>
+                <input dir="auto" appDebounceInputChange [debounceTime]="700" (valueChanged)="filter()"
+                       [(ngModel)]="searchQuery" matInput type="text" placeholder="{{'search' | translate}}">
+              </label>
+            </mat-form-field>
+          </div>
+          </div>
+    <!-- ______ end search field ______ -->
+
+
+    <div class="row">
+      <div class="col-12 mb-3 pr-0">
+        <div class="d-flex align-items-center element-center">
+          <button class="font-weight-bold btn bg-warning-o-100 text-white mx-1" style="color: #9f7a34;"
+                  *ngFor="let button of ['1', '2', '3', '4', '5', '*', '-']"
+                  (click)="expand(button)">{{button}}</button>
+        </div>
+      </div>
+
+      <div class="col-12 row" [hidden]="!(dataLoaded | async)">
+        <div class="nodes-tree col-lg-6 col-12 mt-2 first-tree">
+          <div class="tree-content " #firstTree>
+            <tree-root #tree [nodes]="nodes" [options]="firstListOptions" [ngClass]="'expand-tree'"
+                       (toggleExpanded)="onExpand($event)">
+            </tree-root>
+          </div>
+        </div>
+
+        <div class="nodes-tree col-lg-6 col-12 mt-2 second-tree">
+          <div class="tree-content " #secondTree>
+            <ng-container *ngIf="SecondList.length">
+              <tree-root [nodes]="SecondList" [options]="secondListOptions" [ngClass]="'expand-tree'">
+              </tree-root>
+            </ng-container>
+          </div>
+          <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+               [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="trigger" #actionsMenu="matMenuTrigger">
+          </div>
+          <mat-menu #trigger="matMenu">
+            <ng-template matMenuContent let-node="node">
+              <button mat-menu-item
+                      (click)="openLedgerDialog(node)">{{'setting.ledger' | translate}}</button>
+              <button mat-menu-item (click)="openAddEditAccountDialog(node)">{{'setting.show_account_card' |
+                  translate}}</button>
+              <button mat-menu-item (click)="openAddEditAccountDialog(node, true)">{{'setting.add_sub_account' |
+                  translate}}</button>
+                <button mat-menu-item (click)="parentReceivable(node)">{{'setting.AppointmentGuardians' | translate}}</button>
+              <button mat-menu-item class="bg-danger text-white" (click)="openDeleteDialog(node)">{{'setting.delete' |
+                  translate}}</button>
+              
+            </ng-template>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>

@@ -1,0 +1,77 @@
+<!-- ____ begin dialog header __________ -->
+<header mat-dialog-title class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder">
+        {{"setting.Permissionmanagement" |translate}}
+    </h2>
+    <i class="fas fa-times text-white" [mat-dialog-close]="true"></i>
+</header>
+<!-- ____ end dialog header __________ -->
+<div class="scroll">
+    <mat-dialog-content class="m-0" class="mat-typography">
+        <ng-container *ngIf="showLoading">
+            <div class="d-flex align-items-center justify-content-center">
+                <mat-spinner [diameter]="80"></mat-spinner>
+            </div>
+        </ng-container>
+        <div class="w-100" *ngIf="!showLoading">
+            <form [formGroup]="form" style="height: 250px;">
+                <div class="w-100">
+                    <div class="row">
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label class="font-weight-bolder" for="">
+                                    {{"general.roles_permissions" | translate}}
+                                </label>
+                                <span class="text-danger">*</span>
+                                <ng-select  [items]="roles" bindLabel="title" bindValue="id"
+                                    [placeholder]="'general.Cost_Center' | translate" formControlName="role_id" appendTo="body">
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label class="font-weight-bolder" for="">
+                                    {{"general.company" | translate}}
+                                </label>
+                                <span class="text-danger">*</span>
+                                <ng-select  (change)="selectCompany($event)" [items]="motherCompanies" bindLabel="name"
+                                    bindValue="id" [placeholder]="'general.Cost_Center' | translate"
+                                    formControlName="mother_company_id" appendTo="body">
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label class="font-weight-bolder" for="">
+                                    {{"general.Cost_Center" | translate}}
+                                </label>
+                                <span class="text-danger">*</span>
+                                <ng-select  [items]="costCenters" bindLabel="name" [multiple]="true" bindValue="id"
+                                    [placeholder]="'general.Cost_Center' | translate" formControlName="cost_centers" appendTo="body">
+                                </ng-select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </mat-dialog-content>
+</div>
+
+<mat-dialog-actions align="center" *ngIf="!showLoading">
+    <div class="dailog-actions-btns">
+        <button mat-button class="btn btn-primary accept" (click)="onSubmit()" [disabled]="!form.valid">
+            {{'general.add' |translate}}
+            <ng-container *ngIf="addLoading">
+                <span class="spinner spinner-primary ml-5"></span>
+            </ng-container>
+        </button>
+        <button mat-button mat-dialog-close class="btn btn-danger">
+            {{'setting.cancel' | translate}}
+        </button>
+    </div>
+</mat-dialog-actions>

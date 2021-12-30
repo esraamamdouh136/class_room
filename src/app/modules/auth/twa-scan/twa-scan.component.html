@@ -1,0 +1,71 @@
+<section class="twa-scan h-100">
+    <div class="row h-100 w-100 mx-0">
+        <div class="col-lg-6 bg-white bg_white py-4 py-lg-5">
+            <div class="col-box h-100 px-3 px-lg-5">
+                <!--begin::header -->
+                <div class="auth-header mb-5">
+                    <app-auth-header></app-auth-header>
+                </div>
+                <!--end:: header-->
+
+                <div class="twa-scan__content mt-30">
+                    <div class="mb-5">
+                        <div class="section_title">
+                            <h1 class="h2 font-weight-bold">{{"AUTH.TWA.HEADER" | translate}}</h1>
+                            <span class="section_subtitle">{{"AUTH.TWA.SUBTITLE" | translate}}</span>
+                        </div>
+                    </div>
+
+                    <ul class="mt-md-5 mb-5 p-0 px-lg-5">
+                        <li class="d-flex align-items-start">
+                            <span class="step-head">{{"AUTH.TWA.STEP-ONE-TITLE" | translate}}</span>
+                            <p class="mx-2 mb-0 step-content">
+                                {{"AUTH.TWA.STEP-ONE" | translate}}
+                                <a class="cursor-pointer" target="_blank"
+                                    href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US">{{"AUTH.TWA.CLICK-HERE"
+                                    | translate}}</a>
+                            </p>
+                        </li>
+                        <li class="mt-3 d-flex align-items-start">
+                            <span class="step-head">{{"AUTH.TWA.STEP-TWO-TITLE" | translate}}</span>
+                            <p class="mx-2 mb-0 step-content">
+                                {{"AUTH.TWA.STEP-TWO" | translate}}
+                            </p>
+                        </li>
+                        <li class="mt-3 d-flex align-items-start">
+
+                            <span class="step-head">{{"AUTH.TWA.STEP-THREE-TITLE" | translate}}</span>
+                            <p class="mx-2 mb-0 step-content">
+                                {{"AUTH.TWA.STEP-THREE" | translate}}
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="video pt-6">
+                        <iframe width="100%" height="200" [src]="videoSource" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-6 py-10 bg_white py-lg-5 d-flex align-items-center">
+            <div class="container">
+                <div class="col-box">
+
+                    <div class="QR-code mb-20">
+                        <div class="QR-code__wrapper d-flex align-items-center justify-content-center">
+                            <!-- QR code img __________________________ -->
+                            <img [src]="barCodeImg" class="img-fluid"
+                                onError="this.src='https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0'"
+                                alt="QR Code">
+                        </div>
+                    </div>
+
+                    <!-- _________________ begin otp section ________________ -->
+                    <app-otp [code]="code" [showSkip]="true" [first]="true"></app-otp>
+                    <!-- _________________ end otp section ________________ -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

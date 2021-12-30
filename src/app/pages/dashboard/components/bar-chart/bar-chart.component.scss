@@ -1,0 +1,56 @@
+.card {
+    margin: 1rem 0px;
+    border-radius: 0px !important;
+
+    .card-header {
+        background-color: #F7F7F7;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: black;
+
+    }
+
+    p {
+        color: black;
+        font-weight: 900;
+        font-size: 13px;
+        padding: 0px .5rem;
+        margin-bottom: .5px;
+    }
+
+    .text-color-two {
+        color: #5AC4A4;
+        font-size: 11px;
+    }
+
+    .text-color-one {
+        color: #AC6BC2;
+        font-size: 11px;
+    }
+
+    .labels {
+        padding: 0px .4rem;
+        p{
+            margin-bottom: .5px;
+        }
+    }
+    .colors {
+        margin-top: 10px;
+        span {
+            display: block;
+            width: 2.5rem;
+            height: .5rem;
+            margin-bottom: 1rem;
+        }
+        .color-one {
+            background-color: #B0CC8F;
+        }
+
+        .color-two {
+            background-color:#EED380 ;
+        }
+    }
+}

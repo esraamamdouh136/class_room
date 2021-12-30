@@ -1,0 +1,41 @@
+<section class="section border">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-file-signature mx-2"></i>
+            {{'students.not_attached_parents' | translate}}
+        </h2>
+        <button class="
+        btn
+        mx-3
+        px-5 px-lg-9
+        btn-shadow btn-warning
+        font-weight-bolder
+        min-w-130px
+        font-size-lg
+        " routerLink="../parents-list">
+                {{ "students.download" | translate }}
+            </button>
+        </header>
+<div class="section__body p-4 p-lg-7">
+    <!-- _______ begin tabel _______ -->
+    <div class="section__body__tabel mt-5">
+        <div class="vc-ag-grid global-data-table">
+            <app-ag-grid #agGrid [rowData]="tableItems" [frameworkComponents]="frameworkComponents"
+                [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs"
+                [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'" [GlobalTable]="true" [pagination]="true"
+                [pageOptions]="pageOptions" (pageEvent)="pageEvent($event)">
+            </app-ag-grid>
+        </div>
+    </div>
+    <!-- _______ end tabel _______ -->
+</div>
+<div class="d-flex" [ngClass]="translation.getSelectedLanguage() == 'ar' ? 'justify-content-end' : 'justify-content-end'">
+    <button type="submit" class="btn btn-danger my-3">{{'students.back' |
+    translate}}</button> 
+    </div><!-- ____ end section body __________ -->
+</section>
+
+<ng-template #errorData>
+<app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

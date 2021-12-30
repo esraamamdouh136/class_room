@@ -1,0 +1,44 @@
+.content-header{
+    background-color: #0488d3;
+    font-family: "Tajawal-Bold";
+    font-size: 15px;
+    color: #fff;
+}
+
+.mat-dialog-content{
+    padding: 0 !important;
+    width: 100%;
+    margin: 0;
+    max-height: 70vh;
+}
+
+
+.total{
+    ::ng-deep{
+        app-ag-grid{
+            .ag-header-row.ag-header-row-column {
+                height: 2rem !IMPORTANT;
+            }
+
+            .ag-header.ag-focus-managed.ag-pivot-off {
+                height: 30px !important;
+                min-height: 30px !important;
+                background-color: #0488d3;
+            }
+
+            .ag-cell-label-container{
+                color: #fff !important;
+            }
+
+            .ag-center-cols-viewport{
+                background-color: #0488d3;
+            }
+            .ag-theme-alpine .ag-cell{
+                color: #fff;
+            }
+            .ag-theme-alpine .ag-row{
+                // height: 40px !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,537 @@
+<section class="section border">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex">
+      <i class="fa fa-file-signature mx-2"></i>
+      {{'contracts.new_contract' | translate}}
+    </h2>
+  </header>
+  <!--title-->
+  <form [formGroup]="form">
+  <div class="title px-3 py-3 mx-5">
+    <div class="row no-gutters">
+      <div class="col-lg-10">
+        <input class="main_title w-75 form-control" type="text" formControlName="name">
+      </div>
+      <!-- <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor> -->
+
+      <!-- <div class="col-lg-2">
+        <div class="form-group is_active mb-0 company-status">
+          <span class="switch switch-icon">
+            <label class="pointer auto-width" for="isActive">
+              {{"contracts.show" |
+              translate}}</label>
+            <label class="mx-3 auto-width">
+              <input dir="auto" id="isActive" formControlName="contract_party_status" type="checkbox" checked="true" name="status" checked="true">
+              <span></span>
+            </label>
+            <label class="pointer auto-width" style="white-space: nowrap" for="isActive">{{"contracts.hidden" |
+              translate}}</label>
+          </span>
+        </div>
+      </div> -->
+    </div>
+  </div> 
+
+  <!--Date Contracts-->
+  <!-- <div class="date_contracts my-5 px-5 py-3 mx-4 border" [hidden]="!form.get('contract_party_status').value">
+    <div class="row">
+      <div class="col-lg-2">
+        <p class="pt-4"> {{'contracts.contract_date' | translate}}</p>
+      </div>
+      <div class="col-lg-3">
+        <div class="form-group">
+          <mat-form-field floatLabel="never" class="date-form cursor-pointer" (click)="picker.open()">
+            <input dir="auto" style="cursor:none" readonly matInput [matDatepicker]="picker"
+              [placeholder]="'setting.usersPage.chooseDate' | translate">
+            <mat-datepicker-toggle matSuffix (click)="picker.open()"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <p class="pt-4 text-center"> {{'contracts.day' | translate}}</p>
+      </div>
+      <div class="col-lg-3">
+        <div class="form-group">
+          <mat-form-field floatLabel="never" class="date-form cursor-pointer" (click)="picker2.open()">
+            <input dir="auto" style="cursor:none" readonly matInput [matDatepicker]="picker2"
+              [placeholder]="'setting.usersPage.chooseDate' | translate">
+            <mat-datepicker-toggle matSuffix (click)="picker2.open()"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <p class="pt-4 text-center"> {{'contracts.both' | translate}}</p>
+      </div>
+    </div>
+  </div> -->
+  <ng-container>
+    <div class="row px-1 mx-5">
+      <div class="col-lg-10 mt-3">
+        <input class="title w-75" formControlName="intro_title">
+      </div>
+      <div class="col-lg-2 mt-3 d-flex justify-content-end">
+        <div class="form-group is_active mb-0 company-status">
+          <span class="switch switch-icon">
+            <label class="pointer auto-width" for="isActive">
+              {{"contracts.show" |
+              translate}}</label>
+            <label class="mx-3 auto-width">
+              <input dir="auto" id="isActive" formControlName="intro_status" type="checkbox" checked="true" name="status" />
+              <span></span>
+            </label>
+            <label class="pointer auto-width" style="white-space: nowrap" for="isActive">{{"contracts.hidden" |
+              translate}}</label>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!--Select-->
+    <div class="selects mx-5" [hidden]="!form.get('intro_status').value">
+
+      <div class="row no-gutters">
+        <div class="col-lg-9 my-5">
+          <editor formControlName="intro_desc" #editorComponentContract apiKey="m6pcsur1xj618q2nr3booaeojmr7ddfjxxwu4k2mfi26apzk"
+              [init]="editorObj"></editor>
+              <ng-container *ngIf="formErrors">
+                <h4 class="text-danger">
+                  {{formErrors?.intro?.desc}}
+                </h4>
+
+            </ng-container>
+      </div>
+      <div class="col-lg-3">
+          <div class="data-words">
+              <h6 class="border">كلمات تساعدك على ادخل بياناتك</h6>
+              <div  class="border buttons">
+                <!-- (click)="insertDataInsideEditor(words.value)" -->
+                  <button *ngFor="let words of words" (click)="insertDataInsideEditor(words.value , 'contract')"
+                      class="mx-auto btn mx-0 px-3 px-lg-9 btn-shadow {{words.color}} font-weight-bolder min-w-130px font-size-lg">
+                      {{words.name}}
+                  </button>
+              </div>
+          </div>
+      </div>
+      </div>
+      <!-- <form class="p-5">
+        <div class="form-row">
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="company_name">{{'contracts.company_name' | translate}}</label>
+              <ng-select [items]="companies" bindLabel="name" bindValue="id" labelForId="company_name"
+                (change)="targetTheSameProperty('tax_number')">
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="tax_number">{{'contracts.tax_number' | translate}}</label>
+              <input [disabled]="true" class="form-control" type="text" labelForId="tax_number">
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="user_name">{{'contracts.represented' | translate}}</label>
+              <ng-select [items]="users" bindLabel="name" bindValue="id" labelForId="user_name"
+                (change)="targetTheSameProperty('roles')">
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="roles_title">{{'contracts.adjective' | translate}}</label>
+              <input [disabled]="true" class="form-control" type="text" labelForId="roles_title">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="">{{'parent_pages.identification_number' | translate}}</label>
+              <input [disabled]="true" class="form-control" type="text" labelForId="">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="father_name">{{'contracts.second_party' | translate}}</label>
+              <ng-select [items]="parents" bindLabel="name_father" bindValue="id" labelForId="father_name"
+                (change)="targetTheSameProperty('dentification_number')">
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="identification_number">{{'parent_pages.identification_number' | translate}}</label>
+              <input [disabled]="true" class="form-control" type="text" labelForId="identification_number">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <button
+            class="mr-auto btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+            {{'contracts.paragraph' | translate}}
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </form> -->
+    </div>
+  </ng-container>
+    <!--Editor-->
+    <div class="editor px-5 py-3">
+        <!--تمهيد-->
+        <div class="preamble px-5">
+            <div class="row no-gutters my-4">
+                <div class="col-lg-10">
+                  <input class="title w-75" formControlName="primer_title">
+                </div>
+                <div class="col-lg-2 d-flex justify-content-end">
+                    <div class="form-group is_active mb-0 company-status">
+                        <span class="switch switch-icon">
+                            <label class="pointer auto-width" for="isActive">
+                                {{"contracts.show" |
+                                translate}}</label>
+                            <label class="mx-3 auto-width">
+                                <input dir="auto" id="preIsActive" formControlName="primer_status"  type="checkbox" checked="true" name="preIsActive"/>
+                                <span></span>
+                            </label>
+                            <label class="pointer auto-width" style="white-space: nowrap"
+                                for="isActive">{{"contracts.hidden" |
+                                translate}}</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters" [hidden]="!form.get('primer_status').value">
+                  <div class="col-lg-9 my-5">
+                    <editor formControlName="desc" #editorComponent apiKey="m6pcsur1xj618q2nr3booaeojmr7ddfjxxwu4k2mfi26apzk"
+                        [init]="editorObj"></editor>
+                        <ng-container *ngIf="formErrors">
+                          <h4 class="text-danger">
+                            {{formErrors?.primer?.desc}}
+                          </h4>
+          
+                      </ng-container>
+                </div>
+                <div class="col-lg-3">
+                    <div class="data-words">
+                        <h6 class="border">كلمات تساعدك على ادخل بياناتك</h6>
+                        <div  class="border buttons">
+                          <!-- (click)="insertDataInsideEditor(words.value)" -->
+                            <button *ngFor="let words of words" (click)="insertDataInsideEditor(words.value , 'preamble')"
+                                class="mx-auto btn mx-0 px-5 px-lg-9 btn-shadow {{words.color}} font-weight-bolder min-w-130px font-size-lg">
+                                {{words.name}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+      <div class="classrooms my-5 pt-4">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h3>{{"contracts.classroom_title" |
+                            translate}}</h3>
+                    </div>
+                    <div class="col-lg-2 d-flex justify-content-end">
+                        <div class="form-group is_active mb-0 company-status">
+                            <span class="switch switch-icon">
+                                <label class="pointer auto-width" for="isActive">
+                                    {{"contracts.show" |
+                                    translate}}</label>
+                                <label class="mx-3 auto-width">
+                                    <input dir="auto" id="isActive" type="checkbox" formControlName="fees_status" checked="true" name="status" />
+                                    <span></span>
+                                </label>
+                                <label class="pointer auto-width" style="white-space: nowrap"
+                                    for="isActive">{{"contracts.hidden" |
+                                    translate}}</label>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- =============================================== -->
+
+                <div class="my-5 row p-5 border" [hidden]="!form.get('fees_status').value">
+                  <div class="col-lg-6">
+                    <div class="form-group d-flex">
+                        <label for="class_room" class="w-25 mt-3">{{'general.class_room' | translate}}</label>
+                        <ng-select [items]="classRooms" class="w-75" bindLabel="name" bindValue="id"
+                            labelForId="class_room" [clearable]="!form.get('class_room').value ? false : true"  formControlName="class_room" (change)="targetTheSameProperty()">
+                        </ng-select>
+                    </div>
+                    <ng-container *ngIf="formErrors">
+                      <h4 class="text-danger">
+                        {{formErrors?.main?.classroom_id}}
+                      </h4>
+      
+                  </ng-container>
+                </div>
+                  <div class="col-lg-6">
+                    <div class="form-group d-flex">
+                        <label for="fees_classes" class="w-25 mt-3">{{'setting.typesoffees' | translate}}</label>
+                        <ng-select [items]="feesClasses" class="w-75" bindLabel="name" bindValue="id"
+                            labelForId="fees_classes" formControlName="fees_classes" [multiple]="true" (change)="targetTheSameProperty()">
+                        </ng-select>
+                    </div>
+                    <ng-container *ngIf="formErrors">
+                      <h4 class="text-danger">
+                        {{formErrors?.fees_classes}}
+                      </h4>
+                  </ng-container>
+                </div>
+
+                    <div class="col-lg-8 mx-auto mt-4" *ngIf="(type_list_Fees?.length) >= 1">
+                      <div class="form-group d-flex">
+                          <!-- <label for="class_room" class="w-25 mt-3">{{'general.class_room' | translate}}</label> -->
+                          <ng-select [items]="type_list_Fees" formControlName="type_list_Fees" class="w-75" bindLabel="name" bindValue="id"
+                              labelForId="type_list" [multiple]="true" (change)="changeFeesTypes($event)">
+                          </ng-select>
+                      </div>
+                      <ng-container *ngIf="formErrors">
+                        <h4 class="text-danger">
+                          {{formErrors?.fees_types}}
+                        </h4>
+                    </ng-container>
+                  </div>
+                </div>
+
+
+                <!-- =============================================== -->
+
+
+            </div> 
+    </div>
+
+    <div formGroupName="itemExecutions">
+      <div class="col-lg-12 d-flex justify-content-end">
+        <button (click)="addMoreItem()"
+            class="btn  px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder font-size-lg">
+            {{'contracts.new_item' | translate}}
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+        <!--البند الاول-->
+        <div class="first_item px-3 my-4" formArrayName="item">
+            <div class="row my-4 no-gutters" *ngFor="let item of itemsArray.controls ; let i = index"   [formGroupName]="i">
+                <div class="col-lg-5">
+                    <input class="title w-75" formControlName="title">
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                      <!-- (keyup)="sortItems(order.value , i)" -->
+                        <input class="form-control" formControlName="order" #order type="text" appNumbersOnly placeholder="{{'contracts.sort' | translate}}"
+                             labelForId="store">
+                    </div>
+                </div>
+                <div class="col-lg-4 d-flex justify-content-end">
+                    <div class="form-group is_active mb-0 company-status">
+                        <span class="switch switch-icon">
+                            <label class="pointer auto-width" for="isActive">
+                                {{"contracts.show" |
+                                translate}}</label>
+                            <label class="mx-3 auto-width">
+                                <input dir="auto" id="isActive" type="checkbox" 
+                                formControlName="status" 
+                                name="status" checked="true"
+                                    />
+                                <span></span>
+                            </label>
+                            <label class="pointer auto-width" style="white-space: nowrap"
+                                for="isActive">{{"contracts.hidden" |
+                                translate}}</label>
+                        </span>
+                    </div>
+                </div>
+               
+              <ng-container *ngIf="itemsArray.value[i].status">
+                <div class="col-lg-9 my-5">
+                    <editor #editorForitem formControlName="desc"  apiKey="m6pcsur1xj618q2nr3booaeojmr7ddfjxxwu4k2mfi26apzk" [init]="editorObj"></editor>
+                    <ng-container *ngIf="formErrors">
+                      <h4 class="text-danger">
+                        {{formErrors?.items[i]?.desc}}
+                      </h4>
+      
+                  </ng-container>
+                </div>
+                <div class="col-lg-3">
+                    <div class="data-words">
+                        <h6 class="border">كلمات تساعدك على ادخل بياناتك</h6>
+                        <div  class="border buttons">
+                            <button *ngFor="let words of itemWords" (click)="insertDataInsideEditor( words.value ,'item' , i)"
+                                class="mx-auto btn mx-0 px-3 px-lg-9 btn-shadow {{words.color}} font-weight-bolder min-w-130px font-size-lg">
+                                {{words.name}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+              </ng-container>
+
+            
+            </div>
+        </div>
+    
+</div>
+
+    <!--الخاتمه-->
+    <div class="Conclusion mt-5 px-3">
+      <div class="row my-4 no-gutters">
+        <div class="col-lg-10">
+          <input formControlName="conclusion_title" class="title w-75">
+        </div>
+        <div class="col-lg-2 d-flex justify-content-end">
+          <div class="form-group is_active mb-0 company-status">
+            <span class="switch switch-icon">
+              <label class="pointer auto-width" for="isActive">
+                {{"contracts.show" |
+                translate}}</label>
+              <label class="mx-4 auto-width">
+                <input dir="auto" id="isActive" type="checkbox" formControlName="conclusion_status" name="conclusion_status" checked="true"/>
+                <span></span>
+              </label>
+              <label class="pointer auto-width" style="white-space: nowrap" for="isActive">{{"contracts.hidden" |
+                translate}}</label>
+            </span>
+          </div>
+        </div>
+        </div>
+        <div class="row" [hidden]="!form.get('conclusion_status').value">
+          <div class="col-lg-9 my-5">
+              <editor #conclusion_desc formControlName="conclusion_desc"   [init]="editorObj"></editor>
+              <ng-container *ngIf="formErrors">
+                <h4 class="text-danger">
+                  {{formErrors?.conclusion?.desc}}
+                </h4>
+
+            </ng-container>
+            </div>
+          <div class="col-lg-3">
+              <div class="data-words">
+                  <h6 class="border">كلمات تساعدك على ادخل بياناتك</h6>
+                  <div  class="border buttons">
+                      <button *ngFor="let words of itemWords" (click)="insertDataInsideEditor(words.value , 'conclusion')"
+                          class="mx-auto btn mx-0 px-3 px-lg-9 btn-shadow {{words.color}} font-weight-bolder min-w-130px font-size-lg">
+                          {{words.name}}
+                      </button>
+                  </div>
+              </div>
+        </div>
+      </div>
+    </div>
+
+    <!--التوقيع-->
+    <div class="Signature px-3">
+      <div class="row my-4">
+        <!--التوقيع الاول-->
+
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-8">
+
+              <h3 class="title w-75">{{'contracts.signature_one'| translate}}</h3>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group is_active mb-0 company-status">
+                <span class="switch switch-icon">
+                  <label class="pointer auto-width" for="isActive">
+                    {{"contracts.show" |
+                    translate}}</label>
+                  <label class="mx-3 auto-width">
+                    <input dir="auto" id="isActive" type="checkbox" formControlName="signatureOneIsActive" name="signatureOneEdtior" checked="true"/>
+                    <span></span>
+                  </label>
+                  <label class="pointer auto-width"  for="isActive">{{"contracts.hidden" |
+                    translate}}</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-lg-12 my-5" [hidden]="!form.get('signatureOneIsActive').value">
+              <div class="form-group">
+                <editor  formControlName="signatureOneEdtior"  apiKey="m6pcsur1xj618q2nr3booaeojmr7ddfjxxwu4k2mfi26apzk" [init]="editorObj"></editor>
+                <ng-container *ngIf="formErrors">
+                  <h4 class="text-danger">
+                    {{formErrors?.signatures[0]?.desc}}
+                  </h4> 
+               </ng-container>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+        <!--التوقيع الثانى-->
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-8">
+
+              <h3  class="title">{{'contracts.signature_two'| translate}} </h3>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group is_active mb-0 company-status">
+                <span class="switch switch-icon">
+                  <label class="pointer auto-width" for="isActive">
+                    {{"contracts.show" |
+                    translate}}</label>
+                  <label class="mx-3 auto-width">
+                    <input dir="auto" id="isActive" type="checkbox" name="signatureTwoIsActive" formControlName="signatureTwoIsActive" checked="true"/>
+                    <span></span>
+                  </label>
+                  <label class="pointer auto-width" style="white-space: nowrap" for="isActive">{{"contracts.hidden" |
+                    translate}}</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-lg-12 my-5" [hidden]="!form.get('signatureTwoIsActive').value">
+              <div class="form-group">
+                <editor  formControlName="signatureTwoEdtior"  apiKey="m6pcsur1xj618q2nr3booaeojmr7ddfjxxwu4k2mfi26apzk" [init]="editorObj"></editor>
+                <ng-container *ngIf="formErrors">
+                  <h4 class="text-danger">
+                    {{formErrors?.signatures[1]?.desc}}
+                  </h4> 
+               </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+        <div class="col-lg-12">
+            <button (click)="sortBeforSubmit()" class=" btn mx-0 px-3 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg mr-auto d-block">
+                {{'general.save' | translate}}
+            </button>
+        </div>
+
+    </div>
+  </form>
+
+
+    <!--Words for helping you-->
+    <!-- <div class="left-side" [ngClass]="translation.getSelectedLanguage() == 'ar' ? 'left' : 'right' ">
+        <div class="d-flex">
+            <div class=" p-0 m-0">
+                <p (click)="shortcuts()" *ngIf="close" class="shortcuts">
+                    {{'contracts.shortcuts' | translate}}
+                </p>
+                <i class="px-1 far fa-window-close" *ngIf="!close" (click)="closeSidebar()"></i>
+            </div>
+            <div class="words">
+                <ng-container *ngFor="let words of words">
+                    <button (click)="insertDataInsideEditor(words.value)"
+                        class="mx-auto btn mx-0 px-5 px-lg-9 btn-shadow {{words.color}} font-weight-bolder min-w-130px font-size-lg">
+                        {{words.name}}
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    </div> -->
+
+
+</section>

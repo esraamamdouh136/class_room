@@ -1,0 +1,43 @@
+export interface Parent {
+    id?: number;
+    identification_number?: number;
+    mark_as_parent?: number;
+    name_ar?: string;
+    name_en?: string;
+    father_name_ar?: string;
+    father_name_en?: string;
+    grandfather_name_ar?: string;
+    grandfather_name_en?: string;
+    family_name_ar?: string;
+    family_name_en?: string;
+    is_dead?: number;
+    is_affiliates?: number;
+    // country_id?: number;
+    employer_ar?: string;
+    employer_en?: string;
+    job_title_ar?: string;
+    job_title_en?: string;
+    address_ar?: string;
+    address_en?: string;
+    p_o_box?: number;
+    postal_code?: number;
+    home_phone?: number;
+    work_phone?: number;
+    mobile?: number;
+    email?: string;
+    status?: number;
+    in_black_list?: number;
+    stop_dealing?: number
+    note_ar?: string;
+    note_en?: string;
+    nationality_id?: number;
+    parents_file_id?: number;
+    identity_date?: string;
+    identity_source?: string;
+    gender?: string;
+    relative_relation_id?: number;
+    relative_id?: number;
+    work_phone_country?: string;
+    home_phone_country?: string;
+    mobile_country?: string;
+}

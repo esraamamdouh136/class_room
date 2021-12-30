@@ -1,0 +1,73 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <!-- ____ begin dialog header __________ -->
+    <header mat-dialog-title class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder">
+            {{data?.data?.key ? ('general.editFile' |translate) : ('general.addFile' |translate) }}
+        </h2>
+        <button type="button" (click)="toggleLanguage()"
+            class="btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">{{language}}</button>
+        <i class="fas fa-times text-white" [mat-dialog-close]="true"></i>
+    </header>
+    <!-- ____ end dialog header __________ -->
+
+    <mat-dialog-content class="m-0">
+        <form [formGroup]="form">
+            <div class="w-100">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{ 'general.files' |translate }} :
+                            </label>
+                            <div class="row align-items-center no-gutters">
+                                <div class="col-md-4">
+                                    <file-upload formControlName="file" [multiple]="false" [animation]="false">
+                                    </file-upload>
+
+                                    <ng-container *ngIf="formErrors?.path">
+                                        <div class="text-danger" *ngFor="let error of formErrors['path']">
+                                            {{error}}
+                                        </div>
+                                    </ng-container>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4" *ngIf="nameofArabic">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'setting.usersPage.nameAr' | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <input dir="auto" type="text" class="form-control w-100"
+                                [placeholder]="'setting.usersPage.nameAr' | translate" formControlName="title_ar">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4" *ngIf="nameOfEnglish">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{'setting.usersPage.nameEn' | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <input dir="auto" type="text" class="form-control w-100"
+                                [placeholder]="'setting.usersPage.nameEn' | translate" formControlName="title_en">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <div class="dailog-actions-btns">
+            <button mat-button class="btn btn-primary accept" (click)="onSubmit()">
+                {{data.data?.key ? ('general.edit' |translate) : ('general.add' |translate)}}
+            </button>
+            <button mat-button mat-dialog-close class="btn btn-danger">
+                {{'setting.cancel' | translate}}
+            </button>
+        </div>
+    </mat-dialog-actions>
+</div>

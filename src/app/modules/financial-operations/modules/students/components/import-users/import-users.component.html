@@ -1,0 +1,140 @@
+<div class="container">
+    <div class="tab-slider--nav">
+        <ul class="tab-slider--tabs d-flex">
+            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1" (click)="viewMode ='tab1'">
+                  {{'general.import_user' | translate}} </li>
+            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2" (click)="viewMode ='tab2'">
+                {{'general.import_users' | translate}}</li>
+        </ul>
+    </div>
+    <div class="tab-slider--container" [ngSwitch]="viewMode">
+        <div id="tab1" class="tab-slider--body" *ngSwitchCase="'tab1'">
+            <header class="section__header mt-5 p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+                <h2 class="h4 mb-0 font-weight-bolder d-flex">
+                    <i class="fa fa-file mx-2"></i>
+                    {{'students.nor_system' | translate}}
+                </h2>
+            </header>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="username">{{'AUTH.INPUT.USERNAME' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="user_name" id="username">
+                    <!-- <ng-container *ngIf="formErrors?.identity_source">
+                    <div class="text-danger" *ngFor="let error of formErrors?.identity_source">
+                        {{error}}</div>
+                </ng-container> -->
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="password">{{'general.password' | translate}}</label>
+                    <input class="form-control" type="password" formControlName="password" id="password">
+                    <!-- <ng-container *ngIf="formErrors?.identity_source">
+                    <div class="text-danger" *ngFor="let error of formErrors?.identity_source">
+                        {{error}}</div>
+                </ng-container> -->
+                </div>
+            </div>
+
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="enter_code">{{'general.enter_code' | translate}} </label>
+                    <span class="text-danger">*</span>
+                    <input class="form-control" type="text" appNumbersOnly formControlName="enter_code"
+                        name="enter_code" #enter_code id="enter_code">
+                    <!-- <ng-container *ngIf="formErrors?.enter_code">
+                    <div class="text-danger" *ngFor="let error of formErrors?.enter_code">
+                        {{error}}</div>
+                </ng-container> -->
+                </div>
+            </div>
+            <div class="d-flex"
+                [ngClass]="translation.getSelectedLanguage() == 'ar' ? 'justify-content-end' : 'justify-content-end'">
+                <button type="submit" class="btn btn-primary my-3 mx-3">{{'setting.save' |
+            translate}}</button>
+                <button type="submit" class="btn btn-danger my-3">{{'العوده' |
+            translate}}</button>
+            </div>
+        </div>
+        <div id="tab2" class="tab-slider--body" *ngSwitchCase="'tab2'">
+            <div class="row">
+                <div class="col-lg-6 mt-5">
+                    <header
+                        class="section__header mt-5 p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+                        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+                            <i class="fa fa-file mx-2"></i>
+                            {{'رفع ملف اكسل من نظام نور' | translate}}
+                        </h2>
+                    </header>
+                    <div class="m-portlet__body">
+                        <div class="alert alert-info h5">{{'students.choose_excel_file' | translate}}</div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="form-group"><select name="user_type" class="form-control select2">
+                                        <option value="12">الطلاب</option>
+                                        <option value="studentsCourses">طلاب المقررات</option>
+                                        <!---->
+                                        <!---->
+                                        <option value="8">المعلمين</option>
+                                        <option value="4">قائد مدرسة</option>
+                                        <option value="6">المرشد الطلابي</option>
+                                        <option value="9">رائد النشاط</option>
+                                        <option value="13">مساعد اداري</option>
+                                        <option value="14">وكيل</option>
+                                        <option value="15">أمين مصادر التعلم</option>
+                                    </select></div>
+                                <!---->
+                                <!---->
+                                <div class="form-group m-form__group">
+                                    <label for="nourexcel" class="col-form-label"> 
+                                        {{'general.import_users' | translate}}</label>
+                                    <div class="form-group">
+                                        <div class="custom-file"><input type="file" name="nourexcel" id="nourexcel"
+                                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                class="custom-file-input" aria-required="true" aria-invalid="false">
+                                            <label for="nourexcel" class="custom-file-label">{{'students.nor_excel_file' | translate}}</label> <span id="nourexcel_errors" class="invalid-feedback"
+                                                style="display: none;"></span></div>
+                                    </div>
+                                </div>
+                                <!---->
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot">
+                        <button class="btn btn-success m-btn m-btn--icon">
+                                {{'students.send' | translate}}
+                            </button></div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6 mt-5">
+                    <header
+                        class="section__header mt-5 p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+                        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+                            <i class="fa fa-file mx-2"></i>
+                            {{'students.method_import' | translate}}
+                        </h2>
+                    </header>
+                    <div class="m-portlet__body">
+                        <div>
+                            <div class="alert alert-brand h5">
+                                <ol>
+                                    <li>يرجى اختيار الملف الخاص بنظام نور والذي يحوي على المستخدمين</li>
+                                    <li>يتم استيراد الملف من نظام نور من المسار التالي</li>
+                                    <li>التقارير -&gt; تقارير الطلاب -&gt; كشف الطلاب -&gt; عرض -&gt; تصدير اكسل</li>
+                                    <li>الطلاب سيتم اضافتهم كذكور في حال كانت المدرسة مختلطة ويتم تعديلها باستخدام ملف
+                                        اكسل</li>
+                                </ol>
+                            </div> <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/CNtcRMa8gOM?&amp;autoplay=1" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen="allowfullscreen" style="width: 100%;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+.info {
+  font-size: 1.4rem;
+  a {
+    color: #5867dd;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  .semesters {
+    .semester {
+      button {
+        background: white;
+        border-color: #ebedf2;
+        color: #212529;
+        padding: 0.85rem 1.15rem;
+        border-radius: 6px;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.custom-file-label::after {
+  display: none;
+}
+
+.input-group-prepend {
+  span {
+    font-size: 1.3rem;
+  }
+}
+
+.custom-file {
+  label {
+    font-size: 1.3rem;
+  }
+}
+li{
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+}

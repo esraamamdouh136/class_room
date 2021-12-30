@@ -1,0 +1,1 @@
+{"version":3,"file":"country-code.d.ts","sources":["country-code.d.ts"],"names":[],"mappings":";AAAA;AACA;;;AACA","sourcesContent":["export declare class CountryCode {\n    allCountries: ((string | number | string[])[] | (string | number | number[])[])[];\n}\n"]}

@@ -1,0 +1,538 @@
+<section class="section">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex">
+      <i class="fa fa-clipboard-list mx-2"></i>
+      {{'setting.serialnumbers' | translate}}
+    </h2>
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <form class="section__body p-4 p-lg-7">
+
+    <!--  Select branch -->
+    <div class="row justify-content-center mb-4" *ngIf="false">
+      <div class="col-lg-4 col-sm-6">
+        <div class="row align-items-center">
+          <label class="col-lg-auto mb-lg-0 font-weight-boldest" for="branch">{{'general.branch_or_facility' |
+            translate}}</label>
+          <ng-select [items]="['']" bindLabel="name" bindValue="id" class="col" id="branch"></ng-select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Serial number for contracts -->
+    <div class="serial-number">
+      <div class="serial-header">
+        <label class="font-weight-bolder font-size-h4">{{'general.serial_number_contracts' | translate}} </label>
+      </div>
+      <div class="contracts">
+        <div class="row align-items-center mb-5">
+          <label for="contracts_preview" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.preview' |
+            translate}}
+          </label>
+          <input type="text" dir="auto"
+            [value]="formGroup.contract.company_char 
+            + formGroup.contract.prefix_char + generateNumberCount(formGroup.contract.number,formGroup.contract.start_with)"
+            class="form-control col-lg-5 text-center font-weight-bolder font-size-h5" id="contracts_preview" readonly
+            disabled>
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="contracts_start_char_branch"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex  ">{{'general.contract_start_char_branch' | translate}}
+          </label>
+
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.contract.company_char" name="contracts_start_char_branch"
+              class="form-control" id="contracts_start_char_branch">
+            <ng-container *ngIf="formErrors?.contract?.company_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.contract?.company_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="contracts_start_char_contract"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.contracts_start_char_contract' | translate}}
+          </label>
+
+          <div class="col-lg-5 p-0">
+            <input type="text" name="contracts_start_char_contract" [(ngModel)]="formGroup.contract.prefix_char"
+              class="form-control" id="contracts_start_char_contract">
+            <ng-container *ngIf="formErrors?.contract?.prefix_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.contract?.prefix_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+
+        <div class="row align-items-center mb-5">
+          <label for="contracts_contract_number_count"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.contracts_contract_number_count' |
+            translate}}</label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.contract.number" name="contracts_contract_number_count"
+              class="form-control" id="contracts_contract_number_count">
+            <ng-container *ngIf="formErrors?.contract?.number">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.contract?.number">
+                {{error}}</div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <label for="startWithNumber6" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.startWithNumber'
+            |
+            translate}}</label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.contract.start_with" name="startWithNumber6" class="form-control "
+              id="startWithNumber6">
+            <ng-container *ngIf="formErrors?.contract?.start_with">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.contract?.start_with">
+                {{error}}</div>
+            </ng-container>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="p-5"></div>
+
+    <!-- Serial number for payment -->
+    <div class="serial-number">
+      <div class="serial-header">
+        <label class="font-weight-bolder font-size-h4">{{'general.serial_number_payment' | translate}} </label>
+      </div>
+      <div class="payment">
+        <div class="row align-items-center mb-5">
+          <label for="payment_preview" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.preview' |
+            translate}}
+          </label>
+          <input type="text" dir="auto" class="form-control col-lg-5 text-center font-weight-bolder font-size-h5"
+            [value]="formGroup.receipt_voucher.company_char 
+            + formGroup.receipt_voucher.prefix_char + generateNumberCount(formGroup.receipt_voucher.number,formGroup.receipt_voucher.start_with)"
+            id="payment_preview" readonly disabled>
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="payment_start_char_branch"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.contract_start_char_branch' | translate}}
+          </label>
+
+          <div class="col-lg-5 p-0">
+            <input type="text" name="payment_start_char_branch" [(ngModel)]="formGroup.receipt_voucher.company_char"
+            class="form-control" id="payment_start_char_branch">
+          <ng-container *ngIf="formErrors?.receipt_voucher?.company_char">
+            <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.receipt_voucher?.company_char">
+              {{error}}</div>
+          </ng-container>
+          </div>
+          
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="payment_start_char_contract"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.payment_start_char_contract' | translate}}
+          </label>
+
+          <div class="col-lg-5 p-0">
+            <input type="text" name="payment_start_char_contract" [(ngModel)]="formGroup.receipt_voucher.prefix_char"
+              class="form-control" id="payment_start_char_contract">
+            <ng-container *ngIf="formErrors?.receipt_voucher?.prefix_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.receipt_voucher?.prefix_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+
+        <div class="row align-items-center mb-5">
+          <label for="payment_number_count"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.payment_number_count' | translate}}
+          </label>
+
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.receipt_voucher.number" name="payment_number_count"
+              class="form-control" id="payment_number_count">
+            <ng-container *ngIf="formErrors?.receipt_voucher?.number">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.receipt_voucher?.number">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center">
+          <label for="startWithNumber5" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.startWithNumber'
+            |
+            translate}}</label>
+
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.receipt_voucher.start_with" name="startWithNumber5"
+              class="form-control" id="startWithNumber5">
+            <ng-container *ngIf="formErrors?.receipt_voucher?.start_with">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.receipt_voucher?.start_with">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="p-5"></div>
+
+    <!-- Serial number for receipt -->
+    <div class="serial-number">
+      <div class="serial-header">
+        <label class="font-weight-bolder font-size-h4">{{'general.serial_number_receipt' | translate}} </label>
+      </div>
+      <div class="receipt">
+        <div class="row align-items-center mb-5">
+          <label for="receipt_preview" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.preview' |
+            translate}}
+          </label>
+          <input type="text" dir="auto" class="form-control col-lg-5 text-center font-weight-bolder font-size-h5"
+            [value]="formGroup.payment_voucher.company_char 
+            + formGroup.payment_voucher.prefix_char + generateNumberCount(formGroup.payment_voucher.number,formGroup.payment_voucher.start_with)"
+            id="receipt_preview" readonly disabled>
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="receipt_start_char_branch"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.receipt_start_char_branch' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.payment_voucher.company_char" name="receipt_start_char_branch"
+              class="form-control" id="receipt_start_char_branch">
+            <ng-container *ngIf="formErrors?.payment_voucher?.company_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.payment_voucher?.company_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="receipt_start_char_contract"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.receipt_start_char_contract' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.payment_voucher.prefix_char" name="receipt_start_char_contract"
+              class="form-control" id="receipt_start_char_contract">
+            <ng-container *ngIf="formErrors?.payment_voucher?.prefix_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.payment_voucher?.prefix_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+
+        <div class="row align-items-center mb-5">
+          <label for="receipt_number_count"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.receipt_number_count' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.payment_voucher.number" name="receipt_number_count"
+              class="form-control" id="receipt_number_count">
+            <ng-container *ngIf="formErrors?.payment_voucher?.number">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.payment_voucher?.number">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center">
+          <label for="startWithNumber4" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.startWithNumber'
+            |
+            translate}}</label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.payment_voucher.start_with" name="startWithNumber4"
+              class="form-control" id="startWithNumber4">
+            <ng-container *ngIf="formErrors?.payment_voucher?.start_with">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.payment_voucher?.start_with">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="p-5"></div>
+
+    <!-- Serial number for Invoices -->
+    <div class="serial-number">
+      <div class="serial-header">
+        <label class="font-weight-bolder font-size-h4">{{'general.serial_number_invoices' | translate}} </label>
+      </div>
+      <div class="invoice">
+        <div class="row align-items-center mb-5">
+          <label for="receipt_preview" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.preview' |
+            translate}}
+          </label>
+          <input type="text" dir="auto" class="form-control col-lg-5 text-center font-weight-bolder font-size-h5"
+            [value]="formGroup.invoice.company_char 
+            + formGroup.invoice.prefix_char + generateNumberCount(formGroup.invoice.number,formGroup.invoice.start_with)"
+            id="receipt_preview" readonly disabled>
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="receipt_start_char_branch"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.receipt_start_char_branch' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.invoice.company_char" name="receipt_start_char_branch"
+              class="form-control" id="receipt_start_char_branch">
+            <ng-container *ngIf="formErrors?.invoice?.company_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.invoice?.company_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="invoice_start_char_contract"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.invoice_start_char_contract' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.invoice.prefix_char" name="invoice_start_char_contract"
+              class="form-control" id="invoice_start_char_contract">
+            <ng-container *ngIf="formErrors?.invoice?.prefix_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.invoice?.prefix_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+
+        <div class="row align-items-center mb-5">
+          <label for="invoice_number_count"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.invoice_number_count' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.invoice.number" name="invoice_number_count" class="form-control"
+              id="invoice_number_count">
+            <ng-container *ngIf="formErrors?.invoice?.number">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.invoice?.number">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center">
+          <label for="startWithNumber1" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.startWithNumber'
+            |
+            translate}}</label>
+
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.invoice.start_with" name="startWithNumber1" class="form-control"
+              id="startWithNumber1">
+            <ng-container *ngIf="formErrors?.invoice?.start_with">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.invoice?.start_with">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="p-5"></div>
+
+    <!-- Serial number for serial_number_parent_collection -->
+    <div class="serial-number">
+      <div class="serial-header">
+        <label class="font-weight-bolder font-size-h4">{{'general.serial_number_parent_collection' | translate}}
+        </label>
+      </div>
+      <div class="payment_voucher">
+        <div class="row align-items-center mb-5">
+          <label for="receipt_preview" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.preview' |
+            translate}}
+          </label>
+          <input type="text" dir="auto" class="form-control col-lg-5 text-center font-weight-bolder font-size-h5"
+            [value]="formGroup.parent_collection.company_char 
+            + formGroup.parent_collection.prefix_char + generateNumberCount(formGroup.parent_collection.number,formGroup.parent_collection.start_with)"
+            id="receipt_preview" readonly disabled>
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="receipt_start_char_branch"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.receipt_start_char_branch' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.parent_collection.company_char" name="receipt_start_char_branch"
+              class="form-control" id="receipt_start_char_branch">
+            <ng-container *ngIf="formErrors?.parent_collection?.company_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.parent_collection?.company_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="invoice_start_char_parent_collection"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.invoice_start_char_parent_collection' |
+            translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.parent_collection.prefix_char"
+              name="invoice_start_char_parent_collection" class="form-control"
+              id="invoice_start_char_parent_collection">
+            <ng-container *ngIf="formErrors?.parent_collection?.prefix_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.parent_collection?.prefix_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+
+        <div class="row align-items-center mb-5">
+          <label for="parent_collection_number_count"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.parent_collection_number_count' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.parent_collection.number" name="parent_collection_number_count"
+              class="form-control" id="parent_collection_number_count">
+            <ng-container *ngIf="formErrors?.parent_collection?.number">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.parent_collection?.number">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center">
+          <label for="startWithNumber2" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.startWithNumber'
+            |
+            translate}}</label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.parent_collection.start_with" name="startWithNumber2"
+              class="form-control" id="startWithNumber2">
+            <ng-container *ngIf="formErrors?.parent_collection?.start_with">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.parent_collection?.start_with">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="p-5"></div>
+
+    <!-- Serial number for Invoserial_number_parent_receiptices -->
+    <div class="serial-number">
+      <div class="serial-header">
+        <label class="font-weight-bolder font-size-h4">{{'general.serial_number_parent_receipt' | translate}} </label>
+      </div>
+      <div class="parent_receipt">
+        <div class="row align-items-center mb-5">
+          <label for="receipt_preview" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.preview' |
+            translate}}
+          </label>
+          <input type="text" dir="auto" class="form-control col-lg-5 text-center font-weight-bolder font-size-h5"
+            [value]="formGroup.parent_receipt.company_char 
+            + formGroup.parent_receipt.prefix_char + generateNumberCount(formGroup.parent_receipt.number,formGroup.parent_receipt.start_with)"
+            id="receipt_preview" readonly disabled>
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="receipt_start_char_branch"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.receipt_start_char_branch' | translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.parent_receipt.company_char" name="receipt_start_char_branch"
+              class="form-control" id="receipt_start_char_branch">
+            <ng-container *ngIf="formErrors?.parent_receipt?.company_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.parent_receipt?.company_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <label for="contracts_start_char_parent_receipt"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.contracts_start_char_parent_receipt' |
+            translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.parent_receipt.prefix_char"
+              name="contracts_start_char_parent_receipt" class="form-control" id="contracts_start_char_parent_receipt">
+            <ng-container *ngIf="formErrors?.parent_receipt?.prefix_char">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.parent_receipt?.prefix_char">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+
+        <div class="row align-items-center mb-5">
+          <label for="invoice_number_count_parent_receipt"
+            class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.invoice_number_count_parent_receipt' |
+            translate}}
+          </label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.parent_receipt.number" name="invoice_number_count_parent_receipt"
+              class="form-control" id="invoice_number_count_parent_receipt">
+            <ng-container *ngIf="formErrors?.parent_receipt?.number">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.parent_receipt?.number">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row align-items-center">
+          <label for="startWithNumber3" class="col-lg-3 font-weight-boldest px-lg-4 d-flex">{{'general.startWithNumber'
+            |
+            translate}}</label>
+          <div class="col-lg-5 p-0">
+            <input type="text" [(ngModel)]="formGroup.parent_receipt.start_with" name="startWithNumber3"
+              class="form-control" id="startWithNumber3">
+            <ng-container *ngIf="formErrors?.parent_receipt?.start_with">
+              <div class="text-danger font-weight-bold" *ngFor="let error of formErrors?.parent_receipt?.start_with">
+                {{error}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="p-5"></div>
+    <div class="actions">
+      <button class="btn btn-primary" (click)="addSerialNumbers()">{{'general.save' | translate}}</button>
+    </div>
+
+  </form>
+</section>

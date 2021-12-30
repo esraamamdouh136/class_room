@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card-header">
+        <h3>الدخل و المصروفات</h3>
+    </div>
+    <div class="card-body">
+        <canvas baseChart 
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+        [colors] = "chartColorsBar"
+        [datasets]="barChartData"
+        >
+      </canvas>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-md-4">
+          <p class="text-color-one">المصروفات الكليه</p>
+          <p><span>2,300,400</span>ريال سعودى</p>
+        </div>
+        <div class="col-md-4">
+            <p class="text-color-two">اجمالى الدخل</p>
+            <p><span>2,300,400</span>ريال سعودى</p>
+        </div>
+        <div class="col-md-2 labels">
+                <p>ايرادات</p>
+                <p>مصروفات</p>
+                </div>
+                <div class="col-md-2">
+                <div class="colors">
+                    <span class="color-one"></span>
+                    <span class="color-two"></span>
+                </div>
+            </div>
+    </div>
+  </div>

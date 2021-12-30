@@ -1,0 +1,245 @@
+.logout-btn {
+  color: #0488d3;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #ebedf2;
+  padding: 6px 20px;
+  border-radius: 16px;
+  display: block;
+  margin-top: 6px;
+  background-color: transparent;
+}
+
+.profile-user {
+  min-height: 100px;
+  padding: 20px;
+
+  a {
+    color: #000;
+    font-size: 14px;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+}
+
+.btn.btn-clean:hover,
+.show .btn.btn-clean.btn-dropdown,
+.btn.btn-clean:active {
+  background-color: transparent !important;
+}
+
+.profile-content .header-content {
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  background: url("https://v1.viewclass.com/assets/app/media/img/misc/user_profile_bg.jpg") 0% 0% / cover;
+
+  .header-details {
+    max-width: 55px;
+    border-radius: 50%;
+
+    img {
+      border-radius: 50%;
+      height: 60px;
+      width: 60px;
+    }
+  }
+
+  .details {
+    p {
+      color: #d9dae3;
+      font-weight: 500;
+    }
+  }
+
+  &::after {
+    content: "\A";
+    border-style: solid;
+    position: absolute;
+    top: -16px;
+    right: 85%;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid #817f88;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    transform: translateX(-71%);
+  }
+}
+
+.dropdown-menu {
+  max-width: 300px;
+
+  @media (max-width: 576px) {
+    max-width: 250px;
+  }
+}
+
+.drop-down {
+  position: relative;
+  cursor: pointer;
+
+  &-content {
+    position: absolute;
+    top: 30px;
+    background-color: #fff;
+    box-shadow: 0px 1px 1px 1px rgb(69 65 78 / 10%);
+    min-width: 150px;
+    left: -20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+    z-index: 22222222;
+
+    [dir="rtl"] & {
+      left: 41px;
+    }
+
+    &:before {
+      content: "\A";
+      border-style: solid;
+      position: absolute;
+      top: -16px;
+      left: 61%;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid #6f47d0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      transform: translateX(-61%);
+
+      [dir="rtl"] & {
+        left: 40%;
+      }
+    }
+  }
+}
+
+// .drop-down-content-lang {
+//   // top: 30px;
+//   // position: absolute;
+//   background-color: #fff;
+//   box-shadow: 0px 1px 1px 1px rgb(69 65 78 / 10%);
+//   min-width: 170px;
+//   // left: -20px;
+//   // opacity: 0;
+//   // visibility: hidden;
+//   transition: all 0.3s ease-in-out;
+//   // transform: translateX(-50%);
+//   z-index: 22222222;
+
+//   [dir="rtl"] & {
+//     // left: 60px;
+//     // @media (max-width: 992px) {
+//     //   left: 40px;
+//     // }
+//   }
+
+//   // &:before {
+//   //   content: "\A";
+//   //   border-style: solid;
+//   //   position: absolute;
+//   //   top: -16px;
+//   //   left: 69%;
+//   //   border-top: 8px solid transparent;
+//   //   border-bottom: 8px solid #817f88;
+//   //   border-left: 8px solid transparent;
+//   //   border-right: 8px solid transparent;
+//   //   transform: translateX(-71%);
+
+//   //   [dir="rtl"] & {
+//   //     left: 33%;
+//   //   }
+//   // }
+// }
+
+::ng-deep {
+
+  .drop-down--user-content {
+    position: absolute;
+    top: 30px;
+    background-color: #fff;
+    box-shadow: 0px 1px 1px 1px rgb(69 65 78 / 10%);
+    min-width: 150px;
+    right: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    z-index: 22222;
+
+    &:before {
+      content: "\A";
+      border-style: solid;
+      position: absolute;
+      top: -16px;
+      right: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid #817f88;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+
+      [dir="rtl"] & {
+        right: auto;
+        left: 0;
+      }
+    }
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 0;
+    }
+  }
+
+  .show-drop {
+    opacity: 1;
+    visibility: visible;
+    top: 50px;
+  }
+
+  .drop-head {
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .drop-lang {
+    padding: 20px;
+    cursor: pointer;
+  }
+
+  .msg-details {
+    min-width: 290px;
+    font-size: 16px;
+
+    .drop-head {
+      a {
+        color: #fff;
+        margin-top: 5px;
+        font-size: 12px;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .empty-view {
+    min-height: 150px;
+  }
+
+  .profile-user {
+    min-height: 100px;
+    padding: 20px;
+
+    a {
+      color: #000;
+      font-size: 14px;
+    }
+
+    h3 {
+      font-size: 14px;
+    }
+  }
+}

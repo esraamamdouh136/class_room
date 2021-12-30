@@ -1,0 +1,27 @@
+.col_content {
+  // height: 200px;
+  border-radius: 10px;
+  .single-role {
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    p {
+      margin: 0;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
+
+  .checked-role {
+    background-color: #5c6bc0;
+    color: #fff;
+  }
+}
+
+.single-role {
+  span {
+    color: #fff;
+    font-weight: bold;
+  }
+}

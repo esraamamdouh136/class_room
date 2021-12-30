@@ -1,0 +1,28 @@
+<header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex">
+        <i class="fa fa-file mx-2"></i>
+        {{'students.profile_picture' | translate}}
+    </h2>
+</header>
+<div class="profile-image">
+    <h1 class="my-5">{{'students.note' | translate}}</h1>
+<ul>
+    <li> يجب أن يكون الملف المرفوع عبارة عن ملف مضغوط بصيغة zip يحتوي على الصور الشخصية المراد رفعها.</li>
+    <li>يجب تسمية ملف الصورة الشخصية للمستخدم بنفس رقم الهوية المعرفة بالنظام للمستخدم الذي تريد تحديق صورة ملفه الشخصي مثال : 123456789.jpg او 987654321.png</li>
+    <li> يجب ان يكون نوع ملف الصورة jpg او png هذا النوع من ملفات الصور المقبولة فقط.</li>
+    <li>سوف يتم تحديث صور الملفات الشخصية للمستخدمين المتطابقين في المدرسة الحالية فقط</li>
+</ul>
+
+<div class="col-md-12">
+    <div class="form-group border d-flex justify-content-end">
+        <input type="file" #fileInput placeholder="Upload file..." class="inputfile form-control"/>
+        <label for="file">{{'students.upload_rar' | translate}}</label>
+    </div>
+</div>
+
+<div class="d-flex" [ngClass]="translation.getSelectedLanguage() == 'ar' ? 'justify-content-end' : 'justify-content-end'">
+<button type="submit" class="btn btn-primary my-3 mx-3">{{'setting.save' |
+translate}}</button> 
+<button type="submit" class="btn btn-danger my-3">{{'students.back' |
+translate}}</button> 
+</div>

@@ -1,0 +1,152 @@
+<!--begin::Signin-->
+<div class="login-form login-signin flex-grow-1">
+  <!--begin::Form-->
+  <form class="form" [formGroup]="loginForm" id="kt_login_signin_form" (ngSubmit)="captchaRef.execute()">
+
+    <!--begin::Title-->
+    <div class="img-log_container d-flex align-items-center justify-content-center pb-5 pt-lg-0 pt-5">
+      <img src="assets/media/imgs/viewclass_big.png">
+      <!-- <h3 class="font-weight-bolder text-dark font-size-h3 font-size-h1-lg">
+        {{'general.Welcome_back' | translate}}
+      </h3> -->
+      <!-- <span>{{'general.Login_to_your_account' | translate}}</span> -->
+    </div>
+    <!--end::Title-->
+
+
+    <!--begin::user types-->
+    <div class="user-type">
+      <div>
+        <input type="radio" id="user" value="user" class="d-none" formControlName="type" class="user-label">
+        <label for="user" [ngClass]="formType === 'user' ? 'f-w' : '' "> {{ "AUTH.LOGIN.USER" | translate }}</label>
+      </div>
+      <div>
+        <input type="radio" id="system" value="system" class="d-none" formControlName="type" class="admin-label">
+        <label for="system" [ngClass]="formType === 'system' ? 'f-w' : '' "> {{ "AUTH.LOGIN.ADMIN" | translate
+          }}</label>
+      </div>
+    </div>
+    <!--end::user types-->
+
+
+
+
+    <!--begin::Form group-->
+    <!-- [ngClass]="{ 'is-invalid': loginForm.controls['username'].invalid }" if input invalid -->
+    <div class="form-group">
+      <label class="font-size-h6 font-weight-bolder text-dark">{{'AUTH.INPUT.USERNAME' | translate}}</label>
+      <div class="input-wrapper d-flex align-items-center">
+        <input class="form-control form-control-solid h-auto" type="text" formControlName="username"
+          [placeholder]="('AUTH.INPUT.USERNAME' | translate)" autocomplete="off" />
+        <i class="far fa-envelope position-absolute"></i>
+      </div>
+
+    </div>
+    <!--end::Form group-->
+
+    <!--begin::Form group-->
+    <div class="form-group">
+      <div class="d-flex justify-content-between mt-n5">
+        <label class="font-size-h6 font-weight-bolder text-dark pt-5">{{'AUTH.INPUT.PASSWORD' | translate}}</label>
+
+      </div>
+      <div class="input-wrapper d-flex align-items-center">
+        <input class="form-control form-control-solid h-auto" [type]="toggleInputType ? 'text' : 'password'"
+          name="password" autocomplete="off" formControlName="password"
+          [placeholder]="('AUTH.INPUT.PASSWORD' | translate)" />
+        <i class="fas fa-key"></i>
+        <div class="eyes">
+          <i (click)=" toggleInputType = !toggleInputType " class="fas" [ngClass]="{
+            'fa-eye': !toggleInputType,
+            'fa-eye-slash': toggleInputType
+            }"></i>
+        </div>
+      </div>
+
+    </div>
+    <!--end::Form group-->
+
+    <!-- Start Recaptcha -->
+    <div class="d-flex justify-content-center">
+      <re-captcha #captchaRef="reCaptcha" [siteKey]="siteKey" (resolved)="$event && submit($event)">
+      </re-captcha>
+    </div>
+    <!-- End Recaptcha -->
+
+    <!--begin::Action-->
+    <button type="submit" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 my-5"
+      [disabled]="loginForm.invalid">
+      {{ "AUTH.LOGIN.BUTTON" | translate }}
+      <ng-container *ngIf="(showLoading |async )">
+        <span class="spinner spinner-primary ml-5"></span>
+      </ng-container>
+      <!-- {{loginForm.value | json}} -->
+    </button>
+
+    <!-- ___________ begin loader ________________ -->
+    <!-- <ng-container *ngIf="(showLoading |async )">
+      <span class="spinner fix-spinner spinner-primary my-8 d-flex justify-content-center"></span>
+    </ng-container> -->
+    <!-- ___________ end loader ________________ -->
+
+    <br>
+
+    <!-- Change the way we display social login section instead of removing it hid it by opacity  -->
+    <div [style.opacity]="loginForm.get('type').value === 'user' ? 1 : 0">
+      <div class="Action animate__animated" [class.animate__fadeIn]="loginForm.get('type').value === 'user'">
+        <!-- _________________ start or line login with social __________________ -->
+        <div class="text-center or-line my-3">
+          <h2 class="h6 mb-0">{{'general.OR' | translate}}</h2>
+        </div>
+        <!-- _________________ end  or line login with social __________________ -->
+
+        <div class="pb-lg-0 pb-5 social-login d-flex justify-content-between">
+          <button (click)="loginWithSocial('google')" type="button"
+            class="accept btn btn-light-primary font-weight-bolder px-8 my-3 font-size-lg">
+            <span class="svg-icon svg-icon-md">
+              <img src="./assets/media/svg/social-icons/google.svg" />
+            </span>
+            {{ "AUTH.GENERAL.GOOGLE" | translate }}
+            <ng-container *ngIf="(showGoogleLoading |async)">
+              <span class="spinner spinner-primary ml-5"></span>
+            </ng-container>
+          </button>
+
+          <button (click)="loginWithSocial('facebook')" type="button"
+            class="accept btn btn-light-primary font-weight-bolder px-8 my-3 font-size-lg">
+            <span class="svg-icon svg-icon-md">
+              <i class="fab fa-facebook-square"></i>
+            </span>
+            {{ "AUTH.GENERAL.FACEBOOK" | translate }}
+            <ng-container *ngIf="(showFacebookLoading |async)">
+              <span class="spinner spinner-primary ml-5"></span>
+            </ng-container>
+          </button>
+
+        </div>
+        <!--end::Action-->
+        <!-- ___________ begin loader ________________ -->
+        <!-- <ng-container *ngIf="(showSocialLoading |async)">
+          <span class="spinner fix-spinner spinner-primary my-8 d-flex justify-content-center"></span>
+        </ng-container> -->
+        <!-- ___________ end loader ________________ -->
+
+      </div>
+    </div>
+
+  </form>
+  <!--end::Form-->
+</div>
+<!--end::Signin-->
+
+<!-- <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container
+    *ngIf="control.hasError(validation) && (control.dirty || control.touched)"
+  >
+  <div class="fv-plugins-message-container">
+    <div class="fv-help-block">
+      {{ message }}
+    </div>
+  </div>
+  </ng-container>
+</ng-template> -->

@@ -1,0 +1,114 @@
+<!--begin::Brand-->
+<div class="brand flex-column-auto" id="kt_brand" [ngClass]="brandClasses">
+  <!--begin::Logo-->
+  <a routerLink="/" class="brand-logo justify-content-center">
+    <img alt="Logo" [attr.src]="headerLogo" />
+  </a>
+  <!--end::Logo-->
+
+  <ng-container *ngIf="asideSelfMinimizeToggle">
+    <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
+      <span [inlineSVG]="
+          './assets/media/svg/icons/Navigation/Angle-double-left.svg'
+        " cacheSVG="true" class="svg-icon svg-icon-xl"></span>
+    </button>
+  </ng-container>
+</div>
+<!--end::Brand-->
+
+<!--begin::Aside Menu-->
+<div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
+  <ng-container *ngIf="disableAsideSelfDisplay">
+    <!--begin::Header Logo-->
+    <a routerLink="/">
+      <img alt="Logo" [attr.src]="headerLogo" />
+    </a>
+    <!--end::Header Logo-->
+  </ng-container>
+  <!--begin::Menu Container-->
+  <div id="kt_aside_menu" class="aside-menu" [ngClass]="asideMenuCSSClasses"
+       [attr.data-menu-dropdown]="asideMenuDropdown" data-menu-dropdown-timeout="500">
+    <!-- begin::Menu Nav -->
+    <ul class="menu-nav scroll">
+      <ng-container *ngIf="menuItems.length" style="position: absolute;">
+        <ng-container *ngFor="let item of menuItems">
+          <!-- begin::section -->
+          <li class="menu-section" *ngIf="item?.children?.length">
+            <h4 class="menu-text m-0 main-title">
+              {{item.name | translate}}
+            </h4>
+            <i class="menu-icon flaticon-more-v2"></i>
+          </li>
+          <!-- end:: section -->
+
+          <!-- begin::1 Level -->
+          <li class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active" (mouseover)="hoverOver()" (mouseout)="hoverOut()"
+              *ngIf="!item?.children?.length">
+            <a class="menu-link" [routerLink]="'/'+item?.slug" routerLinkActive="active">
+              <i [class]="'menu__icon subject-bg mx-3 ' +item.css_class"></i>
+              <span class="menu-text">{{item.name}}</span>
+              <!-- <span class="hover">{{item.name}</span> -->
+            </a>
+            <!-- When minimize aside menu  -->
+
+            <a id="aside-menu-minimize" class="menu-link" [routerLink]="'/'+item?.slug" routerLinkActive="active"
+               [ngStyle]="{'background-color': item.color}">
+              <i [class]="'menu__icon subject-bg mx-3 ' +item.css_class"></i>
+              <span id="menu-text" class="menu-text">{{item.name}}</span>
+              <!-- <span class="hover">{{item.name}</span> -->
+            </a>
+          </li>
+          <!-- end::1 Level -->
+          <ng-container *ngIf="item?.children?.length">
+            <li class="menu-item" aria-haspopup="true" routerLinkActive="menu-item-active"
+                *ngFor="let child of item.children" (mouseover)="hoverOver()" (mouseout)="hoverOut()">
+              <a class="menu-link" [routerLink]="'/'+item?.slug + '/' + child?.slug" routerLinkActive="active"
+                 data-toggle="tooltip" data-placement="right" title="{{child?.name}}">
+                <i [class]="'menu__icon ject-bg mx-3 fa ' + child.css_class"
+                   [ngStyle]="{'background-color' : child.color }"></i>
+                <span class="menu-text">{{child?.name}}</span>
+              </a>
+
+              <!-- When minimize aside menu  -->
+              <a id="aside-menu-minimize" class="menu-link aside-menu-minimize" [routerLink]="'/'+item?.slug + '/' + child?.slug"
+                 routerLinkActive="active" data-toggle="tooltip" data-placement="right" title="{{child?.name}}"
+                 [ngStyle]="{'background-color': child.color}">
+                <i [class]="'menu__icon ject-bg mx-3 fa ' + child.css_class"
+                   [ngStyle]="{'background-color' : child.color }"></i>
+                <span id="menu-text" class="menu-text">{{child?.name}}</span>
+              </a>
+            </li>
+          </ng-container>
+
+          <!-- begin::2 Level -->
+          <!-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover"
+          routerLinkActive="menu-item-open" *ngIf="item?.children?.length" (click)="checkThirdLevel(item)">
+          <a class="menu-link menu-toggle" [href]="'/'+item?.slug">
+            <i class="menu__icon fa fa-book subject-bg mx-3"></i>
+            <span class="menu-text">{{item?.name}}</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="menu-submenu">
+            <i class="menu-arrow"></i>
+            <ul class="menu-subnav">
+              <li class="menu-item" routerLinkActive="menu-item-active" aria-haspopup="true" data-menu-toggle="hover"
+                *ngFor="let child of item.children">
+                <a class="menu-link" [routerLink]="'/'+item?.slug + '/' + child?.slug" routerLinkActive="active">
+
+                  <span class="menu-text">{{child?.name}}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li> -->
+        </ng-container>
+      </ng-container>
+
+      <!-- Errors -->
+
+    </ul>
+    <!-- end::Menu Nav -->
+  </div>
+  <!--end::Menu Container-->
+</div>
+<!--end::Aside Menu-->

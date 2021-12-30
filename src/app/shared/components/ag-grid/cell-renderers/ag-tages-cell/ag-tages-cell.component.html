@@ -1,0 +1,16 @@
+<ng-container *ngFor="let item of tags" >
+    <span class="cursor-pointer badge mr-2" 
+    [class]="{
+        'badge-warning': item.id === 3,
+        'badge-success': item.id === 1,
+        'badge-danger': item.id === 2,
+        'bg-main': item.id === 4,
+        'bg-green': item.id === 5,
+        'bg-blue': item.id === 6,
+        'bg-bred': item.id === 7,
+        'bg-dgreen': item.id === 8,
+        'bg-dblue': item.id === 9,
+        'bg-move': item.id === 10}" >
+        {{item.name}}
+    </span>
+</ng-container>

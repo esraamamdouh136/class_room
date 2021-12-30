@@ -1,0 +1,29 @@
+.section__body {
+
+  .custom-card {
+    background-color: white;
+    box-shadow: 0 0px 10px rgba(black, 0.07);
+    padding: 1.5rem;
+
+    .card-description {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: rgba(black, 0.3);
+    }
+
+    .card-icon {
+      width: 100px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+
+  .custom-card {
+    .card-description {
+      text-align: center;
+    }
+  }
+
+}

@@ -1,0 +1,284 @@
+<section class="section">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex align-items-center">
+      <i class="fa fa-clipboard-list mx-2"></i>
+      <span>{{(component === 'journal' ? 'setting.journal_entry' : 'general.opening_balance') | translate}}</span>
+    </h2>
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body">
+
+    <div class="journal-entry-wrapper position-relative p-4 p-lg-7">
+      <div
+        class="position-absolute top-0 left-0 h-100 w-100 zindex-5 bg-blur d-flex align-items-sm-center justify-content-center"
+        *ngIf="!hasBalance">
+        <app-beginning-balance-dialog></app-beginning-balance-dialog>
+      </div>
+      <form class="form" #form="ngForm">
+
+        <!--THIS INPUT WILL SHOW IN MOBILE SCREEN (START COMMENT)-->
+        <div class="col-lg-3 d-block d-md-none " *ngIf="component !== 'opening'">
+          <div class="row form-group flex-nowrap">
+            <button class="btn paginate-btn col-auto" type="button" [disabled]="!buttons?.first" (click)="first()"><i
+                class="fa fa-step-forward arrow-start-last"></i>
+            </button>
+            <div class="px-1"></div>
+            <button class="btn col-auto paginate-btn" type="button" [disabled]="!buttons?.previous"
+              (click)="previous()"><i class="fa fa-chevron-right"></i>
+            </button>
+            <div class="px-1"></div>
+            <input type="text" style="min-width: 50px" name="fiscal_year_number" [(ngModel)]="fiscalYearNumber"
+              (keyup.enter)="goToEntry($event)" class="col text-center font-weight-bold form-control">
+            <div class="px-1"></div>
+            <button class="btn paginate-btn col-auto" type="button" (click)="next()" [disabled]="!isLastPage()"><i
+                class="fa fa-chevron-left"></i>
+            </button>
+            <div class="px-1"></div>
+            <button class="btn paginate-btn col-auto" type="button" [disabled]="!isLastPage()" (click)="last()"><i
+                class="fa fa-step-backward arrow-start-last"></i>
+            </button>
+
+          </div>
+        </div>
+        <!--THIS INPUT WILL SHOW IN MOBILE SCREEN (END COMMENT)-->
+
+
+        <div class="form-row lain flex-wrap">
+
+
+
+              <div class="col-lg-5" >
+                <div class="form-group d-md-flex d-block">
+                  <label class="w-25 d-md-block">{{'general.date'| translate}}: </label>
+                  <mat-form-field floatLabel="never" class="date-form cursor-pointer form-control" (click)="picker.open()">
+                    <input dir="auto" id="date" (ngModelChange)="dateChanged($event)" name="date" [(ngModel)]="date"
+                      readonly required [disabled]="!isEditing" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix (click)="picker.open()"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+              <div class="col-lg-5">
+                <div class="form-group d-md-flex d-block">
+                  <label class="w-25 mx-md-auto d-md-block text-md-center">{{'general.currency'|
+                      translate}}
+                    :</label>
+                    <ng-select [items]="currencies" [disabled]="!isEditing" name="currency"
+                      (change)="currencyChanged($event)" [(ngModel)]="currency" class="j-select ml-5" id="currency"
+                      bindLabel="name" bindValue="id"></ng-select>
+                </div>
+              </div>
+              <div class="col-lg-1 d-none d-md-block">
+                <div class="row form-group flex-nowrap">
+                  <button class="btn paginate-btn paginate" type="button" [disabled]="!buttons?.first"
+                    (click)="first()"><i class="fa fa-step-forward arrow-start-last"></i>
+                  </button>
+                  <button class="btn paginate-btn paginate" type="button" [disabled]="!buttons?.previous"
+                    (click)="previous()"><i class="fa fa-chevron-right"></i>
+                  </button>
+                  <input type="text" style="min-width: 50px" name="fiscal_year_number" [(ngModel)]="fiscalYearNumber"
+                    (keyup.enter)="goToEntry($event)" class="col text-center font-weight-bold form-control">
+                  <button class="btn paginate-btn paginate" type="button" (click)="next()" [disabled]="!isLastPage()"><i
+                      class="fa fa-chevron-left"></i>
+                  </button>
+                  <button class="btn paginate-btn paginate" type="button" [disabled]="!isLastPage()" (click)="last()"><i
+                      class="fa fa-step-backward arrow-start-last"></i>
+                  </button>
+
+                </div>
+              </div>
+
+              <div class="col-lg-5 mt-3">
+                <div class="form-group d-md-flex d-block">
+                  <label class="w-25 d-md-block" for="entry_source">{{'general.entry_source' |
+                        translate}}:</label>
+                        <div class="w-75">
+                  <ng-select [items]="costCenters" [disabled]="!isEditing" [(ngModel)]="costCenterId"
+                    name="entry_source" class="j-select d-block w-100" id="entry_source" bindLabel="name" bindValue="id">
+                  </ng-select>
+                </div>
+                </div>
+                </div>
+
+              <div class="col-lg-7 mt-3">
+                <div class="form-group d-md-flex d-block">
+                  <label class="mr-md-3 ml-md-2 d-md-block" style="width: 10rem;"
+                    for="transfer_price">{{'general.transfer_price' | translate}}:</label>
+                    <input type="text" [(ngModel)]="transferPrice" [disabled]="true" id="transfer_price"
+                      class="form-control" name="transfer_price" appUsdOnly>
+                </div>
+              </div>
+
+
+          <div class="col-lg-5 mt-3">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-25 d-md-block"
+               for="statement">{{'general.statement' | translate}}:</label>
+                <input type="text" [(ngModel)]="statement" [disabled]="!isEditing" id="statement" class="form-control"
+                  name="statement">
+            </div>
+          </div>
+          <div class="col-lg-6 mt-3">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-25 mr-md-5 d-md-block"
+              for="entry_type">{{'general.entry_type'| translate}}:</label>
+                <ng-select [items]="journalModules" [(ngModel)]="journalModuleId" required
+                  [disabled]="!isEditing || newEntry" name="entry_type" class="j-select" id="entry_type"
+                  bindLabel="name" bindValue="id"></ng-select>
+
+              </div>
+
+            </div>
+          </div>
+
+        <!--  Start Ag grid -->
+        <div class="add d-flex align-items-center justify-content-end mb-3">
+          <button class="btn btn-add mb-0" type="button" *ngIf="isEditing" (click)="onAddRow()">{{'general.add' |
+              translate}}</button>
+        </div>
+        <div class="vc-ag-grid" *ngIf='errorMassage ; else errorData'>
+          <app-ag-grid #agGrid [frameworkComponents]="frameworkComponents" [rowData]="rowData"
+            [rowColors]="{even: '#93d470', odd: '#fff'}" (updateData)="onUpdateData($event)"
+            (selectedRows)="onRowSelectionChange($event)" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+            height="280px"></app-ag-grid>
+        </div>
+        <!--  End Ag grid -->
+
+        <div class="j-footer">
+          <div class="row justify-content-between">
+            <div class="col-lg-5">
+              <div class="row align-items-center form-group">
+                <div class="col-auto">
+                  <label class="j-label mb-0">{{'general.original' | translate}}:</label>
+                </div>
+                <div class="original" style="white-space: nowrap">
+                  <span *ngIf="!original">
+                    {{(journalModuleId && journalModuleId === 18 ? 'general.manual_entry' : 'general.no_original') | translate}}
+                  </span>
+
+                  <a [routerLink]="[component === 'opening' ? '/financial-operations/jornal-entry' : journalEntry?.journal_module_id === 1 ? '/settings/general-ledger/opening-balances': journalEntry?.journal_module_id === 4 ? '../receipt-vouchers' : '../payment-vouchers']"
+                    [queryParams]="{id: journalEntry?.module?.data?.id}" class="text-decoration-none" *ngIf="original"
+                    target="_blank">
+                    {{component === 'opening' ? ('general.entry_number' | translate) + original : original}}
+                  </a>
+                </div>
+                <div class="col d-flex align-items-center">
+                  <div class="px-2"></div>
+                  <ng-container *ngFor="let item of rowData;let index = index">
+                    <div class="" *ngIf="isEditing && agSelectedRow && item == agSelectedRow">
+                      <input type="file" class="custom-file-input" [id]="'file_'+index" (change)="onImageUpload($event)"
+                        [name]="'file_'+index" multiple style="display: none">
+                      <label class="custom-input-label d-flex align-items-center flex-nowrap" [for]="'file_'+index">
+                        <span><i class="fa fa-paperclip"></i></span>
+                        <span class="px-2"></span>
+                        <span style="white-space: nowrap"> {{'general.upload' |
+                            translate}}</span>
+                      </label>
+                    </div>
+                  </ng-container>
+                  <div class="px-2"></div>
+                  <div class="" *ngIf="agSelectedRow" (click)="openAttachmentsDialog()">
+                    <button class="btn custom-input-label d-flex align-items-center flex-nowrap">
+                      <span><i class="fa fa-paperclip"></i></span>
+                      <span class="px-2"></span>
+                      <span style="white-space: nowrap">({{attachmentsCount()}}
+                        ) {{'general.attachments' |
+                              translate}}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+
+              <!-- total -->
+              <div class="form-group row align-items-center no-gutters align-items-center">
+                <label class="j-label col-lg-4">{{'general.total' | translate}}:</label>
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col">
+                      <div class="total d-flex align-items-center justify-content-center">
+                        <h3 class="text mb-0 ">
+                          {{getTotalDebitOrCredit('debit') | currency: ' '}}
+                          {{symbol}}
+                        </h3>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="total d-flex align-items-center justify-content-center">
+                        <h3 class="text mb-0">
+                          {{getTotalDebitOrCredit('credit') | currency: ' '}}
+                          {{symbol}}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Difference -->
+              <div class="form-group row align-items-center no-gutters align-items-center">
+                <label class="j-label col-lg-4">{{'general.difference' | translate}}:</label>
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col">
+                      <div class="total  d-flex align-items-center justify-content-center">
+                        <h3 class="text mb-0 text-danger">{{getDebitCreditDifference('debit',
+                            'credit') | currency: ' '}}
+                          {{symbol}}
+                        </h3>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="total d-flex  align-items-center justify-content-center">
+                        <h3 class="text mb-0 text-danger">{{getDebitCreditDifference('credit',
+                            'debit') | currency: ' '}}
+                          {{symbol}}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="j-actions d-flex align-items-center flex-wrap mt-4">
+          <button class="btn save mb-4 mx-3 text-white" [disabled]="!isEditing"
+            (click)="postData()">{{'general.save' | translate}}</button>
+
+          <button class="btn new mb-4 mx-3 text-white" [disabled]="false" *ngIf="component === 'journal'"
+            (click)="form.reset(); new()">{{'general.new'
+              | translate}}</button>
+
+            <button class="btn edit mb-4 mx-3 text-white" *ngIf="isEditing" (click)="cancelEditOrAdd()">
+              {{('setting.cancel' | translate)}}</button>
+
+          <button class="btn edit mb-4 mx-3 text-white"
+            *ngIf="!isEditing && (canEdit() && journalEntry?.setting_show) || (component === 'opening' && !isEditing && journalModuleId)"
+            (click)="isEditing = !isEditing; !isEditing ? agSelectedRow = null: ''; drawAgGrid(); component === 'opening' && !journalEntry?.setting_show ? new(): ''">{{isEditing ?
+              ('general.cancel_edit' | translate) : ('general.enable_edit' | translate)}}</button>
+
+          <button class="btn preview mb-4 mx-3">{{'general.preview' | translate}}</button>
+          <button class="btn print mb-4 mx-3">{{'general.print' | translate}}</button>
+
+        </div>
+
+      </form>
+    </div>
+
+
+  </div>
+</section>
+<ng-template #errorData>
+  <div class=" bg-white mb-4">
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+  </div>
+</ng-template>

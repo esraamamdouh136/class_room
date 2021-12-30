@@ -1,0 +1,159 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="d-flex justify-content-between align-items-center dialog-head">
+        <h2 mat-dialog-title class="mb-0">
+            {{data?.id ? ('general.update_account' | translate) : ('general.add_account' | translate) }}
+        </h2>
+        <button type="button" (click)="toggleLanguage()"
+            class="btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">{{language}}</button>
+        <i class="fas fa-times" mat-dialog-close></i>
+    </div>
+
+    <mat-dialog-content class="scroll">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="col-lg-6 mb-4">
+                    <div class="form-group ">
+                        <label for="code"> {{'general.account_code' | translate}} </label>
+                        <input dir="auto" type="text" class="form-control" name="code"
+                            [placeholder]="'general.account_code' | translate" formControlName="code" id="code">
+                        <ng-container *ngIf="formErrors?.code">
+                            <!--error Massage-->
+                            <div class="text-danger" *ngFor="let error of formErrors['code']">
+                                {{error}}
+                            </div>
+
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="form-group" *ngIf="nameofArabic">
+                        <label for="title_ar">
+                            {{'general.account_name' | translate}}
+                        </label>
+                        <input dir="auto" type="text" class="form-control" name="account_name"
+                            [placeholder]="'general.account_name' | translate" formControlName="title_ar" id="title_ar">
+                        <!--error Massage-->
+                        <ng-container *ngIf="formErrors?.title_ar">
+                            <div class="text-danger" *ngFor="let error of formErrors['title_ar']">
+                                {{error}}
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group mb-0" *ngIf="nameOfEnglish">
+                        <label for="title_en">
+                            {{'general.name_en' | translate}}
+                        </label>
+                        <input dir="auto" type="text" class="form-control" name="title_en"
+                            [placeholder]="'general.name_en' | translate" formControlName="title_en" id="title_en">
+                        <!--error Massage-->
+                        <ng-container *ngIf="formErrors?.title_en">
+                            <div class="text-danger" *ngFor="let error of formErrors['title_en']">
+                                {{error}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-4 select select-guideTree">
+                    <div class="form-group mb-0">
+                        <label for="account_guide_id" class="font-weight-bolder min-w-130px font-size-lg">
+                            {{'general.main_account' |
+                            translate}}</label>
+                        <ng-select [items]="guideTree" (change)="accountGuideChanged($event)" [bindLabel]="'title'"
+                            bindValue="id" formControlName="account_guide_id" labelForId="account_guide_id"
+                            appendTo="body">
+                        </ng-select>
+                        <ng-container *ngIf="formErrors?.account_guide_id">
+                            <div class="text-danger" *ngFor="let error of formErrors['account_guide_id']">
+                                {{error}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-12 mb-4">
+                    <label>{{'general.warning' | translate}}</label>
+                    <div class="warning">
+                        <div class="w-75 mx-auto">
+                            <mat-radio-group formControlName="warnings"
+                                class="d-flex align-items-center justify-content-around flex-wrap">
+                                <mat-radio-button value="Debit" class="mb-lg-0 mb-3">{{'general.debit' | translate}}
+                                </mat-radio-button>
+                                <mat-radio-button value="Creditor" class="mb-lg-0 mb-3">{{'general.credit' | translate}}
+                                </mat-radio-button>
+                                <mat-radio-button value="without" class="mb-lg-0 mb-3">{{'general.none' | translate}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                            <ng-container *ngIf="formErrors?.warnings">
+                                <div class="text-center text-danger" *ngFor="let error of formErrors['warnings']">
+                                    {{error}}
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="p-5"></div>
+                        <div class="row select select-currencies">
+                            <!--                        <label class="col-lg-3 mb-4">{{'general.budget' | translate}}</label>-->
+                            <!--                        <div class="col-lg-8 mb-4">-->
+                            <!--                            <input dir="auto" type="text" class="form-control" name="budget" required-->
+                            <!--                                   [placeholder]="'general.budget' | translate" formControlName="budget" id="budget">-->
+                            <!--                        </div>-->
+                            <label for="currencies" class="font-weight-bolder col-lg-3 font-size-lg">
+                                {{'general.currency' |
+                                translate}}</label>
+                            <div class="col-lg-8">
+                                <ng-select [items]="currencies" bindLabel="name" bindValue="id"
+                                    formControlName="currency_id" labelForId="currencies" appendTo="body">
+                                </ng-select>
+                                <ng-container *ngIf="formErrors?.currency_id">
+                                    <div class="text-danger" *ngFor="let error of formErrors['currency_id']">
+                                        {{error}}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group ">
+                        <label for="account_code"> {{'general.notes' | translate}} </label>
+                        <textarea dir="auto" type="text" class="form-control" name="notes"
+                            [placeholder]="'general.notes' | translate" formControlName="note" id="notes"></textarea>
+                        <ng-container *ngIf="formErrors?.note">
+                            <!--error Massage-->
+                            <div class="text-danger" *ngFor="let error of formErrors['note']">
+                                {{error}}
+                            </div>
+
+                        </ng-container>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </mat-dialog-content>
+
+
+
+    <mat-dialog-actions class="d-flex justify-content-center dialog-actions">
+        <div class="d-flex align-items-center justify-content-lg-around justify-content-center flex-wrap">
+            <button mat-button class="btn btn-success add mx-4 mb-lg-0 mb-3" (click)="onSubmit()"
+                *ngIf="isNew || addingSub">
+                {{'general.add' | translate}}
+            </button>
+            <button mat-button class="btn btn-success edit mx-4 mb-lg-0 mb-3"
+                *ngIf="isEditing && !editEnabled && !addingSub && !isNew"
+                (click)="editEnabled = !editEnabled; enableForm()">
+                {{'general.edit' | translate}}
+            </button>
+            <button mat-button class="btn btn-success save mx-4 mb-lg-0 mb-3"
+                (click)="onSubmit()" *ngIf="isEditing && editEnabled">
+                {{'general.save' | translate}}
+            </button>
+            <button mat-button mat-dialog-close class="btn btn-success cancel mx-4 mb-lg-0 mb-3">
+                {{'setting.cancel' | translate}}
+            </button>
+        </div>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,230 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="d-flex justify-content-between align-items-center dialog-head">
+  <h2 mat-dialog-title class="mb-0">
+    {{data?.user?.id ? ('general.updateUser' |translate) :('general.addUser' |translate) }}
+  </h2>
+  <i class="fas fa-times" mat-dialog-close></i>
+</div>
+<div class="scroll">
+  <mat-dialog-content class="mat-typography">
+    <ng-container *ngIf="!(showLoading |async)">
+      <form [formGroup]="form">
+        <div class="row">
+
+          <div class="col-lg-12 mb-4">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group mb-0">
+                  <label class="font-weight-bolder" for="">
+                    {{ "setting.usersPage.userImage" | translate }} :
+                  </label>
+                  <div class="row align-items-center no-gutters">
+                    <div class="col-md-4">
+                      <file-upload formControlName="image" [multiple]="false" [animation]="false">
+                      </file-upload>
+                    </div>
+                    <div class="col-md-4 col-sm-4 user-img" *ngIf="data?.user?.has_image">
+                      <img [src]="imageUrl |async" onerror="this.src='https://via.placeholder.com/150';"
+                        class="enterprise-img margin-10 " style="height:100px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'setting.usersPage.name' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <input dir="auto" type="text" class="form-control" [placeholder]="'setting.usersPage.name' | translate"
+                aria-label="Username" aria-describedby="basic-addon1" formControlName="name">
+              <ng-container *ngIf="formErrors?.name">
+                <div class="text-danger" *ngFor="let error of formErrors?.name">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'setting.usersPage.username' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <input dir="auto" type="text" class="form-control"
+                [placeholder]="'setting.usersPage.username' | translate" aria-label="Username"
+                aria-describedby="basic-addon1" formControlName="username">
+              <ng-container *ngIf="formErrors?.username">
+                <div class="text-danger" *ngFor="let error of formErrors?.username">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mb-4 select-users">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'setting.selectCountry' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <!--Using items input-->
+              <ng-select  [items]="countries" bindLabel="name" bindValue="iso_code" appendTo="body"
+                [placeholder]="'setting.selectCountry' | translate" formControlName="country" appendTo="body">
+              </ng-select>
+              <ng-container *ngIf="formErrors?.country">
+                <div class="text-danger" *ngFor="let error of formErrors?.country">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'general.phone' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <input dir="auto" type="text" class="form-control w-100" [class.error]="errorPhone |async" appNumbersOnly
+                [placeholder]="'general.phone' | translate" formControlName="phone">
+              <p class="w-100 d-flex text-danger font-bold mt-1" *ngIf="form.get('phone').errors &&
+                        form.get('phone').hasError('incorrect')">{{'setting.usersPage.errorPhone'
+                |translate}}</p>
+              <ng-container *ngIf="formErrors?.phone">
+                <div class="text-danger" *ngFor="let error of formErrors?.phone">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'setting.usersPage.role' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <ng-select  [multiple]="true" [items]="roles" bindLabel="title" bindValue="id"
+                [placeholder]="'setting.selectRole' | translate" formControlName="system_account_role_id">
+              </ng-select>
+              <ng-container *ngIf="formErrors?.system_account_role_id">
+                <div class="text-danger" *ngFor="let error of formErrors?.system_account_role_id">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div> -->
+
+
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'setting.usersPage.email' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <input dir="auto" [placeholder]="'setting.usersPage.email' | translate" type="email"
+                class="form-control w-100 text-left" formControlName="email">
+              <ng-container *ngIf="formErrors?.email">
+                <div class="text-danger" *ngFor="let error of formErrors?.email">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mb-4" *ngIf="data?.user?.id">
+            <div class="form-group is_active mb-0">
+              <label class="font-weight-bolder" for="">
+                {{"general.status" | translate}}
+              </label>
+              <span class="switch switch-icon">
+                <label class="pointer" for="isActive" [class.f-w]="statusValue">{{"setting.usersPage.active" |
+                  translate}}</label>
+                <label class="mx-3">
+                  <input dir="auto" id="isActive" type="checkbox" name="isActive" formControlName="status" />
+                  <span></span>
+                </label>
+                <label class="pointer" for="isActive" [class.f-w]="!statusValue">{{"setting.usersPage.disactive" |
+                  translate}}</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="d-flex mt-2">
+
+          </div>
+
+          <div class="col-lg-12 mb-4">
+            <div class="form-group mb-0">
+              <mat-checkbox *ngIf="data?.user?.id" color="primary" [(ngModel)]="changePassword"
+                [ngModelOptions]="{standalone: true}" (change)="enablePassword($event)" class="font-bold">
+                {{'setting.usersPage.changePassword' | translate}}</mat-checkbox>
+            </div>
+          </div>
+
+          <ng-container *ngIf="changePassword">
+            <div class="col-lg-6 mb-4">
+              <div class="form-group mb-0">
+                <label class="font-weight-bolder" for="">
+                  {{'setting.usersPage.password' | translate}} :
+                </label>
+                <span class="text-danger">*</span>
+                <input dir="auto" type="password" autocomplete="off" class="form-control w-100"
+                  [placeholder]="'setting.usersPage.password' | translate" formControlName="password">
+                <ng-container *ngIf="formErrors?.password">
+                  <div class="text-danger" *ngFor="let error of formErrors?.password">
+                    {{error}}</div>
+                </ng-container>
+              </div>
+            </div>
+
+
+            <div class="col-lg-6 mb-4">
+              <div class="form-group mb-0">
+                <label class="font-weight-bolder" for="">
+                  {{'setting.usersPage.confirmationPassword' | translate}} :
+                </label>
+                <span class="text-danger">*</span>
+                <input dir="auto" type="password" autocomplete="off" class="form-control w-100"
+                  [placeholder]="'setting.usersPage.confirmationPassword' | translate"
+                  formControlName="password_confirmation">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="password-validations">
+                <div class="row w-100 aligin-items-center password-validations__content">
+                  <div class="col-lg-7">
+                    <ng-container *ngFor="let item of passwordValidationsMessages">
+                      <div class="d-flex justify-content-between mb-4">
+                        <p class="mb-0 mx-3 password-validations__txt">{{item.message | translate}}
+                        </p>
+                        <i [class.fa-times]="!item.valid()" [class.fa-check]="item.valid()"
+                          class="fa password-validations__icon"></i>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </form>
+    </ng-container>
+
+  </mat-dialog-content>
+</div>
+<mat-dialog-actions align="center" *ngIf="!(showLoading |async)">
+  <div class="dailog-actions-btns">
+    <button mat-button class="btn btn-primary accept" (click)="onSubmit()" [disabled]="disableForm()">
+      {{data?.user?.id ? ('general.edit' |translate) :('general.add' |translate)}}
+      <ng-container *ngIf="addLoading">
+        <span class="spinner spinner-primary ml-5"></span>
+      </ng-container>
+    </button>
+    <button mat-button mat-dialog-close class="btn btn-danger">
+      {{'setting.cancel' | translate}}
+    </button>
+  </div>
+</mat-dialog-actions>
+</div>

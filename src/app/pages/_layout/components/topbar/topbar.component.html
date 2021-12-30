@@ -1,0 +1,88 @@
+<!--begin::Topbar-->
+
+<ng-container *ngIf="false">
+  <ng-container *ngIf="extrasNotificationsLayout === 'offcanvas'">
+    <!--begin::Notifications-->
+    <div class="topbar-item">
+      <div class="btn btn-icon btn-icon-mobile btn-clean btn-lg mr-1 pulse pulse-primary"
+        id="kt_quick_notifications_toggle">
+        <span [inlineSVG]="'./assets/media/svg/icons/General/Notifications1.svg'" cacheSVG="true"
+          class="svg-icon svg-icon-xl svg-icon-primary"></span>
+        <span class="pulse-ring"></span>
+      </div>
+    </div>
+    <!--end::Notifications-->
+  </ng-container>
+
+  <ng-container *ngIf="extrasNotificationsLayout === 'dropdown'">
+    <!--begin::Notifications-->
+    <div class="dropdown" ngbDropdown [placement]="placement">
+      <!--begin::Toggle-->
+      <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
+        <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary">
+          <i _ngcontent-mha-c270="" class="flaticon-alarm header__icon"></i>
+        </div>
+      </div>
+      <!--end::Toggle-->
+
+      <!--begin::Dropdown-->
+      <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg">
+        <form>
+          <app-notifications-dropdown-inner></app-notifications-dropdown-inner>
+        </form>
+      </div>
+      <!--end::Dropdown-->
+    </div>
+    <!--end::Notifications-->
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="false">
+  <ng-container *ngIf="extrasQuickActionsLayout === 'offcanvas'">
+    <!--begin::Quick Actions-->
+    <div class="topbar-item">
+      <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1" id="kt_quick_actions_toggle">
+        <i _ngcontent-mha-c270="" class="flaticon-email header__icon"></i>
+      </div>
+    </div>
+    <!--end::Quick Actions-->
+  </ng-container>
+  <ng-container *ngIf="extrasQuickActionsLayout === 'dropdown'">
+    <!--begin::Quick Actions-->
+    <div class="dropdown" ngbDropdown [placement]="placement">
+      <!--begin::Toggle-->
+      <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
+        <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+          <i _ngcontent-mha-c270="" class="flaticon-email header__icon"></i>
+        </div>
+      </div>
+      <!--end::Toggle-->
+      <!--begin::Dropdown-->
+      <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg" ngbDropdownMenu>
+        <app-quick-actions-dropdown-inner></app-quick-actions-dropdown-inner>
+      </div>
+      <!--end::Dropdown-->
+    </div>
+    <!--end::Quick Actions-->
+  </ng-container>
+</ng-container>
+
+<!-- Remove unneeded components for now  -->
+<!-- <ng-container *ngIf="extrasNotificationsDisplay">
+  <app-notification [placement]="placement"></app-notification>
+</ng-container> -->
+
+<!-- <ng-container *ngIf="extrasQuickActionsDisplay">
+  <app-messages [placement]="placement"></app-messages>
+</ng-container> -->
+<!-- Remove unneeded components for now  -->
+
+<ng-container *ngIf="extrasLanguagesDisplay">
+  <app-language-selector (languageChange)="changeLang($event)"></app-language-selector>
+</ng-container>
+
+<ng-container *ngIf="extrasUserDisplay">
+  <app-user-drobdown-action [placement]="placement"></app-user-drobdown-action>
+</ng-container>
+
+<!--end::Topbar-->

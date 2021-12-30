@@ -1,0 +1,8 @@
+<span class="cursor-pointer badge mr-2" [class]="{
+    'badge-warning': status === 0,
+    'badge-success': status === 1 ||  status === 'approved' || is_connected === true,
+    'badge-danger': status === 2 || status === 'unapproved' || status === 3 || is_connected === false
+  }" (click)="onClick('CHANGE_STATUS')">
+
+  {{statusView}}
+</span>

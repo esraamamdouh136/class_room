@@ -1,0 +1,251 @@
+<section class="section">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex">
+      <i class="fa fa-chalkboard-teacher mx-2"></i>
+      {{'setting.studentsYears.transfareStudents' | translate}}
+    </h2>
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body p-4 p-lg-7">
+
+    <form>
+
+      <div class="main-container row">
+        <div class="main-info col-lg-12">
+
+          <div class="row">
+            <!-- from -->
+            <div class="col-md-6 py-3">
+              <div class="col-lg-12 mb-4 select-branch">
+                <div class="form-group mb-0">
+                  <label class="font-weight-bolder" for="schools">
+                    {{'setting.studentsYears.school' | translate}}
+                  </label>
+                  <span class="text-danger">*</span>
+                  <!--Using items input-->
+                  <ng-select placeholder="{{'setting.studentsYears.school' | translate}}" id="schools"
+                             labelForId="schools"
+                             [items]="schools" name="from_school" [(ngModel)]="from.school" bindLabel="title"
+                             bindValue="id" (change)="schoolChanged('from', $event)"
+                             appendTo="body">
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="col-lg-12 mb-4 select-branch">
+                <div class="form-group mb-0">
+                  <label class="font-weight-bolder" for="">
+                    {{'setting.studentsYears.year' | translate}}
+                  </label>
+                  <span class="text-danger">*</span>
+                  <!--Using items input-->
+                  <ng-select placeholder="{{'setting.studentsYears.year' | translate}}" [(ngModel)]="from.year"
+                             [items]="fromYears" name="from_year" (change)="yearChanged('from', $event)"
+                             bindLabel="title" bindValue="id" appendTo="body">
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="col-lg-12 mb-4 select-branch">
+                <div class="form-group mb-0">
+                  <label class="font-weight-bolder" for="">
+                    {{'setting.studentsYears.studeySemester' | translate}}
+                  </label>
+                  <span class="text-danger">*</span>
+                  <!--Using items input-->
+                  <ng-select placeholder="{{'setting.studentsYears.studeySemester' | translate}}"
+                             [(ngModel)]="from.semester"
+                             name="from_semester"
+                             [items]="fromSemesters" bindLabel="title" bindValue="id" appendTo="body">
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <!--  to -->
+            <div class="col-md-6 py-3">
+              <div class="col-lg-12 mb-4 select-branch">
+                <div class="form-group mb-0">
+                  <label class="font-weight-bolder" for="toSchools">
+                    {{'setting.studentsYears.school' | translate}}
+                  </label>
+                  <span class="text-danger">*</span>
+                  <!--Using items input-->
+                  <ng-select placeholder="{{'setting.studentsYears.school' | translate}}" id="toSchools"
+                             labelForId="toSchools"
+                             [items]="schools" bindLabel="title"
+                             [(ngModel)]="to.school"
+                             name="to_school"
+                             (change)="schoolChanged('to', $event)" bindValue="id" appendTo="body">
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="col-lg-12 mb-4 select-branch">
+                <div class="form-group mb-0">
+                  <label class="font-weight-bolder" for="">
+                    {{'setting.studentsYears.year' | translate}}
+                  </label>
+                  <span class="text-danger">*</span>
+                  <!--Using items input-->
+                  <ng-select placeholder="{{'setting.studentsYears.year' | translate}}"
+                             name="to_year"
+                             [items]="toYears" [(ngModel)]="to.year" (change)="yearChanged('to', $event)"
+                             bindLabel="title" bindValue="id" appendTo="body">
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="col-lg-12 mb-4 select-branch">
+                <div class="form-group mb-0">
+                  <label class="font-weight-bolder" for="">
+                    {{'setting.studentsYears.studeySemester' | translate}}
+                  </label>
+                  <span class="text-danger">*</span>
+                  <!--Using items input-->
+                  <ng-select placeholder="{{'setting.studentsYears.studeySemester' | translate}}"
+                             [(ngModel)]="to.semester"
+                             name="to_semester"
+                             [items]="toSemesters" bindLabel="title" bindValue="id" appendTo="body">
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <ng-container *ngFor="let row of formArray; index as i">
+          <ng-container>
+            <div class="study-class col-lg-12">
+              <div class="row study-class-content">
+                <div class="col-12 p-3 remove-item">
+                  <button (click)="remove(i)" *ngIf="i > 0"
+                          class="btn mx-3 px-5 px-lg-9 btn-warning bg-danger border-danger font-weight-bolder min-w-130px font-size-lg">
+                    {{'setting.delete' | translate}}
+                    <i class="fa fa-minus mr-2"></i>
+                  </button>
+                </div>
+                <!-- From -->
+                <div class="col-md-6 py-3">
+                  <div class="col-lg-12 mb-4 select-branch">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bolder" for="">
+                        {{'setting.studentsYears.studeyClass' | translate}}
+                      </label>
+                      <span class="text-danger">*</span>
+                      <!--Using items input-->
+                      <ng-select placeholder="{{'setting.studentsYears.studeyClass' | translate}}"
+                                 [name]="'from_dynamic_class_' + i"
+                                 [compareWith]="compareWith"
+                                 (change)="classesChanged('from', $event, i)"
+                                 [items]="fromClasses" [(ngModel)]="row['from']['class']"
+                                 bindLabel="title" bindValue="id"
+                                 appendTo="body">
+                      </ng-select>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 mb-4 select-branch">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bolder" for="">
+                        {{'setting.studentsYears.class' | translate}}
+                      </label>
+                      <span class="text-danger">*</span>
+                      <!--Using items input-->
+                      <ng-select placeholder="{{'setting.studentsYears.class' | translate}}"
+                                 [items]="row['from']['classRoomList']" [(ngModel)]="row['from']['classRoom']"
+                                 (change)="classRoomChanged('from', i, $event)"
+                                 [name]="'from_dynamic_classRoom_' + i"
+                                 bindLabel="title" bindValue="id" appendTo="body">
+                      </ng-select>
+                    </div>
+                  </div>
+
+                  <div class="mb-4 col-12" *ngIf="row?.from?.studentList?.length">
+                    <div class="vc-ag-grid global-data-table">
+                      <app-ag-grid #agGrid [rowData]="row.from.studentList"
+                                   [rowColors]="{ even: '#E8F4FE', odd: '#fff' }" [columnDefs]="columnDefs"
+                                   [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'"
+                                   [GlobalTable]="true" [pagination]="true"
+                                   [disableSelectOnClick]="true"
+                                   (selectedRows)="getSelectedRows($event, i)"
+                                   [pageOptions]="{length: row.from.totalStudents ,paginationSizes: [],defaultPageSize: 10}"
+                                   (pageEvent)="pageEvent($event, i)">
+                      </app-ag-grid>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- to -->
+                <div class="col-md-6 py-3">
+                  <div class="col-lg-12 mb-4 select-branch">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bolder" for="">
+                        {{'setting.studentsYears.studeyClass' | translate}}
+                      </label>
+                      <span class="text-danger">*</span>
+                      <!--Using items input-->
+                      <ng-select placeholder="{{'setting.studentsYears.studeyClass' | translate}}"
+                                 [name]="'to_dynamic_class_' + i"
+                                 (change)="classesChanged('to', $event, i)"
+                                 [items]="toClasses" [(ngModel)]="row['to']['class']" bindLabel="title" bindValue="id"
+                                 appendTo="body">
+                      </ng-select>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 mb-4 select-branch">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bolder" for="">
+                        {{'setting.studentsYears.class' | translate}}
+                      </label>
+                      <span class="text-danger">*</span>
+                      <!--Using items input-->
+                      <ng-select placeholder="{{'setting.studentsYears.class' | translate}}"
+                                 [name]="'to_dynamic_classRoom_' + i"
+                                 (change)="classRoomChanged('to', i, $event)"
+                                 [items]="row['to']['classRoomList']" [(ngModel)]="row['to']['classRoom']"
+                                 bindLabel="title"
+                                 bindValue="id" appendTo="body">
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <div class="p-3 remove-item">
+          <button (click)="addItem()"
+                  class="btn mx-3 px-5 px-lg-9 btn-warning font-weight-bolder min-w-130px font-size-lg">
+            {{'setting.studentsYears.addNewLine' | translate}}
+            <i class="fa fa-plus mr-2"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+    <!-- Controle buttons -->
+    <div class="controle-buttons d-flex align-items-center justify-content-end py-5">
+      <button class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg" (click)="transferStudents()">
+        {{'setting.studentsYears.deliver' | translate}}
+      </button>
+      <button [routerLink]="['../']" routerLinkActive="router-link-active"
+              class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+        {{ "parent_pages.back" | translate }}
+        <i class="fas fa-share mr-2 fa-rotate-180"></i>
+      </button>
+    </div>
+    <!-- Controle buttons -->
+  </div>
+
+</section>

@@ -1,0 +1,150 @@
+th.mat-header-cell {
+  text-align: center !important;
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+  height: 100%;
+  vertical-align: middle;
+  letter-spacing: 0px !important;
+}
+.table-style1 {
+  td {
+    vertical-align: middle;
+    padding: 0.5rem !important;
+    @media (max-width: 768px) {
+      // td {
+      // }
+    }
+  }
+  tbody {
+    td {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center !important;
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  .table-style1 {
+    overflow: hidden !important;
+  }
+}
+
+.align_text {
+  text-align: center !important;
+}
+
+tr.text-white {
+  td {
+    color: inherit;
+    span.badge-success {
+      border: 1px solid #fff;
+    }
+  }
+}
+
+::ng-deep {
+  .table-striped tbody tr:nth-of-type(odd) td {
+    border-color: #fff;
+  }
+
+  th.mat-header-cell:last-of-type:not(:only-of-type),
+  td.mat-cell:last-of-type:not(:only-of-type),
+  td.mat-footer-cell:last-of-type:not(:only-of-type) {
+    //padding: 0 !important;
+    white-space: nowrap;
+  }
+}
+tr.example-element-row {
+  transition: all 0.2s;
+  td {
+    border: 1px solid #ebedf3;
+  }
+}
+
+tr.example-element-row {
+  td:not(.row-action) {
+    span:not(.badge) {
+      font-weight: 500;
+      color: #000;
+    }
+  }
+}
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #ebf7ff;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.danger-icon {
+  background-color: #f2cad2;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #f64e60 !important;
+    li {
+      color: #fff;
+    }
+  }
+  li {
+    color: #ea657f;
+  }
+}
+.success-icon {
+  transition: all 0.3s;
+  background-color: #d2f5f7;
+  &:hover {
+    background-color: #0488d3 !important;
+    li {
+      color: #fff;
+    }
+  }
+  li {
+    color: #1cced8;
+  }
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: none !important;
+}
+
+// Switcher
+// .switch.switch-icon input:checked ~ span:after {
+//   content: "نعم";
+//   font-size: 12px;
+// }
+
+// .switch input:empty ~ span:after {
+//   content: "لا";
+//   font-size: 12px;
+// }
+
+// ::ng-deep .switch input:checked ~ span:before {
+//   background-color: #d6d6d6;
+// }
+
+// ::ng-deep .switch input:empty ~ span:before{
+//   background-color: #d6d6d6;
+// }
+// .switch input:empty ~ span:before, .switch input:empty ~ span:after {
+//   width: 44px;
+//   border-radius: 15px;
+// }
+
+// Switcher
+.switch.switch-icon input:checked ~ span:after {
+  content: "نعم";
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.switch input:empty ~ span:after {
+  content: "لا";
+  font-size: 14px;
+  font-weight: bold;
+}

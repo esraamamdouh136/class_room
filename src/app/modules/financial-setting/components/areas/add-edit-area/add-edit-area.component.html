@@ -1,0 +1,77 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<!-- ____ begin dialog header __________ -->
+<div class="d-flex justify-content-between align-items-center dialog-head">
+    <h2 class="h4 mb-0 font-weight-bolder">
+        {{this.data.data?.id ? ('general.edit_Area' |translate) :("general.Add_Area" | translate)}}
+    </h2>
+    <button 
+        type="button"
+        (click)="toggleLanguage()"
+        class="btn btn-warning">{{language}}</button>
+    <i class="fas fa-times text-white" [mat-dialog-close]="true"></i>
+    </div>
+<!-- ____ end dialog header __________ -->
+
+<mat-dialog-content class="m-0">
+    <form [formGroup]="form">
+        <div class="w-100">
+            <div class="row">
+
+                <div class="col-lg-6 mb-4" *ngIf="nameofArabic">
+                    <div class="form-group mb-0">
+                        <label class="font-weight-bolder" for="">
+                            {{'setting.usersPage.nameAr' | translate}}
+                        </label>
+                        <span class="text-danger">*</span>
+                        <input dir="auto" type="text" class="form-control w-100"
+                            [placeholder]="'setting.usersPage.nameAr' | translate" formControlName="name_ar">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4" *ngIf="nameOfEnglish">
+                    <div class="form-group mb-0">
+                        <label class="font-weight-bolder" for="">
+                            {{'setting.usersPage.nameEn' | translate}}
+                        </label>
+                        <span class="text-danger">*</span>
+                        <input dir="auto" type="text" class="form-control w-100"
+                            [placeholder]="'setting.usersPage.nameEn' | translate" formControlName="name_en">
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 mb-lg-6" *ngIf="this.data.data?.id">
+                    <div class="form-group is_active mb-0">
+                        <label class="font-weight-bolder" for="">
+                            {{"general.status" | translate}}
+                        </label>
+                        <span class="switch switch-icon">
+                            <label class="pointer" for="isActive"
+                                [class.f-w]="statusValue">{{"setting.organization.play" |
+                                translate}}</label>
+                            <label class="mx-3">
+                                <input dir="auto" id="isActive" type="checkbox" name="isActive"
+                                    formControlName="status" />
+                                <span></span>
+                            </label>
+                            <label class="pointer" for="isActive"
+                                [class.f-w]="!statusValue">{{"setting.organization.stop" |
+                                translate}}</label>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <div class="dailog-actions-btns">
+        <button mat-button class="btn btn-primary accept" (click)="onSubmit()">
+            {{this.data.data?.id ? ('general.edit' |translate) :('general.add' |translate)}}
+        </button>
+        <button mat-button mat-dialog-close class="btn btn-danger">
+            {{'setting.cancel' | translate}}
+        </button>
+    </div>
+</mat-dialog-actions>
+</div>

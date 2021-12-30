@@ -1,0 +1,30 @@
+:host {
+    ::ng-deep {
+        .otp  {
+            .wrapper {
+                display: flex;
+                justify-content: center;
+                padding: 0 !important;
+                input {
+                    margin: 0 .3rem;
+                    margin-right: .4rem !important;
+                    margin-bottom: 8px;
+                    padding: 0 0;
+                    font-size: 1.5rem;
+                    height: 50px;
+                    width: 50px;
+                    border: solid 1px #ccc;
+                    box-shadow: 0 0 5px #ccc inset;
+                    // Extra small devices (portrait phones, less than 576px)
+                    @media (max-width: 575.98px) { 
+                        height: 40px;
+                        width: 40px;
+                    }
+                    &:focus {
+                        outline-color: #a8d0f3;
+                    }
+                }
+            }
+        }
+    }
+}

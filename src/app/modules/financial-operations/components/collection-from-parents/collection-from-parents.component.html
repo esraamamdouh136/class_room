@@ -1,0 +1,338 @@
+<section class="section">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between"
+    [ngStyle]="{'background-color': voucherType == 'collections' ? '#FFF47E' : '#3AACE2'}">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex align-items-center"
+      [ngStyle]="{'color': voucherType == 'collections' ? '#000' : '#fff'}">
+      <i class="fa fa-user-friends mx-2" [ngStyle]="{'color': voucherType == 'collections' ? '#000' : '#fff'}"></i>
+      <span>{{'general.' + voucherType + '_parents' | translate}}</span>
+    </h2>
+
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body {{voucherType}}">
+
+    <div class="journal-entry-wrapper position-relative p-4 p-lg-7">
+
+      <div
+        class="position-absolute top-0 left-0 h-100 w-100 zindex-5 bg-blur d-flex align-items-sm-center justify-content-center"
+        *ngIf="!hasBalance">
+        <app-beginning-balance-dialog></app-beginning-balance-dialog>
+      </div>
+
+      <form class="form" #form="ngForm" (keydown.enter)="$event.preventDefault()">
+
+        <div class="form-row lain">
+          <div class="col-lg-3  d-block d-md-none">
+            <div class="row form-group flex-nowrap px-4">
+              <button class="btn paginate-btn col-auto" type="button" [disabled]="!buttons?.first" (click)="first()"><i
+                  class="fa fa-step-forward arrow-start-last"></i>
+              </button>
+              <button class="btn col-auto paginate-btn" type="button" [disabled]="!buttons?.previous"
+                (click)="previous()"><i class="fa fa-chevron-right"></i>
+              </button>
+              <input type="text" style="min-width: 50px" (keyup.enter)="goToEntry($event)" name="fiscal_year_number"
+                [(ngModel)]="fiscalYearNumber" class="col text-center font-weight-bold form-control">
+              <button class="btn paginate-btn col-auto" type="button" (click)="next()" [disabled]="!isLastPage()"><i
+                  class="fa fa-chevron-left"></i>
+              </button>
+              <button class="btn paginate-btn col-auto" type="button" [disabled]="!isLastPage()" (click)="last()"><i
+                  class="fa fa-step-backward arrow-start-last"></i>
+              </button>
+
+            </div>
+
+            <div class="form-group row align-items-center no-gutters">
+              <label class="j-label  col-lg-6" for="transfer_price">{{'general.reference' | translate}}:</label>
+              <div class="col-lg-6">
+                <input type="text" [disabled]="true" id="reference" class="form-control" name="reference">
+              </div>
+            </div>
+
+          </div>
+          <!-- date -->
+
+          <div class="col-lg-5">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-25 d-md-block" for="payment_method">{{'general.account' |
+                  translate}}:</label>
+              <ng-select [items]="paymentMethods" (change)="accountChanged($event)" [disabled]="!isEditing"
+                [(ngModel)]="paymentMethodId" name="payment_method" class="select w-100" id="payment_method"
+                bindLabel="nick_name_ar" bindValue="id"></ng-select>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-25 mx-md-auto d-md-block text-md-center">{{'general.currency'|
+                  translate}}
+                :</label>
+              <ng-select [items]="currencies" [disabled]="!isEditing" name="currency"
+                (ngModelChange)="currencyChanged($event)" [(ngModel)]="currency" class="j-select" id="currency"
+                bindLabel="name" bindValue="id"></ng-select>
+
+
+            </div>
+          </div>
+          <div class="col-lg-1 d-none d-md-block">
+            <div class="row form-group flex-nowrap mx-5">
+              <button class="btn paginate-btn paginate" type="button" [disabled]="!buttons?.first" (click)="first()"><i
+                  class="fa fa-step-forward arrow-start-last"></i>
+              </button>
+              <button class="btn paginate-btn paginate" type="button" [disabled]="!buttons?.previous"
+                (click)="previous()"><i class="fa fa-chevron-right"></i>
+              </button>
+              <input type="text" style="min-width: 50px" (keyup.enter)="goToEntry($event)" name="fiscal_year_number"
+                [(ngModel)]="fiscalYearNumber" class="col text-center font-weight-bold form-control">
+              <button class="btn paginate-btn paginate" type="button" (click)="next()" [disabled]="!isLastPage()"><i
+                  class="fa fa-chevron-left"></i>
+              </button>
+              <button class="btn paginate-btn paginate" type="button" [disabled]="!isLastPage()" (click)="last()"><i
+                  class="fa fa-step-backward arrow-start-last"></i>
+              </button>
+
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-3">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-25 d-md-block">{{'general.date'| translate}}:</label>
+              <mat-form-field floatLabel="never" class="form-control" (click)="picker.open()">
+                <input dir="auto" id="date" (ngModelChange)="dateChanged($event)" name="date" [(ngModel)]="date"
+                  readonly required [disabled]="!isEditing" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix (click)="picker.open()"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+            </div>
+          </div>
+          
+          <div class="col-lg-5 mt-3">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-50 mx-md-auto d-md-block text-md-center"
+                for="transfer_price">{{'general.transfer_price' | translate}}:</label>
+              <input type="text" [(ngModel)]="transferPrice" [disabled]="true" id="transfer_price" class="form-control"
+                name="transfer_price" appUsdOnly>
+            </div>
+          </div>
+
+          <div class="col-lg-3 mt-3">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-75"
+              for="transfer_price">{{'general.reference' | translate}}:</label>
+              <input type="text" [disabled]="true" id="reference" class="form-control" name="reference">
+            </div>
+          </div>
+          <div class="col-lg-4 mt-3">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-75"
+              for="statement">{{'المبلغ المستلم' | translate}}:</label>
+              <input type="text" [(ngModel)]="totalReceived" [value]="getTotal()" (change)="distributeTotal()"
+                placeholder="" [disabled]="!isEditing" id="amount" class="form-control" name="amount">
+            </div>
+          </div>
+
+          <div class="col-lg-3 mt-3">
+            <div class="form-group d-md-flex d-block">
+              <label class="w-25 d-md-block" for="statement">{{'general.statement' | translate}}:</label>
+              <input type="text" [(ngModel)]="statement" [disabled]="!isEditing" id="statement" class="form-control"
+                name="statement">
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="form-group row align-items-center no-gutters align-items-center">
+              <!--              <label class="j-label col-lg-3">{{'general.previous_balance' | translate}}:</label>-->
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col">
+                    <div class="total d-flex align-items-center justify-content-center"
+                      [ngStyle]="{'background-color': voucherType == 'collections' ? '#FFF47E' : '#3AACE2'}">
+                      <h3 class="text mb-0 ">{{(sandookBalance?.debit || 0)}}</h3>
+                      <!-- <h3 class="text mb-0 ">{{(sandookBalance?.debit || 0) | currency: ' '}}</h3> -->
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="total d-flex align-items-center justify-content-center"
+                      [ngStyle]="{'background-color': voucherType == 'collections' ? '#FFF47E' : '#3AACE2'}">
+                      <h3 class="text mb-0">{{(sandookBalance?.credit || 0)}}</h3>
+                      <!-- <h3 class="text mb-0">{{(sandookBalance?.credit || 0) | currency: ' '}}</h3> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!--  Start Ag grid -->
+        <div class="add d-flex align-items-center justify-content-end mb-3">
+          <button class="btn btn-add {{voucherType}} mb-0" type="button" (click)="onAddRow()"
+            *ngIf="isEditing || newEntry">{{'general.add' | translate}}</button>
+        </div>
+        <div class="vc-ag-grid" *ngIf='errorMassage ; else errorData'>
+          <app-ag-grid #agGrid [frameworkComponents]="frameworkComponents" [rowData]="rowData"
+            [rowColors]="{even: voucherType === 'collections' ? '#FFF47E' : '#3AACE2', odd: '#fff'}"
+            (updateData)="onUpdateData($event)" (selectedRows)="onRowSelectionChange($event)" [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef" height="280px"></app-ag-grid>
+        </div>
+        <!--  End Ag grid -->
+
+        <div class="j-footer">
+          <div class="row justify-content-between">
+            <div class="col-lg-5">
+              <div class="row align-items-center form-group">
+                <div class="col-auto">
+                  <label class="j-label mb-0">{{'general.entry' | translate}}:</label>
+                </div>
+                <div class="original {{voucherType}}" style="white-space: nowrap">
+                  <span *ngIf="!original">
+                    {{'general.no_original' | translate}}
+                  </span>
+
+                  <a [routerLink]="['../', 'jornal-entry']" [queryParams]="{id: parentCollections?.journal_entry?.id}"
+                    class="text-decoration-none" *ngIf="original" target="_blank">
+                    {{('general.entry_number' | translate) + original}}
+                  </a>
+
+                </div>
+                <div class="col d-flex align-items-center">
+                  <div class="px-2"></div>
+                  <ng-container *ngFor="let item of rowData;let index = index">
+                    <div class="" *ngIf="isEditing && agSelectedRow && item == agSelectedRow">
+                      <input type="file" class="custom-file-input" [id]="'file_'+index" (change)="onImageUpload($event)"
+                        [name]="'file_'+index" multiple style="display: none">
+                      <label class="custom-input-label d-flex align-items-center flex-nowrap" [for]="'file_'+index">
+                        <span><i class="fa fa-paperclip"></i></span>
+                        <span class="px-2"></span>
+                        <span style="white-space: nowrap"> {{'general.upload' |
+                            translate}}</span>
+                      </label>
+                    </div>
+                  </ng-container>
+                  <div class="px-2"></div>
+                  <div class="" *ngIf="agSelectedRow" (click)="openAttachmentsDialog()">
+                    <button class="btn custom-input-label d-flex align-items-center flex-nowrap">
+                      <span><i class="fa fa-paperclip"></i></span>
+                      <span class="px-2"></span>
+                      <span style="white-space: nowrap">({{attachmentsCount()}})
+                        {{'general.attachments' |
+                              translate}}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+
+              <!-- total -->
+              <div class="form-group row align-items-center no-gutters align-items-center">
+                <label class="j-label col-lg-3">{{'general.total' | translate}}:</label>
+                <div class="col-lg-9">
+                  <div class="row">
+                    <div class="col">
+                      <div class="total d-flex align-items-center justify-content-center"
+                        [ngStyle]="{'background-color': voucherType == 'collections' ? '#FFF47E' : '#3AACE2'}">
+                        <h3 class="text mb-0">{{getTotal() | currency: ' '}} {{symbol}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Difference -->
+              <div class="form-group row align-items-center no-gutters align-items-center" *ngIf="false">
+                <label class="j-label col-lg-3">{{'general.difference' | translate}}:</label>
+                <div class="col-lg-9">
+                  <div class="row">
+                    <div class="col">
+                      <div class="total d-flex  align-items-center justify-content-center"
+                        [ngStyle]="{'background-color': voucherType == 'collections' ? '#FFF47E' : '#3AACE2'}">
+                        <h3 class="text mb-0 text-danger">{{getDifference() | currency: ' '}} {{symbol}}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="j-actions d-flex align-items-center flex-wrap mt-4 d-md-block">
+          <button class="btn save mb-4 mx-3 text-white" [disabled]="!isEditing" *ngIf="isEditing"
+            (click)="postData()">{{'general.save' | translate}}</button>
+
+          <button class="btn new mb-4 mx-3 text-white" [disabled]="newEntry" (click)="form.reset(); new()">{{'general.new'
+              | translate}}</button>
+
+          <button class="btn edit mb-4 mx-3 text-white" *ngIf="!isEditing && paymentMethodId"
+            (click)="edit()">{{('general.enable_edit' | translate)}}</button>
+
+          <button class="btn edit mb-4 mx-3 text-white" *ngIf="isEditing" (click)="cancelEditOrAdd()">
+            {{('setting.cancel' | translate)}}</button>
+              
+          <button class="btn preview mb-4 mx-3">{{'general.preview' | translate}}</button>
+
+          <button class="btn print mb-4 mx-3">{{'general.print' | translate}}</button>
+
+        </div>
+
+      </form>
+    </div>
+
+
+  </div>
+  <div class="p-5"></div>
+  <div class="ledger">
+
+    <h4 class="text-center font-weight-bolder mb-4">{{'general.parents_ledger' | translate}}</h4>
+
+    <div class="vc-ag-grid">
+      <app-ag-grid #ledgerTable [rowData]="ledgerDetails" id="ledger" [rowColors]="{even: '#93d470', odd: '#fff'}"
+        [columnDefs]="ledgerColumnDefs" [defaultColDef]="defaultColDef" height="280px"></app-ag-grid>
+    </div>
+
+    <div class="row justify-content-lg-end">
+      <div class="col-lg-6">
+        <div class="form-group row align-items-center no-gutters align-items-center">
+          <label
+            class="j-label col-lg-3 d-flex px-lg-4 justify-content-lg-end">{{'general.balance' | translate}}:</label>
+          <div class="col-lg-9">
+            <div class="row">
+              <div class="col">
+                <div class="total d-flex align-items-center justify-content-center">
+                  <h3 class="text mb-0 ">
+                    {{(ledgerData?.total_debit || 0) | currency: ' '}}
+                    {{symbol}}
+                  </h3>
+                </div>
+              </div>
+              <div class="col">
+                <div class="total d-flex align-items-center justify-content-center">
+                  <h3 class="text mb-0">
+                    {{(ledgerData?.total_credit || 0) | currency: ' '}}
+                    {{symbol}}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+<ng-template #errorData>
+  <div class=" bg-white mb-4">
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+  </div>
+</ng-template>

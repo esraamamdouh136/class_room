@@ -1,0 +1,123 @@
+<!-- ____ begin dialog header __________ -->
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<header mat-dialog-title class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder">
+        {{"general.addRole" |translate}}
+    </h2>
+    <i class="fas fa-times text-white" [mat-dialog-close]="true"></i>
+</header>
+<!-- ____ end dialog header __________ -->
+<mat-dialog-content class="m-0" class="mat-typography">
+    <div class="w-100">
+        <form [formGroup]="form">
+            <div class="w-100">
+                <div class="row">
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group mb-0 text-right">
+                            <label class="font-weight-bolder" for="">
+                                {{'setting.usersPage.name' | translate}} :
+                            </label>
+                            <span class="text-danger">*</span>
+                            <input dir="auto" type="text" class="form-control w-100"
+                                [placeholder]="'setting.usersPage.name' | translate" formControlName="title">
+                        </div>
+                        <ng-container *ngIf="formErrors?.title">
+                            <!--error Massage-->
+                            <div class="text-danger" *ngFor="let error of formErrors['title']">
+                                {{error}}
+                            </div>
+
+                        </ng-container>
+                    </div>
+
+                    <div class="col-12">
+                        <hr>
+                    </div>
+
+                    <div class="col-lg-6 mb-4" *ngIf="firstLevelHeaderMenu.length">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{"setting.permissions.permissions" | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <ng-select  [(ngModel)]="firstLevelValue" [ngModelOptions]="{standalone:true}" (change)="selectFirstLevelValue($event)" appendTo="body">
+                                <ng-option *ngFor="let item of firstLevelHeaderMenu" [value]="item">
+                                    {{'setting.permissions.' +
+                                    item | translate}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4" *ngIf="thirdLevelHeaderMenu.length">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{"setting.permissions.permissions" | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <ng-select  [(ngModel)]="thirdLevelValue" [ngModelOptions]="{standalone:true}" (change)="selectThirdLevel($event)" appendTo="body">
+                                <ng-option *ngFor="let item of thirdLevelHeaderMenu" [value]="item">
+                                    {{'setting.permissions.' +
+                                    item | translate}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 mb-4" *ngIf="secondLevelHeaderMenu.length">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{"setting.permissions.permissions" | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <ng-select  [(ngModel)]="secondLevelValue" [ngModelOptions]="{standalone:true}" (change)="selectPermission($event)" appendTo="body">
+                                <ng-option *ngFor="let item of secondLevelHeaderMenu" [value]="item.title">
+                                    {{'setting.permissions.' +
+                                    item.title | translate}}</ng-option>
+                            </ng-select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 mb-4" *ngIf="permissionsDropDown.length">
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bolder" for="">
+                                {{"setting.permissions.permissions" | translate}}
+                            </label>
+                            <span class="text-danger">*</span>
+                            <ng-select  [items]="permissionsDropDown" bindLabel="title" name="nationality"
+                                [multiple]="true" bindValue="value"
+                                [placeholder]="'setting.permissions.permissions' | translate"
+                                appendTo="body"
+                                formControlName="permissions">
+                            </ng-select>
+                        </div>
+                        <ng-container *ngIf="formErrors?.permissions">
+                            <!--error Massage-->
+                            <div class="text-danger" *ngFor="let error of formErrors['permissions']">
+                                {{error}}
+                            </div>
+
+                        </ng-container>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <div class="dailog-actions-btns">
+        <button mat-button class="btn btn-primary accept" (click)="onSubmit()" [disabled]="!form.valid">
+            {{'general.add' |translate}}
+            <ng-container *ngIf="addLoading">
+                <span class="spinner spinner-primary ml-5"></span>
+            </ng-container>
+        </button>
+        <button mat-button mat-dialog-close class="btn btn-danger">
+            {{'setting.cancel' | translate}}
+        </button>
+    </div>
+</mat-dialog-actions>
+</div>

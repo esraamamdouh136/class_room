@@ -1,0 +1,85 @@
+<section class="section border">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fas fa-file-excel mx-2"></i>
+            {{"parent_pages.editExel" | translate}}
+        </h2>
+    </header>
+    <!-- ____ end section header __________ -->
+
+    <!-- ____ begin section body __________ -->
+    <div class="section__body p-4 p-lg-7">
+
+        <div class="info">
+            <p class="text-right m-0 mb-3 col-12">
+                لاستيراد بيانات أولياء الأمور يرجى الالتزام بنفس التنسيق الخاص بالملف أدناه في حال عدم توافر معلومات
+                اترك العمود فارغاً لا تقم بإضافة او حذف أي أعمدة من الملف
+            </p>
+
+            <a target="_blank" href="https://v1.viewclass.com/excelUpload/parents_import.xlsx" class="col-12"> انقر هنا
+                لتحميل نموذج الملف بتنسيق إكسل </a>
+
+            <span class="d-block col-12 mb-5">نموذج الملف</span>
+
+            <div class="clip-bord row">
+                <div class="col-md-12">
+                    <h3 class="mb-3 font-weight-bold">
+                        اضغط على الصف لتقوم بنسخه
+                    </h3>
+
+                    <div class="semesters d-flex flex-wrap">
+                        <div class="semester mx-2 mb-3" *ngFor="let semester of semasters">
+                            <button class="btn btn-secondary" (click)="copyContent(semester)">
+                                {{semester}}
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="vc-ag-grid global-data-table mt-5" *ngIf="rowData?.length ; else errorData">
+            <app-ag-grid #agGrid [rowData]="rowData" [rowColors]="{ even: '#ebf7ff', odd: '#fff' }"
+                [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'"
+                [GlobalTable]="true" [pagination]="false">
+            </app-ag-grid>
+        </div>
+
+        <div class="col-md-12 mb-5" [dir]="currentLang == 'ar' ? 'ltr' : 'rtl'">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text font-weight-bold">Browse</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input">
+                    <label class="custom-file-label text-right font-weight-bold" for="inputGroupFile01">{{'parent_pages.exelFile' | translate}}</label> 
+                </div>
+            </div>
+        </div>
+        <!-- _______ end tabel _______ -->
+
+        <!-- Controle buttons -->
+        <div class="controle-buttons d-flex align-items-center justify-content-end py-5">
+            <button class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+                {{ "general.save" | translate }}
+                <i class="far fa-save mr-2"></i>
+            </button>
+            <button [routerLink]="['../../parents']" class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+                {{ "parent_pages.back" | translate }}
+                <i class="fas fa-share mr-2 fa-rotate-180"></i>
+            </button>
+        </div>
+        <!-- Controle buttons -->
+
+    </div>
+    <!-- ____ end section body __________ -->
+</section>
+
+
+
+<ng-template #errorData>
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

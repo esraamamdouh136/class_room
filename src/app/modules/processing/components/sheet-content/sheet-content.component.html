@@ -1,0 +1,93 @@
+<div class="contanier-fluid border">
+    <div class="bg-color">
+
+        <!-- ____ begin section header __________ -->
+        <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+            <h2 class="h4 mb-0 font-weight-bolder d-flex">
+                <i class="fa fa-restroom  mx-2"></i>
+                {{'prossing.sheetData' | translate}}
+            </h2>
+        </header>
+        <!-- ____ End section header __________ -->
+
+        <!-- ____ Begin AG grid __________ -->
+        <div class="section__body p-4 p-lg-7">
+            <div class="d-flex align-items-center mb-4">
+                <div class="from">
+                    <!-- <label class="font-weight-bolder" for="from">
+                        {{ "general.from" | translate }} :
+                    </label> -->
+                    <input type="text" class="form-control" id="from" placeholder="{{'general.from' | translate}}"
+                        aria-describedby="basic-addon1" [(ngModel)]="from">
+                </div>
+                <div class="to mx-5">
+                    <!-- <label class="font-weight-bolder" for="to">
+                        {{ "general.to" | translate }} :
+                    </label> -->
+                    <input type="text" class="form-control" id="to" placeholder="{{'general.to' | translate}}"
+                        aria-describedby="basic-addon1" [(ngModel)]="to">
+                </div>
+                <div class="action mr-auto">
+                    <button type="button" (click)="getCustomData()"
+                        class="btn mx-2 px-10 btn-shadow btn-primary font-weight-bolder min-w-130px px-8 my-0 font-size-lg ">
+                        {{"general.search" | translate}}
+                    </button>
+                </div>
+            </div>
+            <div class="vc-ag-grid">
+                <app-ag-grid #agGrid [rowData]="rowData" [rowColors]="{even: '#dae6ff', odd: '#fff'}"
+                    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" height="280px">
+                </app-ag-grid>
+            </div>
+        </div>
+        <!-- ____ End AG grid __________ -->
+
+        <!--     Start Tabs   -->
+        <div class="processing-tabs">
+            <mat-tab-group>
+                <mat-tab>
+                    <ng-template mat-tab-label>{{'معالجة الطلاب'}}</ng-template>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="list">
+                                    <ul class="list-unstyled p-0">
+                                        <li class="list-item" [routerLinkActive]="'active'"
+                                            [queryParams]="{sheetId: sheetId, id: chanelId}"
+                                            routerLink="school-student-upload">
+                                            <a class="list-link">الرفع لمدرسة</a>
+                                        </li>
+                                        <li class="list-item" [routerLinkActive]="'active'"
+                                            [queryParams]="{sheetId: sheetId, id: chanelId}"
+                                            routerLink="check-student-login">
+                                            <a class="list-link">فحص تسجيل دخول الطلاب</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <router-outlet></router-outlet>
+                            </div>
+                        </div>
+
+                    </div>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>{{'تاب تانيه'}}</ng-template>
+                    <div class="content">
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>{{'static tab'}}</ng-template>
+                    <div class="content">
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+
+
+        <!--     End Tabs   -->
+
+    </div>
+</div>

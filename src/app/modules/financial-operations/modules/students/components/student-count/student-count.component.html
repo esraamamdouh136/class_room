@@ -1,0 +1,27 @@
+<section class="section border">
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-file-signature mx-2"></i>
+            {{'جدول اعداد الطلاب' | translate}}
+        </h2>
+        </header>
+<div class="section__body p-4 p-lg-7">
+    <!-- _______ begin tabel _______ -->
+    <div class="section__body__tabel mt-5">
+        <div class="vc-ag-grid global-data-table">
+            <app-ag-grid #agGrid [rowData]="tableItems" [frameworkComponents]="frameworkComponents"
+                [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs"
+                [defaultColDef]="defaultColDef" [domLayout]="'autoHeight'" [GlobalTable]="true" [pagination]="true"
+                [pageOptions]="pageOptions" (pageEvent)="pageEvent($event)">
+            </app-ag-grid>
+        </div>
+    </div>
+    <!-- _______ end tabel _______ -->
+</div>
+<!-- ____ end section body __________ -->
+</section>
+
+<ng-template #errorData>
+<app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

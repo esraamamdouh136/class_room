@@ -1,0 +1,18 @@
+:host {
+  height: 100%;
+
+  &>* {
+    @media (min-width: 992px) {
+      height: 100% !important;
+    }
+  }
+
+}
+
+@media (min-width: 992px) {
+  .custom {
+    .container-fluid {
+      padding: 0px 15px !important;
+    }
+  }
+}

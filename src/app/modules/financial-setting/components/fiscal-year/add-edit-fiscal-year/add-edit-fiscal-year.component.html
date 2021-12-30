@@ -1,0 +1,168 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="d-flex justify-content-between align-items-center dialog-head">
+  <h2 mat-dialog-title class="mb-0">
+    {{data.id ? ('setting.fiscalYearPage.updateFiscalYear' |translate) :('setting.fiscalYearPage.addFiscalYear'
+    |translate) }}
+  </h2>
+  <button 
+  type="button"
+  (click)="toggleLanguage()"
+  class="btn btn-warning">{{language}}</button>
+ 
+  <i class="fas fa-times" mat-dialog-close></i>
+</div>
+<div class="scroll">
+  <mat-dialog-content class="mat-typography">
+    <ng-container *ngIf="(showLoading |async) ">
+      <div class="d-flex align-items-center justify-content-center">
+        <mat-spinner [diameter]="80"></mat-spinner>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!(showLoading |async)">
+      <form [formGroup]="form" autocomplete="off">
+        <div class="row">
+          <div class="col-md-12" *ngIf="nameofArabic">
+            <div class="form-group">
+              <label class="font-bold font-14 mb-0 text-nowrap">
+                {{'setting.usersPage.nameAr' | translate}} :
+                <span class="text-danger">*</span>
+              </label>
+            <div>
+              <input dir="auto" type="text" class="form-control w-100"
+                [placeholder]="'setting.usersPage.nameAr' | translate" formControlName="name_ar">
+            </div>
+            <app-inputs-errors [ctrl]="form.get('name_ar')" [name_ar]="'name_ar'">
+            </app-inputs-errors>
+          </div>
+          </div>
+
+
+        <div class="col-md-12" *ngIf="nameOfEnglish">
+          <div class="form-group">
+              <label class="font-bold font-14 mb-0 text-nowrap">
+                {{'setting.usersPage.nameEn' | translate}} :
+                <span class="text-danger">*</span>
+              </label>
+              <input dir="auto" type="text" class="form-control w-100"
+                [placeholder]="'setting.usersPage.nameEn' | translate" formControlName="name_en">
+            </div>
+            <app-inputs-errors [ctrl]="form.get('name_en')" [name_en]="'name_en'">
+            </app-inputs-errors>
+          </div>
+
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+              <label class="font-bold font-14 mb-0 text-nowrap">
+                {{'setting.fiscalYearPage.start_at' | translate}} :
+                <span class="text-danger">*</span>
+              </label>
+              <mat-form-field floatLabel="never" class="date-form cursor-pointer" (click)="checkLocal();picker.open()">
+                <input dir="auto" style="cursor:none" readonly matInput [matDatepicker]="picker"
+                  [placeholder]="'setting.usersPage.chooseDate' | translate" formControlName="start_at">
+                <mat-datepicker-toggle matSuffix (click)="checkLocal();picker.open()"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <app-inputs-errors [ctrl]="form.get('start_at')" [name]="'start_at'">
+            </app-inputs-errors>
+          </div>
+
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+              <label class="font-bold font-14 mb-0 text-nowrap">
+                {{'setting.fiscalYearPage.end_at' | translate}} :
+                <span class="text-danger">*</span>
+              </label>
+              <mat-form-field floatLabel="never" class="date-form cursor-pointer" (click)="checkLocal();picker2.open()">
+                <input dir="auto" matInput [matDatepicker]="picker2"
+                  [placeholder]="'setting.usersPage.chooseDate' | translate" [min]="form.get('start_at').value"
+                  formControlName="end_at" (click)="picker2.open()">
+                <mat-datepicker-toggle matSuffix (click)="checkLocal();picker2.open()"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <app-inputs-errors [ctrl]="form.get('end_at')" [name]="'end_at'">
+            </app-inputs-errors>
+          </div>
+
+
+      </div>
+
+
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group custom-company_form">
+              <label class="font-weight-bolder" for="">
+                {{'setting.fiscalYearPage.journalSequence' | translate}} :
+                <span class="text-danger">*</span>
+              </label>
+
+              <div class="d-flex flex-row">
+                <div class="custom-control custom-radio custom-control-inline">
+
+                  <input dir="auto" value="monthly_sequence" type="radio" name="journal_sequence"
+                    class="custom-control-input" formControlName="journal_sequence" id="journal_sequence1">
+                  <label class="custom-control-label pointer" for="journal_sequence1"
+                    [class.f-w]="journalSequenceValue.value == 'monthly_sequence'">
+                    {{'setting.fiscalYearPage.monthely' | translate}}
+                  </label>
+
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input dir="auto" value="yearly_sequence" type="radio" name="journal_sequence"
+                    class="custom-control-input" formControlName="journal_sequence" id="journal_sequence2">
+                  <label class="custom-control-label pointer" for="journal_sequence2"
+                    [class.f-w]="journalSequenceValue.value == 'yearly_sequence'">
+                    {{'setting.fiscalYearPage.yearly' | translate}}
+                  </label>
+                </div>
+                <app-inputs-errors [ctrl]="form.get('journal_sequence')" [name]="'journal_sequence'">
+                </app-inputs-errors>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-md-6" *ngIf="data?.id">
+            <div class="form-group is_active mb-0">
+              <label class="font-weight-bolder" for="">
+                {{"general.status" | translate}}
+              </label>
+              <span class="switch switch-icon">
+                <label class="pointer" for="isActive" [class.f-w]="statusValue">{{"setting.fiscalYearPage.active" |
+                  translate}}</label>
+                <label class="mx-3">
+                  <input dir="auto" id="isActive" type="checkbox" name="isActive" formControlName="status" />
+                  <span></span>
+                </label>
+                <label class="pointer" for="isActive" [class.f-w]="!statusValue">{{"setting.fiscalYearPage.disactive" |
+                  translate}}</label>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </form>
+    </ng-container>
+
+  </mat-dialog-content>
+</div>
+<mat-dialog-actions align="center" *ngIf="!(showLoading |async)">
+  <div class="dailog-actions-btns">
+    <button mat-button cdkFocusInitial class="btn btn-primary accept" (click)="onSubmit()">
+      {{data.id ? ('general.edit' |translate) :('general.add' |translate)}}
+    </button>
+    <button mat-button mat-dialog-close class="btn btn-danger">
+      {{'setting.cancel' | translate}}
+    </button>
+  </div>
+</mat-dialog-actions>
+</div>

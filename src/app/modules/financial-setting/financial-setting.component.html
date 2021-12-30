@@ -1,0 +1,56 @@
+<div class="row" style="height: 88vh">
+    <div class="col-auto d-none d-lg-block">
+        <aside class="custom-aside scroll" style="height: 88vh; overflow: auto">
+            <h3 class="custom-aside__title">
+                {{"general.Account_settings" | translate}}
+            </h3>
+            <ul class="menu-nav list-unstyled p-0" *ngIf="!loading">
+                <li *ngFor="let item of menuItems" [routerLink]="[item.slug]" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}" class="d-flex align-items-center ">
+                    <i [class]="item?.css_class" class="menu__icon" [style.background-color]="item?.color"
+                        *ngIf="item?.slug !='taxes'"></i>
+                    <span class="menu__icon" [style.background-color]="item?.color" *ngIf="item?.slug =='taxes'">
+                        <img src="../../../../../assets/media/imgs/tax1.png">
+                    </span>
+                    <a class="item__link">
+                        {{item?.name}}
+                    </a>
+                </li>
+                <li routerLink="connect-education" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}" class="d-flex align-items-center ">
+                <i class="menu__icon fa-graduation-cap fas" [style.background-color]="'#4680ff'"></i>
+                <a class="item__link">
+                    ربط بالنظام التعليمي
+                </a>
+            </li>
+            </ul>
+        </aside>
+        <div class="spinner-wrapper" *ngIf="loading">
+            <div class="spinner-border loading" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <!-- <button class="side-menu d-lg-none d-block" (click)="toggle()"><i class="fa"
+            [ngClass]="!showMenu ? 'fa-bars' : 'fa-times-circle'"></i></button> -->
+    <div class="col setting-details w-100 p-0 scroll" style="height: 50vh; overflow: auto" #scrolledSection>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+<!--Toggle Mobile Menu [ngClass]="!showMenu ? 'd-none' : 'd-block' "-->
+<aside class="custom-aside custom-aside-mobile d-lg-none" *ngIf="toggleSidebar">
+    <h3 class="custom-aside__title">
+        {{"general.Account_settings" | translate}}
+    </h3>
+    <ul class="menu-nav list-unstyled p-0" *ngIf="!loading">
+        <li *ngFor="let item of menuItems" [routerLink]="[item.slug]" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}" class="d-flex align-items-center ">
+            <i [class]="item?.css_class" class="menu__icon" [style.background-color]="item?.color"></i>
+            <a class="item__link">
+                {{item?.name}}
+            </a>
+        </li>
+    </ul>
+</aside>

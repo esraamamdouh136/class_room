@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+        <h3>اهم المصروفات</h3>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-md-4 labels">
+         <p><span class="bg-color-one"></span>{{'general.salaries_and_wages' | translate}}</p>
+         <p><span class="bg-color-two"></span>{{'general.rentals' | translate}}</p>
+         <p><span class="bg-color-three"></span>{{'general.government_expenses' | translate}}</p>
+         <p><span class="bg-color-four"></span>{{'general.other_expenses' | translate}}</p>
+
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <div class="chart-wrapper" >
+                    <canvas baseChart  width="400" height="320"
+                    chartType="pie"
+                    [data]="chartDataPie"
+                    [colors]="chartColorsPie"
+                    [options]="chartOptionsPie"
+                    [plugins]="chartPluginsPie"
+                    [legend]="chartLegendPie">
+                  </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    </div>

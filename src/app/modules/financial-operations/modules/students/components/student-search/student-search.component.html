@@ -1,0 +1,71 @@
+<header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex">
+        <i class="fa fa-search mx-2"></i>
+        {{'general.search' | translate}}
+    </h2>
+</header>
+
+<form>
+<div class="row">
+<div class="col-lg-4">
+    <div class="form-group">
+        <label for="username">{{'AUTH.INPUT.USERNAME' | translate}}</label>
+        <input class="form-control" type="text" formControlName="user_name" id="username">
+        <!-- <ng-container *ngIf="formErrors?.identity_source">
+            <div class="text-danger" *ngFor="let error of formErrors?.identity_source">
+                {{error}}</div>
+        </ng-container> -->
+    </div>
+</div>
+
+
+<div class="col-lg-4">
+    <div class="form-group">
+        <label for="email">{{'parent_pages.email' | translate}}</label>
+        <input class="form-control" type="email" id="email" formControlName="email">
+        <!-- <ng-container *ngIf="formErrors?.email">
+            <div class="text-danger" *ngFor="let error of formErrors?.email">
+                {{error}}</div>
+        </ng-container> -->
+    </div>
+</div>
+
+<div class="col-lg-4">
+    <div class="form-group">
+        <label for="identification_number">{{'parent_pages.identification_number' | translate}} </label>
+        <span class="text-danger">*</span>
+        <input class="form-control" type="text" appNumbersOnly formControlName="identification_number"
+            name="identification_number" #identification_number id="identification_number">
+        <!-- <ng-container *ngIf="formErrors?.identification_number">
+            <div class="text-danger" *ngFor="let error of formErrors?.identification_number">
+                {{error}}</div>
+        </ng-container> -->
+    </div>
+</div>
+
+<div class="col-lg-4">
+    <div class="form-group">
+        <label for="passport">{{'general.passport' | translate}}</label>
+        <input class="form-control" type="text" id="passport" formControlName="passport">
+        <!-- <ng-container *ngIf="formErrors?.email">
+            <div class="text-danger" *ngFor="let error of formErrors?.email">
+                {{error}}</div>
+        </ng-container> -->
+    </div>
+</div>
+
+<div class="col-lg-4">
+    <div class="form-group">
+        <label for="phone">{{'general.phone' | translate}}</label>
+        <input class="form-control" type="text" id="phone" formControlName="phone">
+        <!-- <ng-container *ngIf="formErrors?.phone">
+            <div class="text-danger" *ngFor="let error of formErrors?.phone">
+                {{error}}</div>
+        </ng-container> -->
+    </div>
+</div>
+</div>
+<button type="submit" class="btn btn-primary my-3 d-block"
+[ngClass]="translation.getSelectedLanguage() == 'ar' ? 'mr-auto' : 'ml-auto'">{{'general.search' |
+translate}}</button>
+</form>

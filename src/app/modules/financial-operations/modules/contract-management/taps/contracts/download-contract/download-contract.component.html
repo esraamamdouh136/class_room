@@ -1,0 +1,92 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+  <!-- ____ begin dialog header __________ -->
+  <div class="d-flex justify-content-between align-items-center dialog-head">
+    <h2 class="h4 mb-0 font-weight-bolder">
+      {{("contracts.download_contract" | translate)}}
+    </h2>
+    <i class="fas fa-times text-white" [mat-dialog-close]="true"></i>
+  </div>
+  <!-- ____ end dialog header __________ -->
+
+  <mat-dialog-content class="m-0">
+    <form [formGroup]="form" (ngSubmit)="onsubmit()">
+      <div class="w-100">
+
+        <div class="row">
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                الاتجاة
+              </label>
+              <span class="text-danger">*</span>
+              <ng-select [items]="['P','L']" appendTo="body" [clearable]="false" formControlName="orientation">
+              </ng-select>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                الشكل
+              </label>
+              <span class="text-danger">*</span>
+              <ng-select [items]="['A4','A3']" appendTo="body" [clearable]="false" formControlName="format">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 mb-4">
+            <div class="form-group">
+              <label class="font-size-h6 font-weight-bolder text-dark">Margin Left</label>
+              <div class="input-wrapper d-flex align-items-center">
+                <input class="form-control form-control-solid h-auto" type="number" formControlName="marginLeft"
+                  autocomplete="off" />
+              </div>
+            </div>
+          </div>
+          <div class="col-6 mb-4">
+            <div class="form-group">
+              <label class="font-size-h6 font-weight-bolder text-dark">Margin Top</label>
+              <div class="input-wrapper d-flex align-items-center">
+                <input class="form-control form-control-solid h-auto" type="number" formControlName="marginTop"
+                  autocomplete="off" />
+              </div>
+            </div>
+          </div>
+          <div class="col-6 mb-4">
+            <div class="form-group">
+              <label class="font-size-h6 font-weight-bolder text-dark">Margin Right</label>
+              <div class="input-wrapper d-flex align-items-center">
+                <input class="form-control form-control-solid h-auto" type="number" formControlName="marginRight"
+                  autocomplete="off" />
+              </div>
+            </div>
+          </div>
+          <div class="col-6 mb-4">
+            <div class="form-group">
+              <label class="font-size-h6 font-weight-bolder text-dark">Margin Bottom</label>
+              <div class="input-wrapper d-flex align-items-center">
+                <input class="form-control form-control-solid h-auto" type="number" formControlName="marginBottom"
+                  autocomplete="off" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <mat-dialog-actions align="center">
+        <div class="dailog-actions-btns">
+          <button mat-button class="btn btn-primary accept" type="submit">
+            {{('general.download' | translate)}}
+          </button>
+          <button mat-button mat-dialog-close class="btn btn-danger">
+            {{('setting.cancel' | translate)}}
+          </button>
+        </div>
+      </mat-dialog-actions>
+    </form>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,29 @@
+<header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex">
+        <i class="fa fa-file mx-2"></i>
+        {{'ملف اكسل' | translate}}
+    </h2>
+</header>
+<div class="file-excel">
+    <h4 class="my-5">الخطوات</h4>
+<ul>
+    <li>قم بتحميل ملف الإكسل (<a>انقر هنا لتحميل نموذج الملف بتنسيق إكسل </a>)</li>
+    <li>قم بتعبئة ملف الاكسل ببيانات الطلاب مع الإلتزام بنفس تنسيق الخلايا وعدم حذف أو تعديل أي عمود</li>
+    <li>يجب تعبئة الملف بشكل متتالي مع عدم اضافة صفوف بينية فارغة</li>
+    <li>يمثل عمود "identity_number" رقم هوية الطالب</li>
+</ul>
+
+<h4 class="my-5">{{'students.copy' | translate}}</h4>
+<div class="row">
+    <div class="col-lg-2" *ngFor="let button of class_room">
+        <button  type="button" class="btn btn-outline-secondary d-block mt-2 w-100">{{button.name}}</button>
+    </div>
+</div>
+</div>
+
+<div class="d-flex" [ngClass]="translation.getSelectedLanguage() == 'ar' ? 'justify-content-end' : 'justify-content-end'">
+<button type="submit" class="btn btn-primary my-3 mx-3">{{'setting.save' |
+translate}}</button> 
+<button type="submit" class="btn btn-danger my-3">{{'students.back' |
+translate}}</button> 
+</div>

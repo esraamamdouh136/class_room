@@ -1,0 +1,31 @@
+   <div class="link-chart pb-5">
+    <h3>التدفق النقدى</h3>
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <div class="content border py-4 px-5">
+               <p class="text-muted">النقديه فى<span>01/01/2021</span></p>
+               <p class="" [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'text-left' : 'text-right'"><span>20,000</span>ريال سعودى</p>
+               <p class="text-color-one">وارد</p>
+               <p class="" [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'text-left' : 'text-right'"><span>2,300,000</span>ريال سعودى</p>
+               <p class="text-color-two">منصرف</p>
+               <p class="" [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'text-left' : 'text-right'"><span>2,300,000</span>ريال سعودى</p>
+               <p class="text-primary"> النقديه فى <span>31/12/2021</span> </p>
+               <p class="" [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'text-left' : 'text-right'"><span>20,000</span>ريال سعودى</p>
+
+            </div>
+        </div>
+        <div class="col-md-8">
+             <div class="border" style="height: 225px;">
+                 <canvas baseChart
+                 chartType="line"
+                 [datasets]="chartData"
+                 [labels]="chartLabels"
+                 [options]="chartOptions"
+                 [colors]="chartColors"
+                 [legend]="chartLegend"
+                 [plugins]="chartPlugins">
+               </canvas>
+             </div>
+           </div>
+        </div>
+   </div>

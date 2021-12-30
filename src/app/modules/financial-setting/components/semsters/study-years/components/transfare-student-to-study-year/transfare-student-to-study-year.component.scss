@@ -1,0 +1,31 @@
+.main-container{
+    border: 2px solid #f4f5f8;
+}
+
+.main-info{
+    border-bottom: 1px solid #f4f5f8;
+    .col-md-6{
+        &:first-of-type{
+            border-left: 2px solid #f4f5f8;
+        }
+    }
+}
+
+.study-class .study-class-content{
+    border-bottom: 1px solid #f4f5f8;
+    .col-md-6{
+        &:first-of-type{
+            border-left: 2px solid #f4f5f8;
+        }
+    }
+
+    .remove-item{
+        border-top: 1px solid #f4f5f8;
+    }
+}
+
+.form-group{
+    label{
+        font-weight: 600;
+    }
+}

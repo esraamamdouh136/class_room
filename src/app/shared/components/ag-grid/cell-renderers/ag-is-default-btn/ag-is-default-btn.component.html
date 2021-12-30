@@ -1,0 +1,11 @@
+<ng-container class="isDefault">
+    <span>
+        <span class="switch switch-icon">
+            <label class="mx-3">
+                <input dir="auto" id="isActive" (click)="onClick('isDefault')" [(ngModel)]="isDefault"
+                    [disabled]="isDefault == true || isDefault == 1" type="checkbox" name="isActive" />
+                <span></span>
+            </label>
+        </span>
+    </span>
+</ng-container>

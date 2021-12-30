@@ -1,0 +1,580 @@
+/* You can add global styles to this file, and also import other style files */
+// @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700");
+// Global vendors
+// @import "~bootstrap/dist/css/bootstrap.css";
+// => Material
+// @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+// @import "~highlight.js/styles/googlecode.css";
+// @import "~perfect-scrollbar/css/perfect-scrollbar.css";
+
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+@import "~ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin";
+
+.ag-theme-alpine {
+  @include ag-theme-alpine(
+                  (
+                    // odd-r
+                    //      background-color: #93d470,
+                          borders: true,
+                          border-color: #000,
+                          borders-critical: solid #000,
+                          borders-secondary: solid #000,
+                          row-border-color: #000,
+                          cell-horizontal-border: solid #000,
+                          cell-vertical-border: solid #000,
+                    // selected-row-backg
+                          header-column-separator: true,
+                          header-column-separator-height: 100%,
+                          header-column-separator-width: 1px,
+                          header-column-separator-color: #000,
+                    //
+                  )
+  );
+
+  .ag-cell-inline-editing {
+    // @include ag-color-property(background-color, foreground-color);
+    background-color: transparent !important;
+  }
+}
+
+
+// Global fonts
+// @import "~socicon/css/socicon.css";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+// @import "./assets/plugins/flaticon/flaticon.css";
+// @import "./assets/plugins/flaticon2/flaticon.css";
+// @import "./assets/plugins/keenthemes-icons/font/ki.css";
+
+// Metronic styles (replace these path when using RTL css below)
+@import "./assets/sass/style.angular.scss";
+
+// For RTL, check this documentation https://keenthemes.com/metronic/?page=docs&section=angular-rtl
+// @import "./assets/sass/style.angular.rtl.css";
+
+// Default Layout themes
+@import "./assets/sass/themes/layout/header/base/light.scss";
+@import "./assets/sass/themes/layout/header/menu/light.scss";
+// @import "./assets/sass/themes/layout/brand/dark.scss";
+// @import "./assets/sass/themes/layout/aside/dark.scss";
+@import "~@circlon/angular-tree-component/css/angular-tree-component.css";
+// Header themes
+// .header-base-light {
+//     @import "./assets/sass/themes/layout/header/base/light.scss";
+// }
+
+// .header-base-dark {
+//     @import "./assets/sass/themes/layout/header/base/dark.scss";
+// }
+
+// Header Menu themes
+// .header-menu-light {
+//     @import "./assets/sass/themes/layout/header/menu/light.scss";
+// }
+// .header-menu-dark {
+//     @import "./assets/sass/themes/layout/header/menu/dark.scss";
+// }
+
+// Brand themes
+.brand-dark {
+  @import "./assets/sass/themes/layout/brand/dark.scss";
+}
+
+// .brand-light {
+//   @import "./assets/sass/themes/layout/brand/light.scss";
+// }
+
+// ng select style
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+// Aside themes
+// .aside-dark {
+//   @import "./assets/sass/themes/layout/aside/dark.scss";
+// }
+
+// .aside-light {
+//   @import "./assets/sass/themes/layout/aside/light.scss";
+// }
+
+html[dir="rtl"] {
+  body {
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    label,
+    a,
+    table,
+    span {
+      font-family: "Tajawal", sans-serif;
+    }
+  }
+
+  ::-webkit-input-placeholder {
+    /* Edge */
+    text-align: right;
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer */
+    text-align: right;
+  }
+
+  ::placeholder {
+    text-align: right;
+  }
+}
+
+.section__header {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+
+  i {
+    color: white;
+  }
+}
+
+.scroll {
+  scroll-behavior: smooth;
+  scrollbar-color: #4680ff white;
+  scrollbar-width: thin;
+
+  @media screen and (max-width: 992px) {
+    height: 100vh;
+    scrollbar-color: #4680ff white;
+    scrollbar-width: thin;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-moz-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(223, 223, 223);
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #4680ff;
+    border-radius: 10px;
+  }
+}
+
+
+// hide bootstrap dropdown arrow globally
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+// begin header ans asides metronic style in rtl mode _____________________
+html[dir="rtl"] {
+  > * {
+    text-align: right;
+  }
+
+  // start Aside
+  @media (min-width: 992px) {
+    .aside-fixed .aside {
+      left: auto;
+      right: 0;
+    }
+
+    .aside-fixed .wrapper {
+      padding-right: 265px;
+      padding-left: 0;
+    }
+
+    .aside-fixed.aside-minimize:not(.aside-minimize-hover) .wrapper {
+      padding-right: 70px;
+    }
+
+    .aside-enabled .header.header-fixed {
+      right: 265px;
+      left: 0;
+    }
+
+    .header-fixed.aside-minimize .header {
+      right: 70px;
+      left: 0 !important;
+    }
+
+    .aside-enabled.subheader-fixed .subheader {
+      right: 265px;
+      left: 0;
+    }
+
+    .subheader-fixed.aside-minimize .subheader {
+      right: 70px;
+      left: 0;
+    }
+
+    .aside-fixed.aside-minimize:not(.aside-minimize-hover) .wrapper {
+      padding-left: 0%;
+    }
+
+    .aside-enabled.footer-fixed .footer {
+      right: 265px;
+      left: 0;
+    }
+
+    .aside-enabled.aside-minimize.footer-fixed .footer {
+      right: 70px;
+      left: auto;
+    }
+  }
+
+  // End Aside
+
+  .custom-dialog-container {
+    direction: rtl !important;
+  }
+
+  // customize tab
+  .mat-tab-label {
+    font-family: "Tajawal", sans-serif;
+  }
+}
+
+// Start dialog
+
+.dialog-head {
+  padding: 10px 20px;
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 20px;
+  background: #0488d3;
+  color: #fff;
+
+  .mat-dialog-title {
+    font-family: "Tajawal-Bold";
+    font-size: 15px;
+    font-weight: bold !important;
+  }
+
+  i {
+    color: #fff;
+  }
+}
+
+.mat-dialog-container {
+  padding: 0 0 20px 0 !important;
+  overflow: hidden !important;
+}
+
+.dailog-actions-btns {
+  margin: 20px 0;
+
+  button {
+    min-width: 80px;
+    font-size: 16px;
+
+    &:first-of-type {
+      margin-right: 20px;
+
+      [dir="rtl"] & {
+        margin-right: 0;
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+.mat-dialog-content {
+  padding: 0 50px !important;
+
+  label {
+    font-weight: bold;
+  }
+}
+
+// End dialog
+
+.btn {
+  font-weight: bold !important;
+}
+
+.bg-color--info {
+  background-color: #edf8fc;
+}
+
+.btn.btn-primary,
+.btn.sign-in-btn {
+  // background-color: #3aade3 !important;
+  border: 1px solid #3aade3 !important;
+}
+
+.btn.btn-danger,
+.btn.btn-primary,
+.btn.btn-secondary,
+.btn.sign-in-btn {
+  min-height: auto;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+  padding: 0.5rem 4rem;
+  box-shadow: 0px 5px 12px -3px rgba(58, 173, 227, 0.5);
+
+  &:disabled {
+    cursor: default !important;
+    opacity: 0.3;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.btn.btn-danger {
+  box-shadow: none;
+}
+
+.btn.btn-secondary {
+  background-color: transparent !important;
+  border: 1px solid #3aade3;
+  color: #3aade3;
+
+  &:hover {
+    opacity: 0.8;
+    background-color: transparent !important;
+    border: 1px solid #3aade3 !important;
+    color: #3aade3 !important;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+// end reset metronic style in rtl mode _____________________
+.header__icon:before {
+  background: linear-gradient(
+                  180deg,
+                  #ad5beb 25%,
+                  #c678db 50%,
+                  #da6ea9 75%,
+                  #e76e92 100%
+  );
+
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  padding: 1px;
+}
+
+// Style header of every form page (Add part)
+.section__header {
+  button:hover,
+  button:active {
+    background-color: #0488d3 !important;
+    opacity: 1 !important;
+  }
+
+  button:focus {
+    background-color: #fff !important;
+    color: #0488d3 !important;
+  }
+}
+
+// Dashboard
+.header-fixed.subheader-fixed.subheader-enabled .wrapper {
+  padding-top: 65px !important;
+}
+
+// Menu icons
+
+// Top header (contain add and update)
+.section__header {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+// .aside-minimize
+.aside-minimize:not(.aside-minimize-hover) .menu-nav > .menu-item > .menu-link {
+  padding: 9px 10px;
+}
+
+// TopBar in header
+
+.drop-head::after {
+  content: "\A";
+  border-style: solid;
+  position: absolute;
+  top: -16px;
+  right: 69%;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid #817f88;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  transform: translateX(-71%);
+}
+
+// customize switcher
+.switch {
+  input[type="checkbox"] {
+    &:not(:checked) {
+      ~ span {
+        &::after {
+          background-color: rgb(246, 78, 96);
+          opacity: 1;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.page-link {
+  border-radius: 0px !important;
+}
+
+// customize table {
+.cdk-cell {
+  span {
+    white-space: pre-wrap;
+  }
+}
+
+// Start Aside Menu when hover effect show tooltip (Don't paly with this)
+@media (min-width: 992px) {
+  .aside-minimize:not(.aside-minimize-hover) .aside-menu .menu-nav {
+    width: 70px;
+
+    .menu-item {
+      width: 54px;
+      margin: 0;
+    }
+
+    .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):hover {
+      width: 17rem;
+
+      .menu-link:not(#aside-menu-minimize) {
+        display: none;
+      }
+
+      .menu-link#aside-menu-minimize {
+        display: flex;
+        border-radius: 5px;
+        align-items: center;
+
+        span#menu-text {
+          display: inline !important;
+          color: #fff !important;
+        }
+      }
+    }
+  }
+}
+
+// End Aside Menu when hover effect show tooltip (Don't paly with this)
+
+html[dir="ltr"] {
+  > * {
+    text-align: left;
+  }
+}
+
+div#kt_content {
+  background-color: white;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "~ngx-bootstrap/datepicker/bs-datepicker";
+
+
+// customize ag grid
+.vc-ag-grid {
+  .ag-row-selected {
+    //border: 1px solid black;
+    opacity: 0.6 !important;
+  }
+
+  .ag-row {
+    font-size: 1.3em !important;
+    font-weight: 600;
+    font-family: "Tajawal", sans-serif;
+  }
+
+  .ag-header {
+    font-size: 1.3em !important;
+  }
+
+  .ng-select-container {
+    background-color: transparent !important;
+    border: none;
+
+    .ng-arrow-wrapper {
+      display: none;
+    }
+  }
+}
+
+
+// customize tabs
+.processing-tabs {
+  .mat-tab-label {
+    transition: 0.3s;
+  }
+
+  .mat-tab-label-active {
+    background-color: #00aff0;
+    color: white;
+    opacity: 1;
+    font-weight: bold;
+    transform: scale(1.1);
+  }
+
+}
+
+.moveDialog {
+  cursor: move;
+}
+
+
+.full-screen-modal {
+  max-width: unset !important;
+
+  .mat-dialog-container {
+    max-width: 100vw;
+    max-height: 100vh;
+
+    .mat-dialog-content {
+      max-height: unset !important;
+    }
+  }
+}
+
+
+.journal-entry-wrapper {
+  .bg-blur {
+    background-color: rgb(70 68 68 / 70%);
+  }
+}
+
+
+.mat-dialog-container {
+  resize: both !important;
+}
+
+.ag-cell-inline-editing {
+  height: 100% !important;
+}

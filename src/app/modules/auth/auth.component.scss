@@ -1,0 +1,65 @@
+@import "../../../assets/sass/pages/login/login-1.scss";
+
+:host {
+  height: 100%;
+
+  .auth {
+    &__content {
+      @media (min-width: 1200px) {
+        padding: 0 8rem;
+      }
+    }
+
+    &__aside {
+      background-color: #f3f6f9;
+    }
+  }
+
+  .right-aside {
+    background-color: #4680ff;
+    .right-aside_header {
+      align-items: center;
+      justify-content: center;
+      color: white;
+      h2 {
+        font-size: 50px;
+        font-weight: bold;
+      }
+      p {
+        font-size: 27px;
+      }
+    }
+  }
+  .left-aside {
+    // background-color: #faa22f;
+    .left-aside_header {
+      align-items: center;
+      justify-content: center;
+      h2 {
+        font-size: 50px;
+        font-weight: bold;
+      }
+      p {
+        font-size: 27px;
+      }
+    }
+  }
+
+  .aside-img {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    .rightpc{
+    width: 88%;
+    padding: 0px 2rem;
+    height: -webkit-fill-available;
+  }
+  }
+
+  .aside-img_bg {
+    background-image: url("../../../assets/media/imgs/login_ar.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}

@@ -1,0 +1,52 @@
+<section class="section border" *ngIf='errorMassage ; else errorData'>
+    <!-- ____ begin section header __________ -->
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-book mx-2"></i>
+            {{'setting.declaration' | translate}}
+        </h2>
+        <div class="buttons">
+        <button mat-button [matMenuTriggerFor]="menu" class="btn service">
+            {{'prossing.other_services' | translate}}  <i class="fa fa-sort-down"></i></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item> {{'prossing.declaration' | translate}}</button>
+            <button mat-menu-item>  {{'prossing.login_check' | translate}}</button>
+        </mat-menu>
+        </div>
+    </header>
+    <!-- ____ end section header __________ -->
+
+    <!-- ____ begin section body __________ -->
+    <div class="section__body p-4 p-lg-7">
+        <div class="row mb-3">
+            <div class="col-md-6 col-lg-4 show-label">
+                <mat-form-field class="w-100 mat-field">
+                    <small class="mat-field__search-icon">
+                        <i class="fas fa-search"></i>
+                    </small>
+                    <label>
+                        <input dir="auto" appDebounceInputChange [debounceTime]="1500"
+                        (valueChanged)="onSearchChange($event)" [(ngModel)]="querySearch"
+                            matInput type="text" placeholder="{{'general.search' | translate}}">
+                    </label>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 col-lg-8">
+                <button type="button" (click)="openAddEditChannelForm()"
+                    class="btn mx-3 btn-declaration px-5 px-lg-9 btn-shadow font-weight-bolder d-block mr-auto font-size-lg"
+                    >{{'general.add' | translate}}
+                </button>
+
+            </div>
+        </div>
+        <app-ag-tabel *ngIf="exist_data ; else errorData" [alignTableCenter]="true" [tableData]="tableData"
+            [tableColumns]="tableColumns" [isFilterable]="true" [pageOptions]="pageOptions"
+            (pageEvent)="pageEvent($event)" [isPageable]="true" (rowAction)="rowActions($event)"
+            [rowActions]="[ 'add' , 'edit' , 'delete']" >
+        </app-ag-tabel>
+    </div>
+</section>
+
+<ng-template #errorData>
+    <app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

@@ -1,0 +1,127 @@
+<div class="contanier-fluid">
+  <div class="tab-slider--nav">
+    <ul class="tab-slider--tabs d-flex p-0 w-100 mt-4">
+      <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1" (click)="viewMode ='tab1'">
+        {{'general.dashboard' | translate }}
+      </li>
+      <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2" (click)="viewMode ='tab2'">
+        {{'general.recent_updates' | translate }}
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="tab-slider--container" [ngSwitch]="viewMode">
+  <div id="tab1" class="tab-slider--body" *ngSwitchCase="'tab1'">
+    <!--================VAT====================-->
+    <div class="bg mb-5 p-5" [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'right' : 'left'">
+      <div class="row no-gutters">
+        <div class="col-md-2">
+          <div class="d-flex justify-content-end">
+            <img src="./assets/media/imgs/vat.jpg">
+          </div>
+        </div>
+        <div class="col-md-7">
+          <p class="">تم تعديل معدل ضريبه القيمه المضافه الى 15% بالممكله العربيه السعوديه</p>
+          <p class="text-muted">وفقا للاعلان الاخير الصادر عن الهيئه العامه للزكاة والدخل ستتم زياده معدل ضريبه القيمه
+            المضافه من 5% الى 15% اعتبارا من 1 يوليو 2020</p>
+        </div>
+        <div class="col-md-2 d-flex align-items-center justify-content-center">
+          <button class="btn tax">{{'general.update_tax' | translate}}</button>
+        </div>
+        <div class="col-md-1 d-flex align-items-center">
+          <a class="text-primary ">{{'general.technical_support' | translate}}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contanier-fluid">
+      <div class="row">
+        <!--===========Content Text=============-->
+        <div class="col-md-5 mt-1 financial_contract ">
+          <div class="title mb-4">
+            <p class="mb-0">{{'general.total_debts' | translate}}</p>
+            <div class="new mx-5 d-flex">
+              <button mat-button triggers="click" [ngbTooltip]="htmlContent">
+                <span class="mx-1">{{'general.new' | translate}} </span>
+                <i class="fas fa-plus-circle mx-1"></i>
+              </button>
+              <ng-template #htmlContent>
+                <table>
+                  <tr>
+                    <td> سند قبض جديد</td>
+                  </tr>
+                  <tr>
+                    <td>سند صرف جديد</td>
+                  </tr>
+                  <tr>
+                    <td> تحصيل ولي امر</td>
+                  </tr>
+                  <tr>
+                    <td> صرف ولي امر</td>
+                  </tr>
+                </table>
+              </ng-template>
+            </div>
+          </div>
+          <div class="contracts border p-3">
+            <p>{{'general.total_unpaid_contracts' | translate}}</p>
+            <p>2,330,000 ريال</p>
+          </div>
+          <div class="d-flex total-amount w-100">
+            <div class="border w-50 p-3 text-center" (mouseover)="noteHover()" (mouseout)="noteOut()">
+              <span class="text-danger">{{'general.overdue' | translate}}</span>
+              <p>1,133,000 ريال</p>
+            </div>
+            <div class="border w-50 pt-5 p-3 text-center">
+              <p class="mt-3">1,122,000 ريال</p>
+            </div>
+          </div>
+          <div class="note" *ngIf="note">
+            <table class="table">
+              <tbody>
+              <tr>
+                <td class="text-primary">0.0</td>
+                <td>يوم</td>
+              </tr>
+              <tr>
+                <td class="text-primary">0.0</td>
+                <td>يوم</td>
+              </tr>
+              <tr>
+                <td class="text-primary">0.0</td>
+                <td>يوم</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--===========Link Chart=============-->
+        <div class="col-md-7">
+          <app-line-chart></app-line-chart>
+        </div>
+
+        <!--===========Pie Chart=============-->
+        <div class="col-md-6 mt-5">
+          <app-pie-chart></app-pie-chart>
+
+        </div>
+
+
+        <!--===========Bar Chart=============-->
+        <div class="col-md-6 mt-5">
+          <app-bar-chart></app-bar-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab2" class="tab-slider--body" *ngSwitchCase="'tab2'">
+    <app-timeline></app-timeline>
+  </div>
+  <!-- <ul class="d-flex align-items-center">
+        <li><img src="../../../../../../assets/media/imgs/home-page.png" alt="" style="max-width: 15px;">
+        </li>
+        <li><a class="mx-3 mt-1 d-block" style="color: #000;font-size: 14px"> Homepage</a></li>
+    </ul> -->
+
+</div>

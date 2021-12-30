@@ -1,0 +1,108 @@
+<section class="section border">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5"
+    (click)="toggleSearch()">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex">
+      <i class="fa fa-search mx-2"></i>
+      {{'general.search' | translate}}
+    </h2>
+  </header>
+  <form [formGroup]="form" class="search_box px-4" *ngIf="searchDiv">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="form-group">
+          <label for="name">{{'AUTH.INPUT.USERNAME' | translate}}</label>
+          <input class="form-control" type="text" formControlName="name" id="name">
+        </div>
+      </div>
+
+      <ng-container *ngIf="false" >
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label for="name">{{'parent_pages.email' | translate}}</label>
+            <input class="form-control" type="text" id="name" formControlName="name">
+          </div>
+        </div>
+  
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label for="identification_number">{{'parent_pages.identification_number' | translate}} </label>
+            <span class="text-danger">*</span>
+            <input class="form-control" type="text" appNumbersOnly formControlName="identification_number"
+              name="identification_number" #identification_number id="identification_number">
+          </div>
+        </div>
+  
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label for="passport">{{'general.passport' | translate}}</label>
+            <input class="form-control" type="text" id="passport" formControlName="passport">
+          </div>
+        </div>
+  
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label for="phone">{{'general.phone' | translate}}</label>
+            <input class="form-control" type="text" id="phone" formControlName="phone">
+          </div>
+        </div>
+      </ng-container>
+      
+      
+    </div>
+    <button type="submit" class="btn btn-success my-3 d-block"
+      [ngClass]="translation.getSelectedLanguage() == 'ar' ? 'mr-auto' : 'ml-auto'" (click)="search()">{{'general.search' |
+      translate}}</button>
+    <hr>
+  </form>
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body p-4 p-lg-7">
+    <div class="buttons_add mr-auto">
+      <button mat-button class="btn-success" [matMenuTriggerFor]="menuOne">{{'general.addNewStudent' | translate}} <i
+          class="fas fa-sort-down mb-3 text-white"></i></button>
+      <mat-menu #menuOne="matMenu">
+        <button mat-menu-item routerLink="./add_new_student">{{'general.add_student' | translate}}</button>
+        <button mat-menu-item routerLink="./excel">{{'general.import_excel' | translate}}</button>
+        <button mat-menu-item routerLink="./import_users">{{'general.import_users' | translate}}</button>
+        <button mat-menu-item routerLink="./import_users">{{'general.import_user' | translate}}</button>
+        <button mat-menu-item routerLink="./excel">{{'general.student_update' | translate}}</button>
+        <button mat-menu-item routerLink="./image_import"> {{'general.upload_image' | translate}}</button>
+      </mat-menu>
+      <button mat-button class="btn-primary" [matMenuTriggerFor]="menuTwo">{{'general.moreOption' | translate}} <i
+          class="fas fa-sort-down mb-3 text-white"></i></button>
+      <mat-menu #menuTwo="matMenu">
+        <button mat-menu-item>{{'general.view_student' | translate}}</button>
+        <button mat-menu-item routerLink="./student_table">{{'general.list_of_student' | translate}}</button>
+        <button mat-menu-item routerLink="./student_count">{{'general.setting_students' | translate}}</button>
+        <button mat-menu-item routerLink="./not_attached">{{'general.parent_of_student' | translate}}</button>
+        <button mat-menu-item routerLink="./search">{{'general.search_of_school' | translate}}</button>
+
+      </mat-menu>
+      <button mat-button class="btn-danger" [matMenuTriggerFor]="menuThree">{{'general.processing' | translate}}
+        <i class="fas fa-sort-down mb-3 text-white"></i></button>
+      <mat-menu #menuThree="matMenu">
+        <button mat-menu-item>{{'students.Withholding_grades' |translate}}</button>
+        <button mat-menu-item>{{'students.Withholding_view' | translate}}</button>
+        <button mat-menu-item> {{'students.license' |translate}}</button>
+        <button mat-menu-item>{{'students.cancel' | translate }}</button>
+      </mat-menu>
+    </div>
+    <!-- _______ begin tabel _______ -->
+    <div class="section__body__tabel mt-5">
+      <div class="vc-ag-grid global-data-table" *ngIf="rowData?.length ; else errorData">
+        <app-ag-grid #agGrid [rowData]="rowData" [frameworkComponents]="frameworkComponents"
+          [rowColors]="{ even: '#ebf7ff', odd: '#fff' }" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+          [domLayout]="'autoHeight'" [GlobalTable]="true" [pagination]="true" [disableSelectOnClick]="true"
+          [pageOptions]="pageOptions" (pageEvent)="pageEvent($event)">
+        </app-ag-grid>
+      </div>
+    </div>
+    <!-- _______ end tabel _______ -->
+  </div>
+  <!-- ____ end section body __________ -->
+</section>
+
+<ng-template #errorData>
+  <app-message-box [messageBox]="messageBoxError"></app-message-box>
+</ng-template>

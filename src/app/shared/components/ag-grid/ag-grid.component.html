@@ -1,0 +1,28 @@
+<div class="example-container" [ngClass]="{'global-table': GlobalTable}">
+    <ag-grid-angular style="overflow-y: auto" [ngStyle]="{'height': domLayout == 'normal' ? height : ''}"
+        [domLayout]="domLayout" class="ag-theme-alpine" 
+        [rowData]="rowData" (gridReady)="onGridReady($event)"
+        [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" 
+        [enableRtl]="translation.getSelectedLanguage() == 'ar'" 
+        [animateRows]="true"
+        [rowDragManaged]="true" [getRowStyle]="rowStyle" 
+        [getRowClass]="rowClass" [rowSelection]="'multiple'"
+        [suppressRowClickSelection]="disableSelectOnClick"
+        (rowDragEnd)="onDragEnd($event)" 
+        (ColumnVisibleEvent)="onSelectionChanged($event)"
+        (columnVisible)="onColumnVisibleChange($event)"
+        [frameworkComponents]="frameworkComponents" 
+        [rowClassRules]="rowClassRules"
+        [sideBar]="sideBar"
+        (selectionChanged)="onSelectedRowChanged($event)"
+    >
+    <!-- (selectionChanged)="onSelectionChanged($event)" 
+        This new event to get selected row after every row selection 
+        We will handel this new function here and test if has side effects
+    -->
+    <!-- [rowGroupPanelShow]="rowGroupPanelShow"
+    [pivotPanelShow]="pivotPanelShow"  -->
+    </ag-grid-angular>
+    <app-ag-grid-pagination [isPageable]="pagination" [pageOptions]="pageOptions" (pageEvent)="paginationEvent($event)">
+    </app-ag-grid-pagination>
+</div>

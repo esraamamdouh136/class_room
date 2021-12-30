@@ -1,0 +1,9 @@
+<!-- <app-splash-screen *ngIf="!(loadded | async)"></app-splash-screen> -->
+<!-- <router-outlet></router-outlet> -->
+<ng-container>
+    <router-outlet></router-outlet>
+</ng-container>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-triangle-path" [fullScreen]="true">
+    <p style="color: white"> {{'loading' | translate}} ... </p>
+</ngx-spinner>

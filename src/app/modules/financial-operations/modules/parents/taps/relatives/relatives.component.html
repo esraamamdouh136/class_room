@@ -1,0 +1,471 @@
+<div class="relatives px-4">
+    <form [formGroup]="form" (submit)="Submit()">
+        <div class="row">
+            <!--============Start First Row===============-->
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="identification_number">{{'parent_pages.identification_number' | translate}} </label>
+                    <span class="text-danger">*</span>
+                    <input class="form-control" type="text" appNumbersOnly formControlName="identification_number"
+                        id="identification_number">
+                    <ng-container *ngIf="formErrors?.identification_number">
+                        <div class="text-danger" *ngFor="let error of formErrors?.identification_number">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="identity_source">{{'parent_pages.its_source' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="identity_source" id="identity_source">
+                    <ng-container *ngIf="formErrors?.identity_source">
+                        <div class="text-danger" *ngFor="let error of formErrors?.identity_source">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="identity_date">{{'parent_pages.its_history' | translate}}</label>
+                    <mat-form-field floatLabel="never" class="date-form cursor-pointer" (click)="picker.open()">
+                        <input dir="auto" style="cursor:none" readonly matInput [matDatepicker]="picker"
+                            formControlName="identity_date" id="identity_date">
+                        <mat-datepicker-toggle matSuffix (click)="picker.open()"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <ng-container *ngIf="formErrors?.identity_date">
+                        <div class="text-danger" *ngFor="let error of formErrors?.identity_date">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-2 mt-5 d-flex align-items-center"
+                >
+                <div class="form-group mt-5" *ngIf="(!checkIfDeaded && disableInput) || formErrors?.mark_as_parent">
+                    <!-- <label for="mark_as_parent">{{'parent_pages.appointment_of_guardian' | translate}}</label> -->
+                    <mat-checkbox [labelPosition]="labelPosition" class="example-margin mx-2"
+                        formControlName="mark_as_parent" id="mark_as_parent" [disabled]="markAsParent?.val && markAsParent?.type != 're'">
+                        {{'parent_pages.appointment_of_guardian' | translate}}
+                    </mat-checkbox>
+                    <ng-container *ngIf="formErrors?.mark_as_parent">
+                        <div class="text-danger" *ngFor="let error of formErrors?.mark_as_parent">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- <div class="col-lg-1 mt-5 d-flex align-items-center p-0">
+                <div class="form-group mt-5">
+                    <mat-checkbox [labelPosition]="labelPosition" class="example-margin" formControlName="is_dead"
+                        id="is_dead"
+                        [disabled]="markAsParent?.val && markAsParent?.type == 're'"
+                        >
+                        {{'parent_pages.deceased' | translate}}
+                    </mat-checkbox>
+                    <ng-container *ngIf="formErrors?.is_dead">
+                        <div class="text-danger" *ngFor="let error of formErrors?.is_dead">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div> -->
+            <!--============End First Row===============-->
+
+            <!--============Start second Row===============-->
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="name_ar">{{'parent_pages.firstname_ar' | translate}}</label>
+                    <span class="text-danger">*</span>
+                    <input class="form-control" type="text" formControlName="name_ar" id="name_ar">
+                    <ng-container *ngIf="formErrors?.name_ar">
+                        <div class="text-danger" *ngFor="let error of formErrors?.name_ar">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="father_name_ar">{{'parent_pages.the_father_ar' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="father_name_ar" id="father_name_ar">
+                    <ng-container *ngIf="formErrors?.father_name_ar">
+                        <div class="text-danger" *ngFor="let error of formErrors?.father_name_ar">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="grandfather_name_ar">{{'parent_pages.Grandpa_ar' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="grandfather_name_ar"
+                        id="grandfather_name_ar">
+                    <ng-container *ngIf="formErrors?.grandfather_name_ar">
+                        <div class="text-danger" *ngFor="let error of formErrors?.grandfather_name_ar">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="family_name_ar">{{'parent_pages.family_ar' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="family_name_ar" id="family_name_ar">
+                    <ng-container *ngIf="formErrors?.family_name_ar">
+                        <div class="text-danger" *ngFor="let error of formErrors?.family_name_ar">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="name_en">{{'parent_pages.firstname_en' | translate}}</label>
+                    <span class="text-danger">*</span>
+                    <input class="form-control" type="text" formControlName="name_en" id="name_en">
+                    <ng-container *ngIf="formErrors?.name_en">
+                        <div class="text-danger" *ngFor="let error of formErrors?.name_en">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="father_name_en">{{'parent_pages.the_father_en' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="father_name_en" id="father_name_en">
+                    <ng-container *ngIf="formErrors?.father_name_en">
+                        <div class="text-danger" *ngFor="let error of formErrors?.father_name_en">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="grandfather_name_en">{{'parent_pages.Grandpa_en' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="grandfather_name_en"
+                        id="grandfather_name_en">
+                    <ng-container *ngIf="formErrors?.grandfather_name_en">
+                        <div class="text-danger" *ngFor="let error of formErrors?.grandfather_name_en">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="family_name_en">{{'parent_pages.family_en' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="family_name_en" id="family_name_en">
+                    <ng-container *ngIf="formErrors?.family_name_en">
+                        <div class="text-danger" *ngFor="let error of formErrors?.family_name_en">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!--============End second Row===============-->
+
+            <!--============Start third Row===============-->
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="email">{{'parent_pages.email' | translate}}</label>
+                    <input class="form-control" type="email" formControlName="email" id="email">
+                    <ng-container *ngIf="formErrors?.email">
+                        <div class="text-danger" *ngFor="let error of formErrors?.email">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-md-4" >
+                <div class="form-group">
+                    <label for="nationality_id">{{'parent_pages.Nationality' | translate}}</label>
+                    <span class="text-danger">*</span>
+                    <ng-select  [items]="countries" bindLabel="name" bindValue="id" formControlName="nationality_id"
+                        labelForId="nationality_id">
+                    </ng-select>
+                    <ng-container *ngIf="formErrors?.nationality_id">
+                        <div class="text-danger" *ngFor="let error of formErrors?.nationality_id">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-md-4" >
+                <div class="form-group">
+                    <label for="country_id">{{'parent_pages.countryPlace' | translate}}</label>
+                    <ng-select  [items]="countries" bindLabel="name" bindValue="id" formControlName="country_id" id="country_id">
+                    </ng-select>
+                    <ng-container *ngIf="formErrors?.country_id">
+                        <div class="text-danger" *ngFor="let error of formErrors?.country_id">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!--============End third Row===============-->
+
+            <!--============Start fourth Row===============-->
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="employer_ar">{{'parent_pages.employer_ar' | translate}} </label>
+                    <input class="form-control" type="text" formControlName="employer_ar" id="employer_ar">
+                    <ng-container *ngIf="formErrors?.employer_ar">
+                        <div class="text-danger" *ngFor="let error of formErrors?.employer_ar">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="employer_en">{{'parent_pages.employer_en' | translate}} </label>
+                    <input class="form-control" type="text" formControlName="employer_en" id="employer_en">
+                    <ng-container *ngIf="formErrors?.employer_en">
+                        <div class="text-danger" *ngFor="let error of formErrors?.employer_en">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="job_title_ar">{{'parent_pages.Job_title_ar' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="job_title_ar" id="job_title_ar">
+                    <ng-container *ngIf="formErrors?.job_title_ar">
+                        <div class="text-danger" *ngFor="let error of formErrors?.job_title_ar">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="job_title_en">{{'parent_pages.Job_title_en' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="job_title_en" id="job_title_en">
+                    <ng-container *ngIf="formErrors?.job_title_en">
+                        <div class="text-danger" *ngFor="let error of formErrors?.job_title_en">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+
+            <!--============Start fourth Row===============-->
+
+            <!--============Start fifth Row===============-->
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="address_ar">{{'parent_pages.Title_ar' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="address_ar" id="address_ar">
+                    <ng-container *ngIf="formErrors?.address_ar">
+                        <div class="text-danger" *ngFor="let error of formErrors?.address_ar">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="address_en">{{'parent_pages.Title_en' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="address_en" id="address_en">
+                    <ng-container *ngIf="formErrors?.address_en">
+                        <div class="text-danger" *ngFor="let error of formErrors?.address_en">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="p_o_box">ص.ب</label>
+                    <input class="form-control" type="" formControlName="p_o_box" id="p_o_box">
+                    <ng-container *ngIf="formErrors?.p_o_box">
+                        <div class="text-danger" *ngFor="let error of formErrors?.p_o_box">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="postal_code">{{'parent_pages.Postal_code' | translate}} </label>
+                    <input class="form-control" type="text" appNumbersOnly formControlName="postal_code"
+                        id="postal_code">
+                    <ng-container *ngIf="formErrors?.postal_code">
+                        <div class="text-danger" *ngFor="let error of formErrors?.postal_code">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+            <!--============Start fifth Row===============-->
+
+
+            <div class="col-md-6" >
+                <div class="form-group">
+                    <label for="relative_id">{{'parent_pages.relative_relation' | translate}}</label>
+                    <span class="text-danger">*</span>
+                    <ng-select  [items]="relatives_relations" bindLabel="name" bindValue="id"
+                        formControlName="relative_relation_id" labelForId="relative_id">
+                    </ng-select>
+                    <ng-container *ngIf="formErrors?.relative_relation_id">
+                        <div class="text-danger" *ngFor="let error of formErrors?.relative_relation_id">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="gender">{{'parent_pages.genter' | translate}}</label>
+                    <ng-select  [items]="gender" bindLabel="text" bindValue="text" formControlName="gender"
+                        labelForId="gender">
+                    </ng-select>
+                    <ng-container *ngIf="formErrors?.gender">
+                        <div class="text-danger" *ngFor="let error of formErrors?.gender">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!--============Start sixth Row===============-->
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="home_phone">{{'parent_pages.Home_phone' | translate}}</label>
+                    <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="['sa', 'eg']"
+                        [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectedCountryISO]="dataParents?.home_phone_country || countryName" [phoneValidation]="true" name="phone"
+                        formControlName="home_phone" inputId="home_phone">
+                    </ngx-intl-tel-input>
+                    <ng-container *ngIf="formErrors?.home_phone">
+                        <div class="text-danger" *ngFor="let error of formErrors?.home_phone">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="work_phone">{{'parent_pages.work_phone' | translate}}</label>
+                    <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="['sa', 'eg']"
+                        [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectedCountryISO]="dataParents?.work_phone_country || countryName" [phoneValidation]="true" name="phone"
+                        formControlName="work_phone" inputId="work_phone">
+                    </ngx-intl-tel-input>
+                    <ng-container *ngIf="formErrors?.work_phone">
+                        <div class="text-danger" *ngFor="let error of formErrors?.work_phone">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="mobile">{{'parent_pages.cell_phone' | translate}}</label>
+                    <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="['sa', 'eg']"
+                        [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectedCountryISO]="dataParents?.mobile_country || countryName" [phoneValidation]="true" name="phone"
+                        formControlName="mobile" inputId="mobile">
+                    </ngx-intl-tel-input>
+                    <ng-container *ngIf="formErrors?.mobile">
+                        <div class="text-danger" *ngFor="let error of formErrors?.mobile">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+            <!--============Start sixth Row===============-->
+
+            <!--============Start seventh Row===============-->
+      
+            <div class="col-12 row">
+                <div class="col-lg-4 mt-5 d-flex align-items-center" *ngIf="disableInput">
+                    <div class="form-group mt-5">
+                        <!-- <label for="stop_dealing"> {{'parent_pages.stop_dealing' | translate}} :</label> -->
+                        <mat-checkbox [labelPosition]="labelPosition" class="example-margin mx-5"
+                            formControlName="stop_dealing" id="stop_dealing">
+                            {{'parent_pages.stop_dealing' | translate}} :
+                        </mat-checkbox>
+                        <ng-container *ngIf="formErrors?.stop_dealing">
+                            <div class="text-danger" *ngFor="let error of formErrors?.stop_dealing">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mt-5 d-flex align-items-center" *ngIf="disableInput">
+                    <div class="form-group mt-5">
+                        <!-- <label for="in_black_list">{{'parent_pages.Black_list' | translate}} :</label> -->
+                        <mat-checkbox [labelPosition]="labelPosition" class="example-margin mx-5"
+                            formControlName="in_black_list" id="in_black_list">
+                            {{'parent_pages.Black_list' | translate}} :
+                        </mat-checkbox>
+                        <ng-container *ngIf="formErrors?.in_black_list">
+                            <div class="text-danger" *ngFor="let error of formErrors?.in_black_list">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mt-5 d-flex align-items-center" *ngIf="disableInput">
+                    <div class="form-group mt-5">
+                        <!-- <label for="is_affiliates"> {{'parent_pages.of_the_affiliates' | translate}} :</label> -->
+                        <mat-checkbox [labelPosition]="labelPosition" class="example-margin mx-5"
+                            formControlName="is_affiliates" id="is_affiliates">
+                            {{'parent_pages.of_the_affiliates' | translate}} :
+                        </mat-checkbox>
+                        <ng-container *ngIf="formErrors?.is_affiliates">
+                            <div class="text-danger" *ngFor="let error of formErrors?.is_affiliates">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!-- <div class="col-lg-4 mt-5 d-flex align-items-center" *ngIf="disableInput">
+                    <div class="form-group mt-5">
+                        <mat-checkbox [labelPosition]="labelPosition" class="example-margin mx-5"
+                            formControlName="status" id="status">
+                            {{'general.status' | translate}} :
+                        </mat-checkbox>
+                        <ng-container *ngIf="formErrors?.status">
+                            <div class="text-danger" *ngFor="let error of formErrors?.status">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div> -->
+            </div>
+
+            <!--============Start seventh Row===============-->
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="note_ar">{{'parent_pages.general_note_ar' | translate}} </label>
+                    <textarea id="note_ar" rows="3" cols="12" formControlName="note_ar"></textarea>
+                    <ng-container *ngIf="formErrors?.note_ar">
+                        <div class="text-danger" *ngFor="let error of formErrors?.note_ar">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="note_en">{{'parent_pages.general_note_en' | translate}} </label>
+                    <textarea id="note_en" rows="3" cols="12" formControlName="note_en"></textarea>
+                    <ng-container *ngIf="formErrors?.note_en">
+                        <div class="text-danger" *ngFor="let error of formErrors?.note_en">
+                            {{error}}</div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary d-block my-3"
+            [ngClass]="lang.getSelectedLanguage() == 'ar' ? 'mr-auto' : 'ml-auto'" *ngIf="isUserEdit">
+            {{'setting.save' |translate}}</button>
+    </form>
+</div>

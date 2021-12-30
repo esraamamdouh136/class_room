@@ -1,0 +1,139 @@
+<div class="moveDialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="d-flex justify-content-between align-items-center dialog-head">
+    <h2 mat-dialog-title class="mb-0">
+        {{data?.update ? ('general.edit' | translate) : ('general.add' | translate) }}
+        {{('setting.paymentmethods' | translate)}}
+    </h2>
+    <button 
+    type="button"
+    (click)="toggleLanguage()"
+    class="btn btn-warning">{{language}}</button>
+    <i class="fas fa-times" mat-dialog-close></i>
+</div>
+
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="form">
+            <div class="form-row">
+
+                <!--===========Name English============-->
+                <div class="col-lg-6 mb-4" *ngIf="nameofArabic">
+                    <div class="form-group mb-0">
+                        <label for="name_ar"> {{'general.name_ar' | translate}} </label>
+                        <input dir="auto" type="text" class="form-control" requiredname="name_ar"
+                            [placeholder]="'general.name_ar' | translate" formControlName="name_ar" id="name_ar">
+                        <ng-container *ngIf="formErrors?.name_ar">
+                            <!--error Massage-->
+                            <div class="text-danger" *ngFor="let error of formErrors['name_ar']">
+                                {{error}}
+                            </div>
+
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!--===========Name English============-->
+                <div class="col-lg-6 mb-4" *ngIf="nameOfEnglish">
+                    <div class="form-group mb-0">
+                        <label for="name_en">
+                            {{'general.name_en' | translate}}
+                        </label>
+                        <input dir="auto" type="text" class="form-control" name="name_en" required
+                            [placeholder]="'general.name_en' | translate" formControlName="name_en" id="name_en">
+                        <!--error Massage-->
+                        <ng-container *ngIf="formErrors?.name_en">
+                            <div class="text-danger" *ngFor="let error of formErrors['name_en']">
+                                {{error}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <!--===========Name English============-->
+                <div class="col-lg-6 mb-4" *ngIf="nameofArabic">
+                    <div class="form-group mb-0">
+                        <label for="nick_name_ar"> {{'general.nick_name_ar' | translate}} </label>
+                        <input dir="auto" type="text" class="form-control" requiredname="nick_name_ar" 
+                            [placeholder]="'general.name_ar' | translate" formControlName="nick_name_ar" 
+                            id="nick_name_ar">
+                        <ng-container *ngIf="formErrors?.nick_name_ar">
+                            <!--error Massage-->
+                            <div class="text-danger" *ngFor="let error of formErrors['nick_name_ar']">
+                                {{error}}
+                            </div>
+
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!--===========Name English============-->
+                <div class="col-lg-6 mb-4" *ngIf="nameOfEnglish">
+                    <div class="form-group mb-0">
+                        <label for="nick_name_en">
+                            {{'general.nick_name_en' | translate}}
+                        </label>
+                        <input dir="auto" type="text" class="form-control" name="nick_name_en" required
+                            [placeholder]="'general.name_en' | translate" formControlName="nick_name_en" 
+                            id="nick_name_en">
+                        <!--error Massage-->
+                        <ng-container *ngIf="formErrors?.nick_name_en">
+                            <div class="text-danger" *ngFor="let error of formErrors['nick_name_en']">
+                                {{error}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 mb-lg-6 select-payment-method">
+                    <div class="form-group mb-0">
+                        <label for="bank_id" class="font-weight-bolder min-w-130px font-size-lg"> {{'general.bank'
+                            |
+                            translate}}</label>
+                        <ng-select  [items]="bankName" bindLabel="name" [clearable]="false" bindValue="id"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="bankID" labelForId="bank_id" appendTo="body"> 
+                        </ng-select>
+                        <ng-container *ngIf="formErrors?.bank_id">
+                            <div class="text-danger" *ngFor="let error of formErrors['bank_id']">
+                                {{error}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+
+                <div class=" col-md-3 mb-4 mb-lg-3 d-flex" *ngIf="data.update">
+                    <div class="form-group is_active mb-0 company-status">
+                        <label class="font-weight-bolder w-auto" for="status">
+                            {{"general.status" | translate}}
+                        </label>
+                        <span class="switch switch-icon">
+                            <label class="pointer auto-width" for="isActive" [class.f-w]="statusValue">
+                                {{"general.active" |
+                                translate}}</label>
+                            <label class="mx-3 auto-width">
+                                <input dir="auto" id="isActive" type="checkbox" name="status" formControlName="status"
+                                    id="status" />
+                                <span></span>
+                            </label>
+                            <label class="pointer auto-width" style="white-space: nowrap" for="isActive"
+                                [class.f-w]="!statusValue">{{"general.inactive" |
+                                translate}}</label>
+                        </span>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </form>
+
+    </mat-dialog-content>
+</div>
+<mat-dialog-actions class="d-flex justify-content-center">
+    <div class="dailog-actions-btns">
+        <button mat-button class="btn btn-primary accept" (click)="submit()">
+            {{data?.update ? ('general.edit' |translate) : ('general.add' |translate)}}
+        </button>
+        <button mat-button mat-dialog-close class="btn btn-danger">
+            {{'setting.cancel' | translate}}
+        </button>
+    </div>
+</mat-dialog-actions>

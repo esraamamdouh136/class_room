@@ -1,0 +1,26 @@
+.btn-declaration {
+    background: #f1b81c;
+    color: white;
+    border-radius: 3rem;
+    width: 9rem;
+
+    @media (max-width : 876px) {
+        width: 100%;
+    }
+}
+
+.btn-declaration:hover {
+    border: 2px solid #f7f7f7;
+    color: white;
+}
+
+.service {
+    height: 3rem !important;
+    display: flex;
+    align-items: center;
+}
+
+i.fa.fa-sort-down {
+    color: #1990d4;
+    display: contents;
+}

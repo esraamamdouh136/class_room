@@ -1,0 +1,5 @@
+<div class="mt-5">
+    <ngb-pagination *ngIf="isPageable" [collectionSize]="pageOptions?.length" [pageSize]="pageOptions?.defaultPageSize"
+        (pageChange)="pageEvent.emit($event)" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+    </ngb-pagination>
+</div>

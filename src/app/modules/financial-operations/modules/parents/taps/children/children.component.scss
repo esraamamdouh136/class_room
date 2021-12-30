@@ -1,0 +1,133 @@
+:host {
+  .date-form {
+    border: 1px solid #e4e6ef;
+    border-radius: 5px;
+    height: 35px;
+    width: 100%;
+  }
+}
+.children {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  label {
+    font-weight: 800 !important;
+    font-size: 14px !important;
+  }
+
+  .form-control {
+    height: calc(1.5em + 1rem + 0px);
+    padding: 0.65rem 1rem;
+  }
+  select {
+    appearance: none;
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    flex: 1;
+    padding: 0 1em;
+    color: #fff;
+    border: 1px solid #ceced0;
+    cursor: pointer;
+    background-color: transparent;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  .select {
+    position: relative;
+    display: flex;
+    height: 2.5em;
+    border-radius: 0.25em;
+    overflow: hidden;
+  }
+
+  .select::after {
+    content: "\25BC";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    color: white;
+    background-color: #0488d3;
+    transition: 0.25s all ease;
+    pointer-events: none;
+    font-size: 10px;
+  }
+
+  label {
+    font-weight: 800 !important;
+    font-size: 14px !important;
+  }
+
+  .form-control {
+    height: calc(1.5em + 1rem + 0px);
+    padding: 0.65rem 1rem;
+  }
+
+  .input-slid {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    justify-content: flex-end;
+    height: 0px;
+    padding: 1rem 0px;
+
+    .fa,
+    .fas {
+      font-weight: 900;
+      margin: 0px 0.2rem;
+      color: black;
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 1.5rem;
+      font-weight: 600;
+      // padding: 0px 3rem;
+    }
+  }
+  .bg-color-card {
+    background-color: #f7eedb;
+    p {
+      font-size: 1.7rem;
+      font-weight: 600;
+      text-align: center;
+      display: grid;
+      color: #e0c151;
+    }
+    img.w-100.p-3 {
+      height: 13rem;
+    }
+  }
+
+  .disable{
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 991px){
+    .w-sm-auto {
+      width: auto !important;
+    }
+  }
+  }
+  
+
+::ng-deep {
+  .iti.iti--allow-dropdown {
+    width: 100%;
+    input {
+      height: calc(1.5em + 1rem + 0px);
+      padding: 0.65rem 1rem;
+      border-radius: 0px;
+      border: 1px solid #ceced0;
+      width: 100%;
+    }
+  }
+  .mat-checkbox-layout .mat-checkbox-label {
+    font-weight: 800;
+  }
+}

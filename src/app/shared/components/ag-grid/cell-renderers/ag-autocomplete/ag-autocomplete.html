@@ -1,0 +1,11 @@
+<ng-select  appendTo="body" [items]="data"
+           [bindLabel]="bindLabel"
+           [bindValue]="bindValue"
+           (ngModelChange)="onSelectionChange($event)"
+           [placeholder]="placeholder"
+           [multiple]="multiple"
+           [clearable]="false"
+           [clearOnBackspace]="true"
+           [disabled]="disabled"
+           [(ngModel)]="selected">
+</ng-select>

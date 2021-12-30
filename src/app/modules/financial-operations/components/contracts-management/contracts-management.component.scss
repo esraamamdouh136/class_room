@@ -1,0 +1,15 @@
+::ng-deep {
+    ag-grid-angular {
+        height: 50vh !important;
+    }
+
+    .ag-theme-alpine .ag-rtl .ag-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ag-header-group-cell-label, .ag-header-cell-label {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,18 @@
+
+.fa-file-download {
+    color: #0488d3 !important;
+}
+
+.btn.btn-primary:hover .fa-file-download {
+    color: white !important;
+}
+
+button.btn.mx-3.px-5.px-lg-9.btn-shadow.font-weight-bolder.d-block.mr-auto.font-size-lg {
+    background: #0488d3;
+    color: white;
+    border-radius: 3rem;
+    width: 9rem;
+    @media  (max-width : 876px) {
+        width: 100%;
+    }
+}

@@ -1,0 +1,165 @@
+<div class="table-responsive table-style1 ag-table">
+
+  <table mat-table [dataSource]="tableDataSource" matSort (matSortChange)="sortTable($event)"
+    class="table table-bordered table-striped w-100">
+
+
+    <ng-container *ngFor="let tableColumn of tableColumns" [matColumnDef]="tableColumn.name">
+
+      <ng-container *ngIf="tableColumn?.show">
+        <!-- if sortable column header -->
+        <ng-container *ngIf="tableColumn.isSortable; else notSortable">
+          <th [ngClass]="{'align_text': alignTableCenter}" mat-header-cell *matHeaderCellDef
+            [mat-sort-header]="tableColumn.name" [arrowPosition]="tableColumn.position === 'right' ? 'before' : 'after'"
+            [class.w-60px]="tableColumn.name === '#'">
+            {{ tableColumn.name | translate | trim}}
+          </th>
+        </ng-container>
+        <!-- else not sortable -->
+        <ng-template #notSortable>
+          <th [ngClass]="{'align_text': alignTableCenter}" mat-header-cell *matHeaderCellDef
+            [class.text-right]="tableColumn.position == 'right'" [class.w-60px]="tableColumn.name === '#'">
+            {{tableColumn.name | translate | trim }}
+          </th>
+        </ng-template>
+
+        <!-- column data -->
+        <td [ngClass]="{'align_text': alignTableCenter}" mat-cell *matCellDef="let element"
+          [class.text-right]="tableColumn.position == 'right'">
+
+          <span
+            *ngIf="tableColumn.dataKey !== 'date' && tableColumn.dataKey !== 'statusView' && tableColumn.dataKey !== 'isConnected' && tableColumn.dataKey !== 'listCodes' && tableColumn.dataKey !== 'image_path' && tableColumn.dataKey !== 'isDefault' && type !== 'fiscalYear' && tableColumn.dataKey !== 'sheetName' && tableColumn.dataKey !== 'auto_name' && tableColumn.dataKey !== 'nick_name'">
+            {{element | dataPropertyGetterPipe: tableColumn.dataKey}}
+          </span>
+
+          <ng-container *ngIf="element | dataPropertyGetterPipe: tableColumn.dataKey;let prp">
+            <span *ngIf="tableColumn.dataKey === 'image_path'">
+              <img width="50" height="50" class="rounded-circle m-auto" [src]="prp +'?'+ time">
+            </span>
+          </ng-container>
+
+          <span *ngIf="tableColumn.dataKey === 'date'" style="unicode-bidi: plaintext">
+            {{element['date'] | date:'dd/MM/yyyy (h:mm a)'}}
+          </span>
+
+          <span *ngIf="tableColumn.dataKey === 'auto_name'">
+            {{translationService?.getSelectedLanguage() === 'en' ? element['name_en'] : element['name_ar'] | translate}}
+          </span>
+
+          <span *ngIf="tableColumn.dataKey === 'nick_name'">
+            {{translationService?.getSelectedLanguage() === 'en' ? element['nick_name_en'] : element['nick_name_ar'] | translate}}
+          </span>
+
+
+
+          <!-- If the table in fiscal year we want to display data in two pairs (like start year in two forms) etc...
+        We define input property (type) and check if the (type==fiscalYear)
+        this line (*ngIf="element | dataPropertyGetterPipe: tableColumn.dataKey; let key")
+        Store the value of the key in variable key
+        Then we divide the key value in two string depend on (-) that we pass with table data.
+        -->
+          <span
+            *ngIf="type == 'fiscalYear' && tableColumn.dataKey !== 'statusView' && tableColumn.dataKey !== 'isDefault' && tableColumn.dataKey !== 'isConnected' ">
+            <ng-container *ngIf="element | dataPropertyGetterPipe: tableColumn.dataKey; let key">
+              {{key | slice:0:key.indexOf('-')}}
+            </ng-container>
+            <span style="display: block;" *ngIf="element | dataPropertyGetterPipe: tableColumn.dataKey; let key">
+              {{key | slice:key.indexOf('-') + 1}}
+            </span>
+          </span>
+
+          <span *ngIf="tableColumn.dataKey === 'vacData'" style="unicode-bidi: plaintext">
+            {{element['date']}}
+          </span>
+
+          <span *ngIf="tableColumn.dataKey === 'sheetName'" style="unicode-bidi: plaintext">
+            <!-- <i class="fas fa-file-excel" style="font-size: 2rem;
+            color: #00f674;
+            margin-left: 5px;"></i> -->
+            {{element | dataPropertyGetterPipe: tableColumn.dataKey}}
+          </span>
+
+          <ng-container class="isDefault">
+            <span *ngIf="tableColumn.dataKey === 'isDefault'">
+              <span class="switch switch-icon">
+                <label class="mx-3">
+                  <input dir="auto" id="isActive" (click)="emitRowAction(element,'isDefault')"
+                    [(ngModel)]="element.isDefault" [disabled]="element.isDefault == true || element.isDefault == 1" type="checkbox" name="isActive" />
+                  <span></span>
+                </label>
+              </span>
+            </span>
+          </ng-container>
+
+          <span *ngIf="tableColumn.dataKey === 'listCodes'">
+            <span class="btn btn-xs btn-primary mx-2"
+              *ngFor="let item of element | dataPropertyGetterPipe: tableColumn.dataKey">
+              {{item.code | trim}}
+            </span>
+          </span>
+
+
+          <ng-container *ngIf="tableColumn.dataKey === 'statusView' || tableColumn.dataKey === 'isConnected'">
+            <span class="cursor-pointer badge mr-2" [class]="{
+                'badge-warning': element?.status === 0,
+                'badge-success': element?.status === 1 ||  element?.status === 'approved' || element?.is_connected === true,
+                'badge-danger': element?.status === 2 || element?.status === 'unapproved' || element?.status === 3 || element?.is_connected === false
+              }" (click)="emitRowAction(element,'CHANGE_STATUS')">
+              {{element | dataPropertyGetterPipe: tableColumn.dataKey}}
+            </span>
+          </ng-container>
+
+        </td>
+      </ng-container>
+
+    </ng-container>
+    <!-- action column -->
+    <ng-container [matColumnDef]="'ACTIONS'">
+      <th mat-header-cell *matHeaderCellDef>{{'general.action' | translate}}</th>
+      <td class="row-action" [ngClass]="{'align_text': alignTableCenter}" mat-cell *matCellDef="let element">
+        <ng-container *ngFor="let action of rowActionsList">
+          <button class="btn btn-sm m-2 cursor-pointer"
+            [ngStyle]="{display: action.type === 'delete' && element?.deleteRemoveIcon ? 'none' : 'initial'}"
+            [ngClass]="{'danger-icon' : action?.icon === 'trash-alt','success-icon' : action?.icon !== 'trash-alt'}"
+            (click)="emitRowAction(element,action.type)" *ngIf="action.type !== 'view'">
+            <!-- <span [class]="'flaticon2-'+action?.icon"></span> -->
+            <li [class]="'fa fa-'+action?.icon"></li>
+
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- action vacaton excecuse column -->
+    <!-- <ng-container [matColumnDef]="'VACATIONACTION'" *ngIf="vacationOrexcecuseRequest">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td [ngClass]="{'align_text': alignTableCenter}" mat-cell *matCellDef="let element">
+        <ng-container *ngIf="vacationOrexcecuseRequest && element.status == 0">
+          <ng-container *ngFor="let action of rowActionsList">
+            <button class="btn btn-light-primary btn-sm m-2 cursor-pointer" (click)="emitRowAction(element,action.type)"
+              *ngIf="action.type !== 'view' || (element?.sub_networks_count + 1)">
+              <span [class]="'flaticon2-'+action?.icon"></span>
+            </button>
+          </ng-container>
+        </ng-container>
+      </td>
+    </ng-container> -->
+    <!--  -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row" [ngClass]="{
+        'bg-danger-o-50': row.status === 2 ,
+        'example-expanded-row' : expandedElement === row
+        }"></tr>
+    <!-- 'bg-success' : row.is_default === 1,
+        'text-white' :row.is_default === 1, -->
+  </table>
+
+
+  <div class="float-right">
+    <ngb-pagination *ngIf="isPageable" [collectionSize]="pageOptions?.length" [pageSize]="pageOptions?.defaultPageSize"
+      (pageChange)="pageEvent.emit($event)" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+    </ngb-pagination>
+  </div>
+
+</div>

@@ -1,0 +1,97 @@
+.bg-color {
+  background-color: #f3f4f7;
+  .tab-slider--tabs {
+        display: flex;
+        @media  (max-width : 662px) {
+            display: contents !important;
+       }
+    }
+    ul {
+      margin: 0px;
+      height: 4rem;
+      align-items: baseline;
+      padding: 0px 0.3rem !important;
+    }
+    li.tab-slider--trigger {
+            list-style-type: none;
+            color: black;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: "Tajawal";
+            width: 11rem;
+            margin: 0.8rem 0.1rem 0px;
+            height: 2.7rem;
+            text-align: center;
+            display: flex;
+            border-radius: 3px;
+            justify-content: center;
+            align-items: center;
+            background-color: #0488d3;
+            color: white;
+        @media  (max-width : 992px) {
+            width: 100%;
+            margin: auto;
+            margin-top: 1rem;
+        }
+
+    }
+
+    .tab-slider--trigger.active {
+        background-color: white;
+        color: black;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        width: 15rem;
+        height: 4rem;
+        font-size: 15px;
+        border-top: 2px solid #f1b81c;
+        @media  (max-width : 992px) {
+            width: 100%;
+            margin: auto;
+            height: 2rem;
+            margin-top: 1rem;
+        }
+  }
+
+.tab-slider--container {
+  background-color: white;
+  margin: 0px 0.4rem;
+  .main-controle-btn{
+
+    @media only screen and (max-width: 600px) {
+      width: 70% !important;
+      .btn{
+        transform: translateY(-50px) !important;
+      }
+    }
+
+    @media only screen and (max-width: 500px) {
+      width: 100% !important;
+      .btn{
+        transform: translateY(0) !important;
+      }
+    }
+  }
+}
+  .input-slid {
+    display: flex;
+    align-items: center;
+    width: 20%;
+    padding: 1rem;
+    margin-top: .3rem;
+    height: 1rem;
+    @media (max-width: 992px) {
+      width: 100%;
+      margin-bottom: 2rem !important;
+    }
+    .fa,
+    .fas {
+      font-weight: 900;
+      margin: 0px 0.2rem;
+      color: black;
+    }
+    input.form-control.w-75.mx-auto {
+      border-radius: 0px;
+    }
+  }
+}

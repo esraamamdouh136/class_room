@@ -1,0 +1,234 @@
+<section class="section border">
+  <!-- ____ begin section header __________ -->
+  <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+    <h2 class="h4 mb-0 font-weight-bolder d-flex align-items-center">
+      <i class="fa fa-list-alt mx-2"></i>
+      {{'setting.basic_info' | translate}}
+    </h2>
+    <button type="button" [hidden]="!disableForm" (click)="edit()"
+            class="btn mx-0 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+      {{'general.edit' | translate}}
+    </button>
+  </header>
+  <!-- ____ end section header __________ -->
+
+  <!-- ____ begin section body __________ -->
+  <div class="section__body p-4 p-lg-7">
+    <form class="form" (ngSubmit)="updateUserData(form)" #form="ngForm">
+      <div class="form-row">
+
+        <!-- Name -->
+        <div class="col-md-6">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder font-14 text-nowrap min-w-125" for="">
+              {{"general.name" | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+            <input dir="auto" type="text" class="form-control" placeholder="{{'general.name' | translate}}"
+                   [disabled]="disableForm" aria-describedby="basic-addon1" name="name"
+                   [(ngModel)]="profile.name">
+            <ng-container *ngIf="formErrors?.name">
+              <div class="text-danger" *ngFor="let error of formErrors?.name">
+                {{error}}</div>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder font-14 text-nowrap min-w-125" for="">
+              {{"general.phone" | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+            <input dir="auto" type="text" class="form-control" placeholder="{{'general.phone' | translate}}"
+                   [disabled]="disableForm" aria-describedby="basic-addon1" name="phone"
+                   [(ngModel)]="profile.phone">
+            <ng-container *ngIf="formErrors?.phone">
+              <div class="text-danger" *ngFor="let error of formErrors?.phone">
+                {{error}}</div>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6 mb-3">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder font-14 text-nowrap min-w-125" for="">
+              {{"general.email" | translate}} :
+              <span class="text-danger">*</span>
+            </label>
+            <input dir="auto" type="email" class="form-control"
+                   placeholder="{{'general.email' | translate}}" [disabled]="disableForm"
+                   aria-describedby="basic-addon1" name="email" [(ngModel)]="profile.email">
+            <ng-container *ngIf="formErrors?.email">
+              <div class="text-danger" *ngFor="let error of formErrors?.email">
+                {{error}}</div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+          <div class="form-group mb-0">
+            <label class="font-weight-bolder" for="">
+              {{"setting.selectCountry" | translate}}
+            </label>
+            <span class="text-danger">*</span>
+            <!--Using items input-->
+            <ng-select [(ngModel)]="profile.country" [disabled]="disableForm" [multiple]="false"
+                       [items]="countries" bindLabel="name" bindValue="iso_code"
+                       [placeholder]="'setting.selectCountry' | translate" name="country" appendTo="body">
+            </ng-select>
+            <ng-container *ngIf="formErrors?.country">
+              <div class="text-danger" *ngFor="let error of formErrors?.country">
+                {{error}}</div>
+            </ng-container>
+          </div>
+        </div>
+
+
+        <div class="col-md-12 mb-3">
+          <div class="form-group custom-company_form">
+            <label class="font-weight-bolder" for="">
+              {{ "general.personalImage" | translate }} :
+            </label>
+            <div class="col-md-4 col-sm-4" *ngIf="!profile?.has_image">
+              <file-upload [(ngModel)]="userImage" [multiple]="false" [animation]="false" name="image"
+                           (change)="uploadPhoto()">
+              </file-upload>
+            </div>
+            <div class="col-md-4 col-sm-4 user-img" *ngIf="profile?.has_image">
+              <div class="position-relative" (click)="removeImage()">
+                <img [src]="profile?.image_path" onerror="this.src='https://via.placeholder.com/150';"
+                     class="enterprise-img margin-10 w-100">
+                <!-- <i class="far fa-times-circle"
+                    *ngIf="profile?.has_image" (click)="removeLogo()"></i> -->
+                <span class="remove-user-iamg">
+                                    <i class="far fa-times-circle"></i>
+                                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="col-12 py-5 text-center buttons-action">
+
+          <button type="submit" [hidden]="disableForm"
+                  class="btn mx-2 px-10 rounded-pill btn-shadow btn-primary font-weight-bolder min-w-130px px-8 my-3 font-size-lg accept">
+            {{"setting.save" | translate}}
+          </button>
+          <button type="button" (click)="cancelEdit()" [hidden]="disableForm"
+                  class="btn mx-2 px-10 rounded-pill btn-shadow btn-danger font-weight-bolder min-w-130px px-8 my-3 font-size-lg">
+            {{"setting.cancel" | translate}}
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <hr/>
+
+    <div class="col-lg-12 mb-4">
+      <div class="form-group mb-0">
+        <mat-checkbox color="primary" [(ngModel)]="changePassword" [ngModelOptions]="{standalone: true}"
+                      class="font-bold">
+          {{'setting.usersPage.changePassword' | translate}}</mat-checkbox>
+      </div>
+    </div>
+
+    <ng-container *ngIf="changePassword">
+      <form [formGroup]="changePasswordform">
+        <div class="row">
+
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'setting.usersPage.password' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <input dir="auto" type="password" autocomplete="off" class="form-control w-100"
+                     [placeholder]="'setting.usersPage.password' | translate" formControlName="password">
+              <ng-container *ngIf="formErrors?.password">
+                <div class="text-danger" *ngFor="let error of formErrors?.password">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+
+
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'setting.usersPage.confirmationPassword' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <input dir="auto" type="password" autocomplete="off" class="form-control w-100"
+                     [placeholder]="'setting.usersPage.confirmationPassword' | translate"
+                     formControlName="password_confirmation">
+            </div>
+          </div>
+
+          <div class="col-lg-6 mb-4">
+            <div class="form-group mb-0">
+              <label class="font-weight-bolder" for="">
+                {{'setting.usersPage.currentPassword' | translate}} :
+              </label>
+              <span class="text-danger">*</span>
+              <input dir="auto" type="password" autocomplete="off" class="form-control w-100"
+                     [placeholder]="'setting.usersPage.currentPassword' | translate"
+                     formControlName="current_password">
+              <ng-container *ngIf="formErrors?.current_password">
+                <div class="text-danger" *ngFor="let error of formErrors?.current_password">
+                  {{error}}</div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="password-validations">
+              <div class="row w-100 aligin-items-center password-validations__content">
+                <div class="col-lg-7">
+                  <ng-container *ngFor="let item of passwordValidationsMessages">
+                    <div class="d-flex justify-content-between mb-4">
+                      <p class="mb-0 mx-3 password-validations__txt">{{item.message | translate}}
+                      </p>
+                      <i [class.fa-times]="!item.valid()" [class.fa-check]="item.valid()"
+                         class="fa password-validations__icon"></i>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 py-5 text-center buttons-action">
+
+            <button type="submit" (click)="changeUserPassword()" [disabled]="changePasswordform.invalid"
+                    class="btn mx-2 px-10 rounded-pill btn-shadow btn-primary font-weight-bolder min-w-130px px-8 my-3 font-size-lg accept">
+              {{"general.edit" | translate}}
+            </button>
+            <button type="button" (click)="changePasswordform.reset;changePassword = !changePassword"
+                    class="btn mx-2 px-10 rounded-pill btn-shadow btn-danger font-weight-bolder min-w-130px px-8 my-3 font-size-lg">
+              {{"setting.cancel" | translate}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+
+    <hr *ngIf="changePassword"/>
+
+    <!-- Table data -->
+    <div class="row">
+      <div class="col-md-12">
+        <label class="font-weight-bolder font-14 text-nowrap min-w-125" for="">
+          {{"general.roles_permissions" | translate}} :
+        </label>
+        <app-ag-tabel [alignTableCenter]="true" [tableData]="tableData" [tableColumns]="tableColumns"
+                      [isFilterable]="true" [isPageable]="false">
+        </app-ag-tabel>
+      </div>
+    </div>
+  </div>
+</section>

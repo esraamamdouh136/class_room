@@ -1,0 +1,30 @@
+.date-form {
+  border: 1px solid #e4e6ef;
+  border-radius: 5px;
+  height: 45px;
+  width: 100%;
+}
+
+.forms-errors {
+  color: #fff;
+  background-color: #f66e84;
+  border-radius: 5px;
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      color: #3f4254;
+    }
+  }
+  ul {
+    li {
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+}

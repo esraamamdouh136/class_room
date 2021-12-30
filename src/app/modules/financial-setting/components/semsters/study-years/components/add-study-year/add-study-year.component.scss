@@ -1,0 +1,95 @@
+.controle-buttons {
+  // border-top: 1px solid #ebedf2;
+}
+
+.date-form {
+  border: 1px solid #e4e6ef;
+  border-radius: 5px;
+  height: 45px;
+  width: 100%;
+}
+
+.form-group {
+  label {
+    font-weight: 600;
+  }
+}
+
+.semesters {
+  .semester {
+    border-bottom: 1px solid #ebedf2;
+  }
+}
+
+.forms-errors {
+  color: #fff;
+  background-color: #f66e84;
+  border-radius: 5px;
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      color: #3f4254;
+    }
+  }
+  ul {
+    li {
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+}
+
+::ng-deep {
+  ngb-datepicker-navigation-select > .custom-select {
+    background-image: none;
+  }
+
+  // Arrow
+  .ngb-dp-day {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  .ngb-dp-day > div {
+    width: 3rem !important;
+    height: 3rem !important;
+    line-height: 3rem !important;
+  }
+
+  .ngb-dp-weekday {
+    width: 3rem !important;
+  }
+}
+
+
+
+.hijri-date {
+  input{
+    text-align: right;
+  }
+  i {
+    top: 50%;
+    left: 5px;
+    font-size: 1rem;
+  }
+}
+
+:host-context(html[dir="ltr"]) {
+  .hijri-date {
+    input{
+      text-align: right;
+    }
+  
+    i {
+      top: 50%;
+      right: 5px;
+      left: auto;
+    }
+  }
+}

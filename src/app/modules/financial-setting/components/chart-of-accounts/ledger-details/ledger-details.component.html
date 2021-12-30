@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-between align-items-center dialog-head m-0">
+    <h2 mat-dialog-title class="mb-0">
+        {{ ('general.showLedgerDetails' | translate) }}
+    </h2>
+    <i class="fas fa-times" mat-dialog-close></i>
+</div>
+
+<mat-dialog-content class="scroll">
+    <div class="row mb-3 px-3">
+        <div class="col-md-6 col-lg-4 show-label d-none">
+            <mat-form-field class="w-100 mat-field">
+                <small class="mat-field__search-icon">
+                    <i class="fas fa-search"></i>
+                </small>
+                <label>
+                    <input dir="auto" matInput type="text"
+                        (change)="onSearchChange($event)" placeholder="{{'general.search' | translate}}">
+                </label>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="content-header p-4">
+        <p class="text-center">{{'setting.ledger' | translate}}</p>
+        <p class="text-center">{{'setting.ledgerRead' | translate}}</p>
+        <div class="account-name d-flex align-items-center">
+            <p class="ml-auto"> {{'general.account_name' | translate}} : {{data?.headerData?.account}}</p>
+            <!-- <p>{{'general.currency' | translate}} : </p> -->
+            <p>{{'general.currency' | translate}}: {{data?.tableData?.items[1]?.currency?.name}}</p>
+            <!-- <div class="form-group mr-4" style="width: 100px;">
+                <ng-select  [(ngModel)]="currency" [items]="currencies" bindLabel="name"
+                    bindValue="id" [placeholder]="'general.currency' | translate">
+                </ng-select>
+            </div> -->
+        </div>
+        <div class="date">
+            <p>
+                اعتبارا من {{data?.headerData?.date_from}} ولغايه {{data?.headerData?.date_to}}
+            </p>
+        </div>
+    </div>
+    <div class="details overflow-scroll">
+        <div class="vc-ag-grid">
+            <app-ag-grid #agGrid [rowData]="rowData"
+                [rowColors]="{even: '#93d470', odd: '#fff'}"
+                [columnDefs]="columnDefs"
+                [defaultColDef]="defaultColDef" height="280px"></app-ag-grid>
+        </div>
+    </div>
+
+    <div class="total overflow-scroll mt-5">
+        <div class="vc-ag-grid">
+            <app-ag-grid #agGrid [rowData]="secondRowData"
+                [rowColors]="{even: '#0488d3', odd: '#0488d3'}"
+                [columnDefs]="secondColumnDefs"
+                [defaultColDef]="defaultColDef" height="200px"></app-ag-grid>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+
+
+<!-- <mat-dialog-actions class="d-flex justify-content-center dialog-actions">
+    <div class="d-flex align-items-center justify-content-lg-around justify-content-center flex-wrap">
+        <button (click)="onSubmit()" mat-button class="btn btn-success save mx-4 mb-lg-0 mb-3">
+            {{'general.showLedger' | translate}}
+        </button>
+        <button mat-button mat-dialog-close class="btn btn-success cancel mx-4 mb-lg-0 mb-3">
+            {{'setting.cancel' | translate}}
+        </button>
+    </div>
+</mat-dialog-actions> -->

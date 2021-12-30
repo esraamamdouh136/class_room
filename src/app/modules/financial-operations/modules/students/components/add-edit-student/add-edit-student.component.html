@@ -1,0 +1,252 @@
+<section class="section border add-student">
+    <header class="section__header p-4 p-lg-5 d-flex align-items-center justify-content-between mb-5">
+        <h2 class="h4 mb-0 font-weight-bolder d-flex">
+            <i class="fa fa-users mx-2"></i>
+            {{'general.addStudent' | translate}}
+        </h2>
+    </header>
+    <div class="px-4 student">
+        <form [formGroup]="form" (submit)="submit()">
+            <div class="form-row">
+                <!--============Start First Row===============-->
+
+
+                <div class="col-lg-3">
+                    <div class="form-group mb-0">
+                        <label> {{'parent_pages.parentFile' | translate}} </label>
+                        <span class="text-danger">*</span>
+                        <input type="text" aria-label="Number" class="form-control" formControlName="parents_file_id"
+                            [matAutocomplete]="autoFathers">
+                            <mat-autocomplete #autoFathers="matAutocomplete" [displayWith]="displayFatherFn" [panelWidth]="300">
+                                <mat-option *ngFor="let option of parentsFiles" [value]="option">
+                                    {{option?.full_name}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <ng-container *ngIf="formErrors?.parents_file_id">
+                                <div class="text-danger" *ngFor="let error of formErrors?.parents_file_id">
+                                    {{error}}</div>
+                            </ng-container>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="name_ar">{{'parent_pages.firstname_ar' | translate}} </label>
+                        <span class="text-danger">*</span>
+                        <input class="form-control" type="text" formControlName="name_ar" id="name_ar">
+                        <ng-container *ngIf="formErrors?.name_ar">
+                            <div class="text-danger" *ngFor="let error of formErrors?.name_ar">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="name_en">{{'parent_pages.firstname_en' | translate}} </label>
+                        <span class="text-danger">*</span>
+                        <input class="form-control" type="text" formControlName="name_en" id="name_en">
+                        <ng-container *ngIf="formErrors?.name_en">
+                            <div class="text-danger" *ngFor="let error of formErrors?.name_en">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="">{{'parent_pages.contract_number' | translate}} </label>
+                        <input class="form-control" type="text" appNumbersOnly name="" #identification_number id="">
+                        <!-- <ng-container *ngIf="formErrors?.contract_number">
+                            <div class="text-danger" *ngFor="let error of formErrors?.contract_number">
+                                {{error}}</div>
+                        </ng-container> -->
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="Student_status">{{'parent_pages.Student_status' | translate}} </label>
+                        <input class="form-control" type="text" formControlName="register_status" id="Student_status">
+                        <ng-container *ngIf="formErrors?.register_status">
+                            <div class="text-danger" *ngFor="let error of formErrors?.register_status">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+                <!--============End First Row===============-->
+
+                <!--============Start second Row===============-->
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="register_date">{{'parent_pages.date_of_registration' | translate}}</label>
+                        <mat-form-field floatLabel="never" class="date-form cursor-pointer" (click)="picker.open()">
+                            <input dir="auto" style="cursor:none" readonly matInput [matDatepicker]="picker"
+                                formControlName="register_date" id="register_date">
+                            <mat-datepicker-toggle matSuffix (click)="picker.open()"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <ng-container *ngIf="formErrors?.register_date">
+                            <div class="text-danger" *ngFor="let error of formErrors?.register_date">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="gender">{{'parent_pages.genter' | translate}}</label>
+                        <span class="text-danger">*</span>
+                        <ng-select [items]="gender" bindLabel="name" bindValue="id" formControlName="gender"
+                            labelForId="gender">
+                        </ng-select>
+                        <ng-container *ngIf="formErrors?.gender">
+                            <div class="text-danger" *ngFor="let error of formErrors?.gender">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!--============End second Row===============-->
+
+                <!--============Start third Row===============-->
+
+                <div class="col-lg-3" ngi>
+                    <div class="form-group">
+                        <label for="relative_id">{{'parent_pages.section' | translate}}</label>
+                        <ng-select [items]="" bindLabel="name" bindValue="id" labelForId="">
+                        </ng-select>
+                        <ng-container *ngIf="formErrors?.section">
+                            <div class="text-danger" *ngFor="let error of formErrors?.section">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="relative_id">{{'parent_pages.Enrollment_class' | translate}}</label>
+                        <ng-select [items]="" bindLabel="name" bindValue="id" labelForId="">
+                        </ng-select>
+                        <!-- <ng-container *ngIf="formErrors?.section">
+                            <div class="text-danger" *ngFor="let error of formErrors?.section">
+                                {{error}}</div>
+                        </ng-container> -->
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="classroom_id">{{'parent_pages.class' | translate}}</label>
+                        <ng-select [items]="classRooms" bindLabel="name" bindValue="id" formControlName="classroom_id"
+                            labelForId="classroom_id">
+                        </ng-select>
+                        <ng-container *ngIf="formErrors?.classroom_id">
+                            <div class="text-danger" *ngFor="let error of formErrors?.classroom_id">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="semster_id">{{'parent_pages.Semester' | translate}}</label>
+                        <ng-select [items]="semsters" bindLabel="name" bindValue="id" formControlName="semster_id"
+                            labelForId="semster_id">
+                        </ng-select>
+                        <ng-container *ngIf="formErrors?.semster_id">
+                            <div class="text-danger" *ngFor="let error of formErrors?.semster_id">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="relative_id">{{'parent_pages.school_situation' | translate}}</label>
+                        <ng-select [items]="" bindLabel="name" bindValue="id" labelForId="">
+                        </ng-select>
+                        <!-- <ng-container *ngIf="formErrors?.section">
+                            <div class="text-danger" *ngFor="let error of formErrors?.section">
+                                {{error}}</div>
+                        </ng-container> -->
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="case_study_id">{{'parent_pages.Student_condition' | translate}}</label>
+                        <ng-select [items]="caseStudies" bindLabel="name" bindValue="id" formControlName="case_study_id"
+                            labelForId="case_study_id">
+                        </ng-select>
+                        <ng-container *ngIf="formErrors?.case_study_id">
+                            <div class="text-danger" *ngFor="let error of formErrors?.case_study_id">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="relative_id">{{'parent_pages.Specialization' | translate}}</label>
+                        <ng-select [items]="" bindLabel="name" bindValue="id" labelForId="">
+                        </ng-select>
+                        <!-- <ng-container *ngIf="formErrors?.section">
+                            <div class="text-danger" *ngFor="let error of formErrors?.section">
+                                {{error}}</div>
+                        </ng-container> -->
+                    </div>
+                </div>
+
+                <!--============Start fourth Row===============-->
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="phone">{{'parent_pages.cell_phone' | translate}}</label>
+                        <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="['sa', 'eg']"
+                            [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectedCountryISO]="studentData?.phone_country || countryName" [phoneValidation]="true"
+                            name="phone" formControlName="phone" inputId="phone">
+                        </ngx-intl-tel-input>
+                        <ng-container *ngIf="formErrors?.phone">
+                            <div class="text-danger" *ngFor="let error of formErrors?.phone">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="email">{{'parent_pages.email' | translate}}</label>
+                        <input class="form-control" type="email" formControlName="email" id="email">
+                        <ng-container *ngIf="formErrors?.email">
+                            <div class="text-danger" *ngFor="let error of formErrors?.email">
+                                {{error}}</div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <!-- Controle buttons -->
+            <div class="controle-buttons d-flex align-items-center justify-content-end py-5">
+                <button
+                    class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg" type="submit">
+                    {{ "general.save" | translate }}
+                    <i class="far fa-save mr-2"></i>
+                </button>
+                <button [routerLink]="['../']"
+                    class="btn mx-3 px-5 px-lg-9 btn-shadow btn-primary font-weight-bolder min-w-130px font-size-lg">
+                    {{ "parent_pages.back" | translate }}
+                    <i class="fas fa-share mr-2 fa-rotate-180"></i>
+                </button>
+            </div>
+            <!-- Controle buttons -->
+        </form>
+
+    </div>
+
+</section>
